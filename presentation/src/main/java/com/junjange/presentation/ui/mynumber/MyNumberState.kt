@@ -1,4 +1,4 @@
-package com.junjange.presentation.ui.my
+package com.junjange.presentation.ui.mynumber
 
 
 data class MyNumberState(

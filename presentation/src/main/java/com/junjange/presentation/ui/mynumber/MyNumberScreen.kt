@@ -1,4 +1,4 @@
-package com.junjange.presentation.ui.my
+package com.junjange.presentation.ui.mynumber
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
