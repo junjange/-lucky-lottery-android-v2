@@ -14,6 +14,7 @@ val LottoPurple = Color(0xFF6568EB)
 val LottoYellow = Color(0xFFFFF06B)
 val LottoWhite = Color(0xFFF9F9F9)
 val LottoOrange = Color(0xFFE78111)
+val LottoGreen = Color(0xFF30AA5B)
 val LottoError = Color(0xFFFF4747)
 
 val Gray900 = Color(0xFF212121)
@@ -45,11 +46,13 @@ val MaterialColors = lightColorScheme(
 
 @Stable
 class LottoColors(
-    LottoBlack: Color,
-    LottoPurple: Color,
-    LottoYellow: Color,
-    LottoOrange: Color,
-    LottoError: Color,
+    lottoBlack: Color,
+    lottoWhite: Color,
+    lottoPurple: Color,
+    lottoYellow: Color,
+    lottoOrange: Color,
+    lottoGreen: Color,
+    lottoError: Color,
     gray900: Color,
     gray800: Color,
     gray700: Color,
@@ -59,17 +62,23 @@ class LottoColors(
     gray300: Color,
     gray200: Color,
     gray100: Color,
-    gray50: Color
+    gray50: Color,
+    black: Color,
+    white: Color
 ) {
-    var LottoBlack: Color by mutableStateOf(LottoBlack, structuralEqualityPolicy())
+    var lottoBlack: Color by mutableStateOf(lottoBlack, structuralEqualityPolicy())
         private set
-    var LottoPurple: Color by mutableStateOf(LottoPurple, structuralEqualityPolicy())
+    var lottoWhite: Color by mutableStateOf(lottoWhite, structuralEqualityPolicy())
         private set
-    var LottoYellow: Color by mutableStateOf(LottoYellow, structuralEqualityPolicy())
+    var lottoPurple: Color by mutableStateOf(lottoPurple, structuralEqualityPolicy())
         private set
-    var LottoOrange: Color by mutableStateOf(LottoOrange, structuralEqualityPolicy())
+    var lottoYellow: Color by mutableStateOf(lottoYellow, structuralEqualityPolicy())
         private set
-    var LottoError: Color by mutableStateOf(LottoError, structuralEqualityPolicy())
+    var lottoOrange: Color by mutableStateOf(lottoOrange, structuralEqualityPolicy())
+        private set
+    var lottoGreen: Color by mutableStateOf(lottoGreen, structuralEqualityPolicy())
+        private set
+    var lottoError: Color by mutableStateOf(lottoError, structuralEqualityPolicy())
         private set
     var gray900: Color by mutableStateOf(gray900, structuralEqualityPolicy())
         private set
@@ -91,13 +100,19 @@ class LottoColors(
         private set
     var gray50: Color by mutableStateOf(gray50, structuralEqualityPolicy())
         private set
+    var black: Color by mutableStateOf(black, structuralEqualityPolicy())
+        private set
+    var white: Color by mutableStateOf(white, structuralEqualityPolicy())
+        private set
 
     fun copy(
-        LottoBlack: Color = this.LottoBlack,
-        LottoPurple: Color = this.LottoPurple,
-        LottoYellow: Color = this.LottoYellow,
-        LottoOrange: Color = this.LottoOrange,
-        LottoError: Color = this.LottoError,
+        lottoBlack: Color = this.lottoBlack,
+        lottoWhite: Color = this.lottoWhite,
+        lottoPurple: Color = this.lottoPurple,
+        lottoYellow: Color = this.lottoYellow,
+        lottoOrange: Color = this.lottoOrange,
+        lottoGreen: Color = this.lottoGreen,
+        lottoError: Color = this.lottoError,
         gray900: Color = this.gray900,
         gray800: Color = this.gray800,
         gray700: Color = this.gray700,
@@ -107,13 +122,17 @@ class LottoColors(
         gray300: Color = this.gray300,
         gray200: Color = this.gray200,
         gray100: Color = this.gray100,
-        gray50: Color = this.gray50
+        gray50: Color = this.gray50,
+        black: Color = this.black,
+        white: Color = this.white
     ) = LottoColors(
-        LottoBlack = LottoBlack,
-        LottoPurple = LottoPurple,
-        LottoYellow = LottoYellow,
-        LottoOrange = LottoOrange,
-        LottoError = LottoError,
+        lottoBlack = lottoBlack,
+        lottoWhite = lottoWhite,
+        lottoPurple = lottoPurple,
+        lottoYellow = lottoYellow,
+        lottoOrange = lottoOrange,
+        lottoGreen = lottoGreen,
+        lottoError = lottoError,
         gray900 = gray900,
         gray800 = gray800,
         gray700 = gray700,
@@ -123,15 +142,19 @@ class LottoColors(
         gray300 = gray300,
         gray200 = gray200,
         gray100 = gray100,
-        gray50 = gray50
+        gray50 = gray50,
+        black = black,
+        white = white
     )
 }
 
 fun lightColors(
     lottoBlack: Color = LottoBlack,
+    lottoWhite: Color = LottoWhite,
     lottoPurple: Color = LottoPurple,
     lottoYellow: Color = LottoYellow,
     lottoOrange: Color = LottoOrange,
+    lottoGreen: Color = LottoGreen,
     lottoError: Color = LottoError,
     gray900: Color = Gray900,
     gray800: Color = Gray800,
@@ -142,13 +165,18 @@ fun lightColors(
     gray300: Color = Gray300,
     gray200: Color = Gray200,
     gray100: Color = Gray100,
-    gray50: Color = Gray50
+    gray50: Color = Gray50,
+    black: Color = Black,
+    white: Color = White
+
 ) = LottoColors(
-    LottoBlack = LottoBlack,
-    LottoPurple = LottoPurple,
-    LottoYellow = LottoYellow,
-    LottoOrange = LottoOrange,
-    LottoError = LottoError,
+    lottoBlack = lottoBlack,
+    lottoWhite = lottoWhite,
+    lottoPurple = lottoPurple,
+    lottoYellow = lottoYellow,
+    lottoOrange = lottoOrange,
+    lottoGreen = lottoGreen,
+    lottoError = lottoError,
     gray900 = gray900,
     gray800 = gray800,
     gray700 = gray700,
@@ -158,7 +186,9 @@ fun lightColors(
     gray300 = gray300,
     gray200 = gray200,
     gray100 = gray100,
-    gray50 = gray50
+    gray50 = gray50,
+    black = black,
+    white = white
 )
 
 internal val LocalColors = staticCompositionLocalOf { lightColors() }
