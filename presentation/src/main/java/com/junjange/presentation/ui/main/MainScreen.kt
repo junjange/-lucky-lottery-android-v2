@@ -39,6 +39,9 @@ fun MainScreen(
             startDestination = Destination.HOME.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+            composable(Destination.HOME.route) { HomeScreen() }
+            composable(Destination.MY_NUMBER.route) { MyNumberScreen() }
+            composable(Destination.MY.route) { MyScreen() }
         }
     }
 }

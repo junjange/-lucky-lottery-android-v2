@@ -26,5 +26,6 @@ class MainActivity : BaseActivity() {
     }
 
     private fun startRandomActivity() {
+        RandomNumberActivity.startActivity(this)
     }
 }
