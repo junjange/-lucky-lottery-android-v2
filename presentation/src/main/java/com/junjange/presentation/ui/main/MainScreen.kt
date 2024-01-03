@@ -11,8 +11,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.junjange.presentation.component.LottoBottomBar
 import com.junjange.presentation.ui.home.HomeScreen
-import com.junjange.presentation.ui.mynumber.MyNumberScreen
 import com.junjange.presentation.ui.my.MyScreen
+import com.junjange.presentation.ui.mynumber.MyNumberScreen
 
 @Composable
 fun MainScreen(
