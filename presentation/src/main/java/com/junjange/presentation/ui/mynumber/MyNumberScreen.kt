@@ -46,6 +46,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.junjange.presentation.R
 import com.junjange.presentation.component.Lotto645Content
 import com.junjange.presentation.component.Lotto720Content
+import com.junjange.presentation.component.LottoContentTitle
 import com.junjange.presentation.component.LottoType
 import com.junjange.presentation.ui.theme.LottoTheme
 import kotlinx.coroutines.launch
@@ -85,6 +86,13 @@ fun MyNumberContent(lottoType: LottoType) {
     Box(modifier = Modifier.fillMaxSize()) {
         LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
             items(subjects) {
+
+                val title = if (lottoType == LottoType.LOTTO645) {
+                    stringResource(R.string.lotto_645_title)
+                } else {
+                    stringResource(R.string.lotto_720_title)
+                }
+
                 Spacer(modifier = Modifier.height(20.dp))
                 Card(
                     modifier = Modifier.padding(8.dp),
@@ -95,6 +103,7 @@ fun MyNumberContent(lottoType: LottoType) {
                         modifier = Modifier.padding(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        LottoContentTitle(title = title)
                         if (lottoType == LottoType.LOTTO645) Lotto645Content()
                         else Lotto720Content()
                         Spacer(modifier = Modifier.height(8.dp))
