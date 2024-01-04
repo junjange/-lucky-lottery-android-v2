@@ -1,4 +1,4 @@
-package com.junjange.presentation.ui.mynumber
+package com.junjange.presentation.ui.my
 
 import com.junjange.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
