@@ -3,6 +3,7 @@ package com.junjange.presentation.ui.randomnumber
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,21 +24,29 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.junjange.presentation.R
+import com.junjange.presentation.component.LottoType
 import com.junjange.presentation.ui.theme.LottoTheme
 
 @Composable
-fun RandomNumberScreen(viewModel: RandomNumberViewModel) {
+fun RandomNumberScreen(
+    viewModel: RandomNumberViewModel,
+    navigateRandomNumberGeneration: (lottoType : LottoType) -> Unit
+) {
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             RandomNumberCard(
-                modifier = Modifier.weight(0.5f),
+                modifier = Modifier
+                    .weight(0.5f)
+                    .clickable { navigateRandomNumberGeneration(LottoType.LOTTO645) },
                 iconRes = R.drawable.ic_lotto645_random,
                 title = R.string.lotto_645_random_title,
                 description = R.string.lotto_645_random_description
             )
             RandomNumberCard(
-                modifier = Modifier.weight(0.5f),
+                modifier = Modifier
+                    .weight(0.5f)
+                    .clickable { navigateRandomNumberGeneration(LottoType.LOTTO720) } ,
                 iconRes = R.drawable.ic_lotto720_random,
                 title = R.string.lotto_720_title,
                 description = R.string.lotto_720_random_description
