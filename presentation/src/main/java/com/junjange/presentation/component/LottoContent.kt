@@ -146,7 +146,7 @@ fun Lotto720Content() {
             if (index == 1) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "조",
+                    text = stringResource(id = R.string.group_title),
                     style = LottoTheme.typography.headline3,
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -173,7 +173,7 @@ fun Lotto720Content() {
             if (index == 1) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
-                    text = "조",
+                    text = stringResource(id = R.string.group_title),
                     style = LottoTheme.typography.headline3,
                 )
                 Spacer(modifier = Modifier.width(8.dp))
