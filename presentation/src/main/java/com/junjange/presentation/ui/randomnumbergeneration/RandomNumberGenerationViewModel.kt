@@ -1,6 +1,5 @@
 package com.junjange.presentation.ui.randomnumbergeneration
 
-import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.component.LottoType
@@ -29,4 +28,24 @@ class RandomNumberGenerationViewModel @Inject constructor(
         }
     }
 
+    fun generate645RandomNumbers() {
+        val lottoNumbers = (1..45).shuffled().take(6)
+
+        _uiState.update { state ->
+            state.copy(lotto645Number = lottoNumbers)
+        }
+    }
+
+    fun generate720RandomNumbers() {
+        val group = (1..5).shuffled().take(1)
+        val lottoNumbers = (0..9)
+            .toList()
+            .flatMap { digit -> List(5) { digit } }
+            .shuffled()
+            .take(6)
+
+        _uiState.update { state ->
+            state.copy(lotto720Number = group + lottoNumbers)
+        }
+    }
 }

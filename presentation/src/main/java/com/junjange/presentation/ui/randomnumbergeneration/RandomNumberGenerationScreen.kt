@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.junjange.presentation.R
 import com.junjange.presentation.component.LottoBall
 import com.junjange.presentation.component.LottoRoundedCornerButton
@@ -32,7 +32,7 @@ import com.junjange.presentation.ui.theme.LottoTheme
 @Composable
 fun RandomNumberGenerationScreen(viewModel: RandomNumberGenerationViewModel) {
 
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
         Column(
@@ -42,13 +42,23 @@ fun RandomNumberGenerationScreen(viewModel: RandomNumberGenerationViewModel) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RandomNumberGenerationContent(isLotto645 = uiState.isLotto645)
+            RandomNumberGenerationContent(
+                uiState = uiState,
+                onCreateClicked = {
+                    if (uiState.isLotto645) viewModel.generate645RandomNumbers()
+                    else viewModel.generate720RandomNumbers()
+                },
+                onSaveClicked = { viewModel.generate645RandomNumbers() })
         }
     }
 }
 
 @Composable
-fun RandomNumberGenerationContent(isLotto645: Boolean) {
+fun RandomNumberGenerationContent(
+    uiState: RandomNumberGenerationState,
+    onCreateClicked: () -> Unit,
+    onSaveClicked: () -> Unit
+) {
 
     // TODO 임시 데이터
     val temp = listOf(
@@ -79,7 +89,7 @@ fun RandomNumberGenerationContent(isLotto645: Boolean) {
     Spacer(modifier = Modifier.height(10.dp))
 
     Text(
-        text = stringResource(id = if (isLotto645) R.string.lotto_645_title else R.string.lotto_720_title),
+        text = stringResource(id = if (uiState.isLotto645) R.string.lotto_645_title else R.string.lotto_720_title),
         style = LottoTheme.typography.body1.copy(fontWeight = FontWeight.Bold)
     )
 
@@ -89,18 +99,18 @@ fun RandomNumberGenerationContent(isLotto645: Boolean) {
         modifier = Modifier.padding(horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        if (isLotto645) {
+        if (uiState.isLotto645) {
 
-            temp.forEachIndexed { index, s ->
+            uiState.lotto645Number.forEachIndexed { index, s ->
                 LottoBall(
                     lottoType = LottoType.LOTTO645,
-                    lottoColor = s.first,
-                    lottoTitle = s.second
+                    lottoColor = LottoTheme.colors.lottoGreen,
+                    lottoTitle = s.toString()
                 )
                 Spacer(modifier = Modifier.width(4.dp))
             }
         } else {
-            temp2.forEachIndexed { index, s ->
+            uiState.lotto720Number.forEachIndexed { index, s ->
                 if (index == 1) {
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
@@ -111,8 +121,8 @@ fun RandomNumberGenerationContent(isLotto645: Boolean) {
                 }
                 LottoBall(
                     lottoType = LottoType.LOTTO720,
-                    lottoColor = s.first,
-                    lottoTitle = s.second
+                    lottoColor = LottoTheme.colors.lottoGreen,
+                    lottoTitle = s.toString()
                 )
                 Spacer(modifier = Modifier.width(4.dp))
             }
@@ -134,7 +144,7 @@ fun RandomNumberGenerationContent(isLotto645: Boolean) {
             buttonText = stringResource(R.string.create_title),
             backgroundColor = LottoTheme.colors.lottoGreen,
             isEnabled = true,
-            onClick = {}
+            onClick = { onCreateClicked() }
         )
         Spacer(modifier = Modifier.width(20.dp))
         LottoRoundedCornerButton(
@@ -145,7 +155,7 @@ fun RandomNumberGenerationContent(isLotto645: Boolean) {
             buttonText = stringResource(R.string.save_title),
             backgroundColor = LottoTheme.colors.lottoGreen,
             isEnabled = true,
-            onClick = {}
+            onClick = { onSaveClicked() }
         )
     }
 }
