@@ -7,6 +7,7 @@ import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.ui.editprofile.EditProfileActivity
 import com.junjange.presentation.ui.randomnumber.RandomNumberActivity
 import com.junjange.presentation.ui.theme.LottoTheme
+import com.junjange.presentation.ui.withdrawal.WithdrawalActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +23,7 @@ class MainActivity : BaseActivity() {
                     viewModel = viewModel,
                     navigateToRandomNumber = ::startRandomActivity,
                     navigateToEditProfile = ::startEditProfileActivity,
+                    navigateToWithdrawal = ::startWithdrawalActivity,
                     navigateToSplash = ::startSplashActivity
                 )
             }
@@ -34,6 +36,10 @@ class MainActivity : BaseActivity() {
 
     private fun startEditProfileActivity() {
         EditProfileActivity.startActivity(this)
+    }
+
+    private fun startWithdrawalActivity() {
+        WithdrawalActivity.startActivity(this)
     }
 
     private fun startSplashActivity() {}
