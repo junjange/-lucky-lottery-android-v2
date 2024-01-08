@@ -28,6 +28,7 @@ okHttp = "5.0.0-alpha.2"
 coil = "2.5.0"
 hilt = "2.48"
 media3 = "1.2.0"
+image-cropper = "4.5.0"
 
 ## kakao
 kakao = "2.17.0"
@@ -78,6 +79,7 @@ hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 paging-compose = { group = "androidx.paging", name = "paging-compose", version = "1.0.0-alpha18" }
 javax-inject = "javax.inject:javax.inject:1"
+image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "image-cropper" }
 
 # ksp
 ksp-hilt = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
@@ -103,7 +105,7 @@ ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 
 [bundles]
-android = ["core-ktx", "lifecycle-runtime-ktx", "material", "lifecycle-extensions", "coil"]
+android = ["core-ktx", "lifecycle-runtime-ktx", "material", "lifecycle-extensions", "coil", "image-cropper"]
 compose = ["activity-compose", "compose-lifecycle", "compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material", "compose-material3", "compose-hilt-navigation", "compose-navigation", "paging-compose"]
 common = ["hilt"]
 google = ["google-services", "firebase-auth", "firebase-bom", "google-auth"]

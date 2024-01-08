@@ -18,6 +18,9 @@ import com.junjange.presentation.ui.mynumber.MyNumberScreen
 fun MainScreen(
     viewModel: MainViewModel,
     navigateToRandomNumber: () -> Unit,
+    navigateToEditProfile: () -> Unit,
+    navigateToWithdrawal: () -> Unit,
+    navigateToSplash : () -> Unit
 ) {
 
     val navController = rememberNavController()
@@ -41,7 +44,13 @@ fun MainScreen(
         ) {
             composable(Destination.HOME.route) { HomeScreen() }
             composable(Destination.MY_NUMBER.route) { MyNumberScreen() }
-            composable(Destination.MY.route) { MyScreen() }
+            composable(Destination.MY.route) {
+                MyScreen(
+                    navigateToWithdrawal = navigateToWithdrawal,
+                    navigateToSplash = navigateToSplash,
+                    navigateToEditProfile = navigateToEditProfile
+                )
+            }
         }
     }
 }
