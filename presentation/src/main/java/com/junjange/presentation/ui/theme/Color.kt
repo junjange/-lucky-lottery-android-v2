@@ -16,6 +16,7 @@ val LottoWhite = Color(0xFFF9F9F9)
 val LottoOrange = Color(0xFFE78111)
 val LottoGreen = Color(0xFF30AA5B)
 val LottoError = Color(0xFFFF4747)
+val LottoBlue = Color(0xFF0065FF)
 
 val Gray900 = Color(0xFF212121)
 val Gray800 = Color(0xFF424242)
@@ -53,6 +54,7 @@ class LottoColors(
     lottoOrange: Color,
     lottoGreen: Color,
     lottoError: Color,
+    lottoBlue : Color,
     gray900: Color,
     gray800: Color,
     gray700: Color,
@@ -79,6 +81,8 @@ class LottoColors(
     var lottoGreen: Color by mutableStateOf(lottoGreen, structuralEqualityPolicy())
         private set
     var lottoError: Color by mutableStateOf(lottoError, structuralEqualityPolicy())
+        private set
+    var lottoBlue: Color by mutableStateOf(lottoBlue, structuralEqualityPolicy())
         private set
     var gray900: Color by mutableStateOf(gray900, structuralEqualityPolicy())
         private set
@@ -113,6 +117,7 @@ class LottoColors(
         lottoOrange: Color = this.lottoOrange,
         lottoGreen: Color = this.lottoGreen,
         lottoError: Color = this.lottoError,
+        lottoBlue: Color = this.lottoBlue,
         gray900: Color = this.gray900,
         gray800: Color = this.gray800,
         gray700: Color = this.gray700,
@@ -133,6 +138,7 @@ class LottoColors(
         lottoOrange = lottoOrange,
         lottoGreen = lottoGreen,
         lottoError = lottoError,
+        lottoBlue = lottoBlue,
         gray900 = gray900,
         gray800 = gray800,
         gray700 = gray700,
@@ -156,6 +162,7 @@ fun lightColors(
     lottoOrange: Color = LottoOrange,
     lottoGreen: Color = LottoGreen,
     lottoError: Color = LottoError,
+    lottoBlue: Color = LottoBlue,
     gray900: Color = Gray900,
     gray800: Color = Gray800,
     gray700: Color = Gray700,
@@ -177,6 +184,7 @@ fun lightColors(
     lottoOrange = lottoOrange,
     lottoGreen = lottoGreen,
     lottoError = lottoError,
+    lottoBlue = lottoBlue,
     gray900 = gray900,
     gray800 = gray800,
     gray700 = gray700,
