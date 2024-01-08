@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.junjange.presentation.base.BaseActivity
+import com.junjange.presentation.ui.editprofile.EditProfileActivity
 import com.junjange.presentation.ui.randomnumber.RandomNumberActivity
 import com.junjange.presentation.ui.theme.LottoTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +21,8 @@ class MainActivity : BaseActivity() {
                 MainScreen(
                     viewModel = viewModel,
                     navigateToRandomNumber = ::startRandomActivity,
+                    navigateToEditProfile = ::startEditProfileActivity,
+                    navigateToSplash = ::startSplashActivity
                 )
             }
         }
@@ -28,4 +31,10 @@ class MainActivity : BaseActivity() {
     private fun startRandomActivity() {
         RandomNumberActivity.startActivity(this)
     }
+
+    private fun startEditProfileActivity() {
+        EditProfileActivity.startActivity(this)
+    }
+
+    private fun startSplashActivity() {}
 }
