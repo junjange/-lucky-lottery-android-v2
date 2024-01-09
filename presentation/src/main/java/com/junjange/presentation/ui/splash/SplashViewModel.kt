@@ -27,7 +27,7 @@ class SplashViewModel @Inject constructor() : BaseViewModel() {
             delay(SPLASH_TIME)
 
             //TODO: 로그인 여부 확인
-            _effect.emit(SplashEffect.AlreadyLoggedIn)
+            _effect.emit(SplashEffect.RequireLoginIn)
         }
     }
 
