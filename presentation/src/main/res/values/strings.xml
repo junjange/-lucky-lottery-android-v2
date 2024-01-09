@@ -64,4 +64,5 @@
     <string name="button_cancel">닫기</string>
     <string name="dialog_title">정말 행운복권을 탈퇴할까요?</string>
     <string name="dialog_description">짧은 기간 내 탈퇴와 재가입이 반복되면\n서비스 이용이 어려울 수 있어요.</string>
+    <string name="qr_scanner_hint">QR 코드를 스캔하여 주세요:)</string>
 </resources>

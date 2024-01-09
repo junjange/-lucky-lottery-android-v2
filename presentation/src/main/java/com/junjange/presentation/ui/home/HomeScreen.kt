@@ -39,7 +39,7 @@ fun HomeScreen(
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 15.dp, end = 15.dp),
             containerColor = LottoTheme.colors.lottoGreen,
-            onClick = { },
+            onClick = navigateToQRScanner,
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_qr_code),
