@@ -18,7 +18,10 @@ import com.junjange.presentation.component.LottoHomeTopBar
 import com.junjange.presentation.ui.theme.LottoTheme
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
+    navigateToQRScanner: () -> Unit
+) {
 
     Box(
         modifier = Modifier.fillMaxSize(),
