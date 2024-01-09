@@ -103,9 +103,12 @@ appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "a
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
+# Zxing qr scanner
+zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version = "4.1.0" }
+zxing-core = { group = "com.google.zxing", name = "core", version = "3.4.0" }
 
 [bundles]
-android = ["core-ktx", "lifecycle-runtime-ktx", "material", "lifecycle-extensions", "coil", "image-cropper"]
+android = ["core-ktx", "lifecycle-runtime-ktx", "material", "lifecycle-extensions", "coil", "image-cropper", "zxing-android-embedded", "zxing-core"]
 compose = ["activity-compose", "compose-lifecycle", "compose-ui", "compose-ui-graphics", "compose-ui-tooling-preview", "compose-material", "compose-material3", "compose-hilt-navigation", "compose-navigation", "paging-compose"]
 common = ["hilt"]
 google = ["google-services", "firebase-auth", "firebase-bom", "google-auth"]
