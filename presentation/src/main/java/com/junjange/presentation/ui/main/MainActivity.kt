@@ -5,6 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.ui.editprofile.EditProfileActivity
+import com.junjange.presentation.ui.qrscanner.QRScannerActivity
 import com.junjange.presentation.ui.randomnumber.RandomNumberActivity
 import com.junjange.presentation.ui.theme.LottoTheme
 import com.junjange.presentation.ui.withdrawal.WithdrawalActivity
@@ -21,6 +22,7 @@ class MainActivity : BaseActivity() {
             LottoTheme {
                 MainScreen(
                     viewModel = viewModel,
+                    navigateToQRScanner = ::startQRScannerActivity,
                     navigateToRandomNumber = ::startRandomActivity,
                     navigateToEditProfile = ::startEditProfileActivity,
                     navigateToWithdrawal = ::startWithdrawalActivity,
@@ -28,6 +30,10 @@ class MainActivity : BaseActivity() {
                 )
             }
         }
+    }
+
+    private fun startQRScannerActivity() {
+        QRScannerActivity.startActivity(this)
     }
 
     private fun startRandomActivity() {
