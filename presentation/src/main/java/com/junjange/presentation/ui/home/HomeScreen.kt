@@ -18,7 +18,10 @@ import com.junjange.presentation.component.LottoHomeTopBar
 import com.junjange.presentation.ui.theme.LottoTheme
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    viewModel: HomeViewModel = hiltViewModel(),
+    navigateToQRScanner: () -> Unit
+) {
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -36,7 +39,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 .align(Alignment.BottomEnd)
                 .padding(bottom = 15.dp, end = 15.dp),
             containerColor = LottoTheme.colors.lottoGreen,
-            onClick = { },
+            onClick = navigateToQRScanner,
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_qr_code),

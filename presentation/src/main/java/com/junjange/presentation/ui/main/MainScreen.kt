@@ -17,10 +17,11 @@ import com.junjange.presentation.ui.mynumber.MyNumberScreen
 @Composable
 fun MainScreen(
     viewModel: MainViewModel,
+    navigateToQRScanner: () -> Unit,
     navigateToRandomNumber: () -> Unit,
     navigateToEditProfile: () -> Unit,
     navigateToWithdrawal: () -> Unit,
-    navigateToSplash : () -> Unit
+    navigateToSplash: () -> Unit
 ) {
 
     val navController = rememberNavController()
@@ -42,7 +43,7 @@ fun MainScreen(
             startDestination = Destination.HOME.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(Destination.HOME.route) { HomeScreen() }
+            composable(Destination.HOME.route) { HomeScreen(navigateToQRScanner = navigateToQRScanner) }
             composable(Destination.MY_NUMBER.route) { MyNumberScreen() }
             composable(Destination.MY.route) {
                 MyScreen(
