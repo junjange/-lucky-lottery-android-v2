@@ -12,8 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,7 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.junjange.presentation.R
-import com.junjange.presentation.ui.theme.LottoTheme
+import kotlinx.coroutines.flow.collectLatest
 
 
 @Composable
@@ -30,6 +30,14 @@ fun LoginScreen(
     navigateToMain: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(viewModel.effect) {
+        viewModel.effect.collectLatest { effect ->
+            when (effect) {
+                is LoginEffect.NavigateToMain -> navigateToMain()
+            }
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -45,7 +53,7 @@ fun LoginScreen(
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 24.dp)
         ) {
-            LoginButton(iconRes = R.drawable.ic_kakao_login, onClick = navigateToMain)
+            LoginButton(iconRes = R.drawable.ic_kakao_login, onClick = { viewModel.kakaoLogin() })
             Spacer(modifier = Modifier.height(8.dp))
             LoginButton(iconRes = R.drawable.ic_google_login, onClick = navigateToMain)
         }

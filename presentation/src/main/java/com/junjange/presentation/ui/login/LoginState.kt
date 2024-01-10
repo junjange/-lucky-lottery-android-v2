@@ -6,4 +6,5 @@ data class LoginState(
 )
 
 sealed class LoginEffect {
+    data object NavigateToMain : LoginEffect()
 }
