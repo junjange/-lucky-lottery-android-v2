@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.everyone.domain"
+    namespace = "com.junjange.kakao"
     compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
