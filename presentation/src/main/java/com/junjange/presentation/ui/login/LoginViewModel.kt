@@ -1,6 +1,9 @@
 package com.junjange.presentation.ui.login
 
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.junjange.domain.usecase.KakaoLoginUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.ui.login.LoginEffect.NavigateToMain
@@ -29,6 +32,25 @@ class LoginViewModel @Inject constructor(
             kakaoLoginUseCase().onSuccess {
                 _effect.emit(NavigateToMain)
             }.onFailure { }
+        }
+    }
+
+    fun googleLogin(result: Task<GoogleSignInAccount>?) {
+        try {
+            val account = result?.getResult(ApiException::class.java)
+            account?.let {
+                account.idToken?.let {
+                    viewModelScope.launch {
+                        _effect.emit(NavigateToMain)
+                    }
+                } ?: run {
+                    //TODO 예외 처리
+                }
+            } ?: run {
+                //TODO 예외 처리
+            }
+        } catch (e: ApiException) {
+            //TODO network error
         }
     }
 
