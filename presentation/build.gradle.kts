@@ -1,8 +1,14 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.lang)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+}
+
+fun getApiKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
 android {
@@ -11,6 +17,8 @@ android {
 
     defaultConfig {
         minSdk = Versions.MIN_SDK
+
+        buildConfigField("String", "GOOGLE_CLIENT_ID", getApiKey("GOOGLE_CLIENT_ID"))
     }
 
     buildTypes {
@@ -31,6 +39,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()

@@ -1,6 +1,7 @@
 package com.junjange.presentation.ui.login
 
 
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -31,6 +32,13 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    val SIGN_IN_REQUEST_CODE = 1
+
+    val authResultLauncher = rememberLauncherForActivityResult(
+        contract = GoogleSignInContract(),
+        onResult = { viewModel.googleLogin(it) }
+    )
+
     LaunchedEffect(viewModel.effect) {
         viewModel.effect.collectLatest { effect ->
             when (effect) {
@@ -55,7 +63,9 @@ fun LoginScreen(
         ) {
             LoginButton(iconRes = R.drawable.ic_kakao_login, onClick = { viewModel.kakaoLogin() })
             Spacer(modifier = Modifier.height(8.dp))
-            LoginButton(iconRes = R.drawable.ic_google_login, onClick = navigateToMain)
+            LoginButton(
+                iconRes = R.drawable.ic_google_login,
+                onClick = { authResultLauncher.launch(SIGN_IN_REQUEST_CODE) })
         }
     }
 }
@@ -75,4 +85,3 @@ fun LoginButton(
             .clickable { onClick() }
     )
 }
-
