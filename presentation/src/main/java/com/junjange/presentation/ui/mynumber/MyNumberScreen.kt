@@ -113,19 +113,20 @@ fun MyNumberContent(lottoType: LottoType) {
             }
         }
 
-        FloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 15.dp, end = 15.dp),
-            containerColor = LottoTheme.colors.lottoGreen,
-            onClick = { },
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Edit,
-                contentDescription = null,
-                tint = LottoTheme.colors.white
-            )
-        }
+        // TODO ocr 기술 도입 예정
+//        FloatingActionButton(
+//            modifier = Modifier
+//                .align(Alignment.BottomEnd)
+//                .padding(bottom = 15.dp, end = 15.dp),
+//            containerColor = LottoTheme.colors.lottoGreen,
+//            onClick = { },
+//        ) {
+//            Icon(
+//                imageVector = Icons.Filled.Edit,
+//                contentDescription = null,
+//                tint = LottoTheme.colors.white
+//            )
+//        }
     }
 }
 
