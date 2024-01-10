@@ -50,6 +50,7 @@ dependencies {
     implementation(project(Modules.DOMAIN))
     implementation(project(Modules.PRESENTATION))
     implementation(project(Modules.DATA))
+    implementation(project(Modules.KAKAO))
 
     implementation(libs.bundles.android)
     implementation(libs.bundles.common)
