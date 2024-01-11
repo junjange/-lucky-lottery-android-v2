@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.lang)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
 }
 
 fun getApiKey(propertyKey: String): String {
@@ -62,6 +63,7 @@ dependencies {
     implementation(project(Modules.PRESENTATION))
     implementation(project(Modules.DATA))
     implementation(project(Modules.KAKAO))
+    implementation(project(Modules.FIREBASE))
 
     implementation(libs.bundles.android)
     implementation(libs.bundles.common)
