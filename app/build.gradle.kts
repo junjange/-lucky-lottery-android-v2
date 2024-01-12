@@ -64,6 +64,7 @@ dependencies {
     implementation(project(Modules.DATA))
     implementation(project(Modules.KAKAO))
     implementation(project(Modules.FIREBASE))
+    implementation(project(Modules.LOCAL))
 
     implementation(libs.bundles.android)
     implementation(libs.bundles.common)
