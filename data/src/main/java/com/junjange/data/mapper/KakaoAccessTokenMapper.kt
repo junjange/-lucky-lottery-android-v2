@@ -6,7 +6,7 @@ import com.junjange.domain.model.KakaoAccessToken
 
 internal fun KakaoAccessTokenEntity.toDomain(): KakaoAccessToken {
     return KakaoAccessToken(
-        id_token = this.idToken,
+        idToken = this.idToken,
         accessToken = this.accessToken
     )
 }
