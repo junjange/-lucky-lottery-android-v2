@@ -35,7 +35,7 @@ android {
     }
 }
 dependencies {
-    implementation(project(Modules.DATA))
+    implementation(project(Modules.PRESENTATION))
 
     implementation(libs.bundles.common)
 
