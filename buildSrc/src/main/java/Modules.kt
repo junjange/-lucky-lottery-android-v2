@@ -5,4 +5,5 @@ object Modules {
     const val KAKAO = ":kakao"
     const val FIREBASE = ":firebase"
     const val LOCAL = ":local"
+    const val CORE_FEATURE = ":core_feature"
 }

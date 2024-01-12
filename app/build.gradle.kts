@@ -65,6 +65,7 @@ dependencies {
     implementation(project(Modules.KAKAO))
     implementation(project(Modules.FIREBASE))
     implementation(project(Modules.LOCAL))
+    implementation(project(Modules.CORE_FEATURE))
 
     implementation(libs.bundles.android)
     implementation(libs.bundles.common)
