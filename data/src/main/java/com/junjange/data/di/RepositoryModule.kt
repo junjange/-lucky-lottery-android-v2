@@ -2,8 +2,10 @@ package com.junjange.data.di
 
 import com.junjange.data.repository.FirebaseRepositoryImpl
 import com.junjange.data.repository.KakaoLoginRepositoryImpl
+import com.junjange.data.repository.LocalRepositoryImpl
 import com.junjange.domain.repository.FirebaseRepository
 import com.junjange.domain.repository.KakaoLoginRepository
+import com.junjange.domain.repository.LocalRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -21,4 +23,8 @@ internal abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindFirebaseRepository(firebaseRepositoryImpl: FirebaseRepositoryImpl): FirebaseRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindLocalRepository(localRepositoryImpl: LocalRepositoryImpl): LocalRepository
 }
