@@ -1,12 +1,12 @@
 package com.junjange.data.mapper
 
-import com.junjange.data.model.KakaoAccessTokenResponse
+import com.junjange.data.model.local.KakaoAccessTokenEntity
 import com.junjange.domain.model.KakaoAccessToken
 
 
-internal fun KakaoAccessTokenResponse.toDomain(): KakaoAccessToken {
+internal fun KakaoAccessTokenEntity.toDomain(): KakaoAccessToken {
     return KakaoAccessToken(
-        id_token = this.id_token,
+        idToken = this.idToken,
         accessToken = this.accessToken
     )
 }

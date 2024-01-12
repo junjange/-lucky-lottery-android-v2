@@ -2,7 +2,7 @@ package com.junjange.kakao.datasource
 
 import android.content.Context
 import com.junjange.data.datasource.KakaoLoginDataSource
-import com.junjange.data.model.KakaoAccessTokenResponse
+import com.junjange.data.model.local.KakaoAccessTokenEntity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -18,15 +18,15 @@ internal class KakaoLoginDataSourceImpl @Inject constructor(
     /**
      * @param context: Activity context
      */
-    override suspend fun login(): Result<KakaoAccessTokenResponse> = runCatching {
+    override suspend fun login(): Result<KakaoAccessTokenEntity> = runCatching {
         suspendCancellableCoroutine { continuation ->
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, throwable ->
                 when {
                     throwable != null -> continuation.resumeWithException(throwable)
                     token != null && continuation.isActive -> {
-                        val accessToken = KakaoAccessTokenResponse(
+                        val accessToken = KakaoAccessTokenEntity(
                             accessToken = token.accessToken,
-                            id_token = token.idToken!!
+                            idToken = token.idToken!!
                         )
                         continuation.resume(accessToken)
                     }

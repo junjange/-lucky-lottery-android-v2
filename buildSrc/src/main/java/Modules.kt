@@ -4,4 +4,5 @@ object Modules {
     const val DATA = ":data"
     const val KAKAO = ":kakao"
     const val FIREBASE = ":firebase"
+    const val LOCAL = ":local"
 }
