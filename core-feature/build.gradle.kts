@@ -35,9 +35,11 @@ android {
     }
 }
 dependencies {
-    implementation(project(Modules.DATA))
+    implementation(project(Modules.PRESENTATION))
 
     implementation(libs.bundles.common)
+
+    implementation(libs.tesseract.android)
 
     // ksp
     ksp(libs.ksp.hilt)
