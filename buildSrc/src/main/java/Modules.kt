@@ -6,4 +6,5 @@ object Modules {
     const val FIREBASE = ":firebase"
     const val LOCAL = ":local"
     const val CORE_FEATURE = ":core-feature"
+    const val REMOTE = ":remote"
 }

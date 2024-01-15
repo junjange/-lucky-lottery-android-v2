@@ -66,6 +66,7 @@ dependencies {
     implementation(project(Modules.FIREBASE))
     implementation(project(Modules.LOCAL))
     implementation(project(Modules.CORE_FEATURE))
+    implementation(project(Modules.REMOTE))
 
     implementation(libs.bundles.android)
     implementation(libs.bundles.common)

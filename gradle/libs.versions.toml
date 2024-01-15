@@ -47,6 +47,11 @@ compose-bom = "2023.03.00"
 
 tesseract = "4.6.0"
 
+org-jetbrains-kotlin-jvm = "1.9.0"
+
+# coroutines
+coroutines = "1.6.4"
+
 [libraries]
 # default
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-lang" }
@@ -79,10 +84,12 @@ compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-manifest", ve
 datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 datastore-core = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore" }
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-core = { group = "com.google.dagger", name = "hilt-core", version.ref = "hilt" }
 coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 paging-compose = { group = "androidx.paging", name = "paging-compose", version = "1.0.0-alpha18" }
 javax-inject = "javax.inject:javax.inject:1"
 image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "image-cropper" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 
 # ksp
 ksp-hilt = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
