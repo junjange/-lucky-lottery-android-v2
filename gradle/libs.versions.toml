@@ -23,11 +23,8 @@ junit-espresso = "3.5.1"
 
 ## android-library
 datastore = "1.0.0"
-retrofit = "2.9.0"
-okHttp = "5.0.0-alpha.2"
 coil = "2.5.0"
 hilt = "2.48"
-media3 = "1.2.0"
 image-cropper = "4.5.0"
 
 ## kakao
@@ -40,8 +37,6 @@ firebase-messaging = "23.1.1"
 firebase-bom = "32.0.0"
 google-play-services-auth = "20.5.0"
 
-# ktor
-ktor = "2.3.6"
 appcompat = "1.6.1"
 compose-bom = "2023.03.00"
 
@@ -104,12 +99,6 @@ firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "google-play-services-auth" }
 
-# ktor
-ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
-ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
-ktor-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
-ktor-gson = { group = "io.ktor", name = "ktor-serialization-gson", version.ref = "ktor" }
-ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
@@ -128,7 +117,6 @@ compose = ["activity-compose", "compose-lifecycle", "compose-ui", "compose-ui-gr
 common = ["hilt"]
 google = ["google-services", "firebase-auth", "firebase-messaging", "firebase-bom", "google-auth"]
 kakao = ["kakao-user"]
-ktor = ["ktor-client-core", "ktor-client-cio", "ktor-negotiation", "ktor-gson", "ktor-logging"]
 datastore = ["datastore", "datastore-core"]
 
 [plugins]
