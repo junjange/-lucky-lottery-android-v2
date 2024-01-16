@@ -56,12 +56,6 @@ dependencies {
     // ksp
     ksp(libs.ksp.hilt)
 
-    // ktor
-    implementation(libs.bundles.ktor)
-
-    // kakao
-    implementation(libs.bundles.kakao)
-
     // google
     implementation(libs.bundles.google)
 

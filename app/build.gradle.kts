@@ -66,6 +66,7 @@ dependencies {
     implementation(project(Modules.FIREBASE))
     implementation(project(Modules.LOCAL))
     implementation(project(Modules.CORE_FEATURE))
+    implementation(project(Modules.REMOTE))
 
     implementation(libs.bundles.android)
     implementation(libs.bundles.common)
@@ -78,6 +79,10 @@ dependencies {
 
     // google
     implementation(libs.bundles.google)
+
+    // okhttp
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging.interceptor)
 
     // test
     testImplementation(libs.junit)
