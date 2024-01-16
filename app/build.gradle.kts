@@ -80,6 +80,10 @@ dependencies {
     // google
     implementation(libs.bundles.google)
 
+    // okhttp
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging.interceptor)
+
     // test
     testImplementation(libs.junit)
     androidTestImplementation(libs.junit.ext)

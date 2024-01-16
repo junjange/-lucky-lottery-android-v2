@@ -13,6 +13,6 @@ dependencies {
     // ksp
     ksp(libs.ksp.hilt)
 
-    // ktor
-    implementation(libs.bundles.ktor)
+    // network
+    implementation(libs.bundles.network)
 }

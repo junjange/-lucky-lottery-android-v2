@@ -47,6 +47,10 @@ org-jetbrains-kotlin-jvm = "1.9.0"
 # coroutines
 coroutines = "1.6.4"
 
+# network
+okhttp = "4.10.0"
+retrofit = "2.9.0"
+
 [libraries]
 # default
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-lang" }
@@ -99,6 +103,12 @@ firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 google-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "google-play-services-auth" }
 
+# Network
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+okhttp-core = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
@@ -117,6 +127,7 @@ compose = ["activity-compose", "compose-lifecycle", "compose-ui", "compose-ui-gr
 common = ["hilt"]
 google = ["google-services", "firebase-auth", "firebase-messaging", "firebase-bom", "google-auth"]
 kakao = ["kakao-user"]
+network = ["retrofit-core", "retrofit-converter-gson", "okhttp-core", "okhttp-logging-interceptor"]
 datastore = ["datastore", "datastore-core"]
 
 [plugins]
