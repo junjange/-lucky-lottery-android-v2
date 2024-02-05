@@ -3,7 +3,7 @@ package com.junjange.remote.api
 
 class ApiClient {
 
-    object CREDENTIALS {
+    object Credentials {
         private const val BASE = "/api/vi/credentials/"
         const val postCredentialsSignup2 = BASE + "signup2"
         const val postCredentialsRegister = BASE + "register"
@@ -13,7 +13,7 @@ class ApiClient {
         const val postCredentialsValidRegister = BASE + "oauth/valid/register"
     }
 
-    object LOTTERY {
+    object Lottery {
         private const val BASE = "/api/vi/lottery/"
         const val postLotterySave = BASE + "save"
         const val getLotteryRandom = BASE + "random"

@@ -12,15 +12,15 @@ import retrofit2.http.POST
 
 internal interface LotteryApiService {
 
-    @POST(ApiClient.LOTTERY.postLotterySave)
+    @POST(ApiClient.Lottery.postLotterySave)
     suspend fun postLotterySave(
         @Body body: LotteryRandomRequest,
     ): BaseResponse<Unit>
 
-    @GET(ApiClient.LOTTERY.getLotteryRandom)
+    @GET(ApiClient.Lottery.getLotteryRandom)
     suspend fun getLotteryRandom(): BaseResponse<LotteryRandomResponse>
 
-    @GET(ApiClient.LOTTERY.getLotteryGet)
+    @GET(ApiClient.Lottery.getLotteryGet)
     suspend fun getLotteryGet(
         @Body body: RefreshRequest,
     ): BaseResponse<LotteryResultResponse>
