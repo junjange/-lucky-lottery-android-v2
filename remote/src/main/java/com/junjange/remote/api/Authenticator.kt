@@ -4,14 +4,15 @@ import kotlinx.coroutines.runBlocking
 import com.junjange.data.provider.AccessTokenProvider
 import com.junjange.data.provider.RefreshTokenProvider
 import com.junjange.remote.interceptor.AccessTokenInterceptor
-import com.junjange.remote.model.response.RefreshResponse
+import com.junjange.remote.model.request.RefreshRequest
+import com.junjange.remote.model.response.JwtTokenResponse
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 
 internal class Authenticator constructor(
-    private val apiService: RefreshApiService,
+    private val apiService: CredentialApiService,
     private val accessTokenProvider: AccessTokenProvider,
     private val refreshTokenProvider: RefreshTokenProvider,
     private val authenticationListener: AuthenticationListener,
@@ -25,10 +26,10 @@ internal class Authenticator constructor(
         }
         return refresh(refreshToken).fold(
             onSuccess = {
-                accessTokenProvider.value = it.data.accessToken
-                refreshTokenProvider.value = it.data.refreshToken
+                accessTokenProvider.value = it.accessToken
+                refreshTokenProvider.value = it.refreshToken
 
-                AccessTokenInterceptor.from(response.request, it.data.accessToken)
+                AccessTokenInterceptor.from(response.request, it.accessToken)
             },
             onFailure = {
                 authenticationListener.onSessionExpired()
@@ -37,9 +38,10 @@ internal class Authenticator constructor(
         )
     }
 
-    private fun refresh(refreshToken: String): Result<RefreshResponse> = runBlocking {
+    private fun refresh(refreshToken: String): Result<JwtTokenResponse> = runBlocking {
         runCatching {
-            apiService.refresh(refreshToken)
+            val body = RefreshRequest(refreshToken = refreshToken)
+            apiService.postRefresh(body = body).data
         }
     }
 }

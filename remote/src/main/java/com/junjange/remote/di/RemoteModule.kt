@@ -3,11 +3,10 @@ package com.junjange.remote.di
 import com.junjange.data.provider.AccessTokenProvider
 import com.junjange.data.provider.RefreshTokenProvider
 import com.junjange.remote.interceptor.AccessTokenInterceptor
-import com.junjange.remote.api.ApiService
+import com.junjange.remote.api.CredentialApiService
 import com.junjange.remote.api.AuthenticationListener
 import com.junjange.remote.api.Authenticator
 import com.junjange.remote.interceptor.Interceptors
-import com.junjange.remote.api.RefreshApiService
 import com.junjange.remote.api.baseUrl
 import dagger.Module
 import dagger.Provides
@@ -32,7 +31,7 @@ internal object RemoteModule {
         accessTokenProvider: AccessTokenProvider,
         refreshTokenProvider: RefreshTokenProvider,
         authenticationListener: AuthenticationListener,
-    ): ApiService {
+    ): CredentialApiService {
 
         val authenticator = Authenticator(
             apiService = provideRefreshApiService(baseUrl, interceptors),
@@ -52,18 +51,18 @@ internal object RemoteModule {
             )
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ApiService::class.java)
+            .create(CredentialApiService::class.java)
     }
 
     private fun provideRefreshApiService(
         baseUrl: BaseUrl,
         interceptors: Interceptors,
-    ): RefreshApiService = Retrofit.Builder()
+    ): CredentialApiService = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(createOkHttpClient(interceptors))
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(RefreshApiService::class.java)
+        .create(CredentialApiService::class.java)
 
     private fun createOkHttpClient(
         interceptors: Interceptors,
