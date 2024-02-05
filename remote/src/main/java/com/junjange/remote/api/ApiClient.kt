@@ -13,4 +13,11 @@ class ApiClient {
         const val postCredentialsValidRegister = BASE + "oauth/valid/register"
     }
 
+    object LOTTERY {
+        private const val BASE = "/api/vi/lottery/"
+        const val postLotterySave = BASE + "save"
+        const val getLotteryRandom = BASE + "random"
+        const val getLotteryGet = BASE + "get"
+    }
+
 }
