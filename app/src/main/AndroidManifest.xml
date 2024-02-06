@@ -42,6 +42,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.junjange.presentation.ui.register.RegisterActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.junjange.presentation.ui.splash.SplashActivity"
             android:exported="true"
             android:label="@string/app_name"
