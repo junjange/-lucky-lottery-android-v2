@@ -7,7 +7,6 @@ import com.junjange.remote.api.ApiService
 import com.junjange.remote.api.AuthenticationListener
 import com.junjange.remote.api.Authenticator
 import com.junjange.remote.interceptor.Interceptors
-import com.junjange.remote.api.RefreshApiService
 import com.junjange.remote.api.baseUrl
 import dagger.Module
 import dagger.Provides
@@ -58,12 +57,12 @@ internal object RemoteModule {
     private fun provideRefreshApiService(
         baseUrl: BaseUrl,
         interceptors: Interceptors,
-    ): RefreshApiService = Retrofit.Builder()
+    ): ApiService = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(createOkHttpClient(interceptors))
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-        .create(RefreshApiService::class.java)
+        .create(ApiService::class.java)
 
     private fun createOkHttpClient(
         interceptors: Interceptors,

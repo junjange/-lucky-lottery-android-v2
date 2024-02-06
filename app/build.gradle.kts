@@ -23,6 +23,7 @@ android {
         versionCode = Versions.VERSION_CODE
         versionName = Versions.VERSION_NAME
 
+        buildConfigField("String", "BASE_URL", getApiKey("BASE_URL"))
         buildConfigField("String", "KAKAO_NATIVE_APP_KEY", getApiKey("KAKAO_NATIVE_APP_KEY"))
         resValue("string", "KAKAO_OAUTH_HOST", getApiKey("KAKAO_OAUTH_HOST"))
 

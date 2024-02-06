@@ -3,7 +3,7 @@ package com.junjange.lotto3.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.junjange.presentation.BuildConfig
+import com.junjange.lotto3.BuildConfig
 import com.junjange.remote.api.AuthenticationListener
 import com.junjange.remote.interceptor.Interceptors
 import dagger.Module
@@ -19,7 +19,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 internal object AppModule {
 
     @Provides
-    fun provideBaseUrl(): BaseUrl = BaseUrl("")
+    fun provideBaseUrl(): BaseUrl = BaseUrl(BuildConfig.BASE_URL)
 
     @Provides
     fun provideInterceptors(): Interceptors {
