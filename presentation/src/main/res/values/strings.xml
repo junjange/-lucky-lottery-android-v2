@@ -34,6 +34,10 @@
     <string name="sign_out">로그아웃</string>
     <string name="withdraw_lotto">행운복권 탈퇴</string>
 
+    <!--    register-->
+    <string name="register">프로필 설정</string>
+    <string name="register_help">프로필 사진과 닉네임을 설정합니다.</string>
+
     <!--    profile_edit-->
     <string name="edit_profile">프로필 수정</string>
     <string name="done">완료</string>
