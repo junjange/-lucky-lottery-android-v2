@@ -36,7 +36,7 @@ internal interface ApiService {
         @Query("provider") provider: String,
     ): BaseResponse<JwtTokenResponse>
 
-    @GET(ApiClient.Credentials.postCredentialsValidRegister)
+    @GET(ApiClient.Credentials.getCredentialsValidRegister)
     suspend fun getValidRegister(
         @Query("idToken") idToken: String,
         @Query("provider") provider: String,
