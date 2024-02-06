@@ -7,7 +7,9 @@ import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.ui.login.LoginActivity
 import com.junjange.presentation.ui.main.MainActivity
 import com.junjange.presentation.ui.theme.LottoTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashActivity : BaseActivity() {
 
     private val viewModel: SplashViewModel by viewModels()
