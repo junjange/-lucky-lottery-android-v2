@@ -1,7 +1,9 @@
 package com.junjange.presentation.ui.register
 
 import android.graphics.Bitmap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.SavedStateHandle
+import com.junjange.domain.usecase.PostRegisterUseCase
+import com.junjange.domain.usecase.SaveJwtTokenUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.ui.register.RegisterEffect.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,11 +14,21 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor() : BaseViewModel() {
+class RegisterViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
+    private val postRegisterUseCase: PostRegisterUseCase,
+    private val saveJwtTokenUseCase: SaveJwtTokenUseCase,
+) : BaseViewModel() {
+
+    private val idToken = requireNotNull(
+        savedStateHandle.get<String>(RegisterActivity.EXTRA_KEY_ID_TOKEN)
+    )
+    private val provider = requireNotNull(
+        savedStateHandle.get<String>(RegisterActivity.EXTRA_KEY_PROVIDER)
+    )
 
     private val _uiState = MutableStateFlow(RegisterState())
     val uiState: StateFlow<RegisterState> = _uiState.asStateFlow()
@@ -24,15 +36,30 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
     private val _effect = MutableSharedFlow<RegisterEffect>()
     val effect: SharedFlow<RegisterEffect> = _effect.asSharedFlow()
 
-    fun onClickedNavigateToMain() {
-        viewModelScope.launch {
-            _effect.emit(NavigateToMain)
+    fun onClickedBack() {
+        launch {
+            _effect.emit(Back)
         }
     }
 
-    fun onClickedBack() {
-        viewModelScope.launch {
-            _effect.emit(Back)
+    fun onClickedRegister() {
+        launch {
+            if (_uiState.value.newNickname.isNotEmpty()) {
+                postRegisterUseCase(
+                    idToken = idToken,
+                    provider = provider,
+                    nickName = _uiState.value.newNickname
+                ).onSuccess { jwtToken ->
+                    saveJwtTokenUseCase(jwtToken = jwtToken)
+                        .onSuccess {
+                            _effect.emit(NavigateToMain)
+                        }.onFailure {
+                            //TODO 예외 처리
+                        }
+                }.onFailure {
+                    //TODO 예외 처리
+                }
+            }
         }
     }
 
@@ -54,7 +81,7 @@ class RegisterViewModel @Inject constructor() : BaseViewModel() {
     }
 
     fun onClickedProfileImgSelect() {
-        viewModelScope.launch {
+        launch {
             _effect.emit(LaunchImagePicker)
         }
     }
