@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.ui.main.MainActivity
+import com.junjange.presentation.ui.register.RegisterActivity
 import com.junjange.presentation.ui.theme.LottoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +22,8 @@ class LoginActivity : BaseActivity() {
             LottoTheme {
                 LoginScreen(
                     viewModel = viewModel,
-                    navigateToMain = ::startMainActivity
+                    navigateToMain = ::startMainActivity,
+                    navigateToRegister = ::startRegisterActivity
                 )
             }
         }
@@ -30,6 +32,13 @@ class LoginActivity : BaseActivity() {
     private fun startMainActivity() {
         MainActivity.startActivity(this)
         finish()
+    }
+
+    private fun startRegisterActivity(
+        idToken: String,
+        provider: String
+    ) {
+        RegisterActivity.startActivity(this, idToken, provider)
     }
 
     companion object {

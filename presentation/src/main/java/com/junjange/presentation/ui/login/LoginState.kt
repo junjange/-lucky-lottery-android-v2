@@ -7,4 +7,6 @@ data class LoginState(
 
 sealed class LoginEffect {
     data object NavigateToMain : LoginEffect()
+    class NavigateToRegister(val idToken: String, val provider: String) : LoginEffect()
+
 }

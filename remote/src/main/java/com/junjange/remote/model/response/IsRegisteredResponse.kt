@@ -4,7 +4,7 @@ import com.junjange.data.model.remote.IsRegisteredEntity
 
 
 data class IsRegisteredResponse(
-    val isRegistered: String
+    val isRegistered: Boolean
 )
 
 fun IsRegisteredResponse.toData() = IsRegisteredEntity(isRegistered = isRegistered)

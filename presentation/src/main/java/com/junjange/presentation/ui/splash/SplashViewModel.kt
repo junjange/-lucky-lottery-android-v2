@@ -1,6 +1,6 @@
 package com.junjange.presentation.ui.splash
 
-import androidx.lifecycle.viewModelScope
+import com.junjange.domain.usecase.GetJwtTokenUseCase
 import com.junjange.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -10,12 +10,14 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class SplashViewModel @Inject constructor() : BaseViewModel() {
+class SplashViewModel @Inject constructor(
+    private val getJwtTokenUseCase: GetJwtTokenUseCase
+) : BaseViewModel() {
+
     private val _uiState = MutableStateFlow(SplashState())
     val uiState: StateFlow<SplashState> = _uiState.asStateFlow()
 
@@ -23,11 +25,15 @@ class SplashViewModel @Inject constructor() : BaseViewModel() {
     val effect: SharedFlow<SplashEffect> = _effect.asSharedFlow()
 
     init {
-        viewModelScope.launch {
+        launch {
             delay(SPLASH_TIME)
-
-            //TODO: 로그인 여부 확인
-            _effect.emit(SplashEffect.RequireLoginIn)
+            getJwtTokenUseCase().onSuccess {
+                it?.let {
+                    _effect.emit(SplashEffect.AlreadyLoggedIn)
+                } ?: run {
+                    _effect.emit(SplashEffect.RequireLoginIn)
+                }
+            }
         }
     }
 

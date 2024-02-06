@@ -139,7 +139,7 @@ fun RegisterScreen(
                     onBack = { viewModel.onClickedBack() },
                     titleRes = R.string.register,
                     buttonTextRes = R.string.done,
-                    onClickButton = { viewModel.onClickedNavigateToMain() },
+                    onClickButton = { viewModel.onClickedRegister() },
                     isEnabled = uiState.newNickname.isNotEmpty()
                 )
             },
