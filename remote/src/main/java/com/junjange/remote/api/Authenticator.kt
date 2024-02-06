@@ -12,7 +12,7 @@ import okhttp3.Response
 import okhttp3.Route
 
 internal class Authenticator constructor(
-    private val apiService: CredentialApiService,
+    private val apiService: ApiService,
     private val accessTokenProvider: AccessTokenProvider,
     private val refreshTokenProvider: RefreshTokenProvider,
     private val authenticationListener: AuthenticationListener,

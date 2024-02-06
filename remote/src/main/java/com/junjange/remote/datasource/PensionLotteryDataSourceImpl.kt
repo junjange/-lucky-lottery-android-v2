@@ -2,13 +2,13 @@ package com.junjange.remote.datasource
 
 import com.junjange.data.datasource.PensionLotteryDataSource
 import com.junjange.data.model.remote.PensionLotteryRandomEntity
-import com.junjange.remote.api.PensionLotteryApiService
+import com.junjange.remote.api.ApiService
 import com.junjange.remote.model.request.PensionLotteryRandomRequest
 import com.junjange.remote.model.response.toData
 import javax.inject.Inject
 
 internal class PensionLotteryDataSourceImpl @Inject constructor(
-    private val apiService: PensionLotteryApiService,
+    private val apiService: ApiService,
 ) : PensionLotteryDataSource {
 
     override suspend fun postPensionLotterySave(

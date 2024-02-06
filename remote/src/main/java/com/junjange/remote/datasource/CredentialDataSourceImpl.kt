@@ -2,15 +2,14 @@ package com.junjange.remote.datasource
 
 import com.junjange.data.datasource.CredentialDataSource
 import com.junjange.data.model.local.JwtTokenEntity
-import com.junjange.data.model.remote.AccessTokenEntity
 import com.junjange.data.model.remote.IsRegisteredEntity
-import com.junjange.remote.api.CredentialApiService
+import com.junjange.remote.api.ApiService
 import com.junjange.remote.model.request.RegisterRequest
 import com.junjange.remote.model.response.toData
 import javax.inject.Inject
 
 internal class CredentialDataSourceImpl @Inject constructor(
-    private val apiService: CredentialApiService,
+    private val apiService: ApiService,
 ) : CredentialDataSource {
 
     override suspend fun postRegister(
