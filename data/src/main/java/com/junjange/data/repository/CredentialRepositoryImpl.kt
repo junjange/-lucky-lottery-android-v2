@@ -2,7 +2,6 @@ package com.junjange.data.repository
 
 import com.junjange.data.datasource.CredentialDataSource
 import com.junjange.data.mapper.toDomain
-import com.junjange.domain.model.AccessToken
 import com.junjange.domain.model.IsRegistered
 import com.junjange.domain.model.JwtToken
 import com.junjange.domain.repository.CredentialRepository
@@ -11,10 +10,6 @@ import javax.inject.Inject
 internal class CredentialRepositoryImpl @Inject constructor(
     private val dataSource: CredentialDataSource
 ) : CredentialRepository {
-
-    override suspend fun postSignup2(nickName: String): Result<Unit> =
-        dataSource.postSignup2(nickName = nickName)
-
 
     override suspend fun postRegister(
         idToken: String,
@@ -34,11 +29,6 @@ internal class CredentialRepositoryImpl @Inject constructor(
         idToken = idToken,
         provider = provider
     ).mapCatching { it.toDomain() }
-
-
-    override suspend fun postLogin2(userId: String): Result<AccessToken> =
-        dataSource.postLogin2(userId = userId).mapCatching { it.toDomain() }
-
 
     override suspend fun getValidRegister(
         idToken: String,

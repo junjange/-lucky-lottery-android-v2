@@ -13,11 +13,6 @@ internal class CredentialDataSourceImpl @Inject constructor(
     private val apiService: CredentialApiService,
 ) : CredentialDataSource {
 
-    override suspend fun postSignup2(nickName: String): Result<Unit> = runCatching {
-        val body = RegisterRequest(nickName = nickName)
-        apiService.postSignup2(body = body)
-    }
-
     override suspend fun postRegister(
         idToken: String,
         provider: String,
@@ -39,10 +34,6 @@ internal class CredentialDataSourceImpl @Inject constructor(
             idToken = idToken,
             provider = provider
         ).data.toData()
-    }
-
-    override suspend fun postLogin2(userId: String): Result<AccessTokenEntity> = runCatching {
-        apiService.postLogin2(userId = userId).data.toData()
     }
 
     override suspend fun getValidRegister(

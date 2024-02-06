@@ -14,11 +14,6 @@ import retrofit2.http.Query
 
 internal interface CredentialApiService {
 
-    @POST(ApiClient.Credentials.postCredentialsSignup2)
-    suspend fun postSignup2(
-        @Body body: RegisterRequest,
-    ): BaseResponse<Unit>
-
     @POST(ApiClient.Credentials.postCredentialsRegister)
     suspend fun postRegister(
         @Query("idToken") idToken: String,
@@ -36,11 +31,6 @@ internal interface CredentialApiService {
         @Query("idToken") idToken: String,
         @Query("provider") provider: String,
     ): BaseResponse<JwtTokenResponse>
-
-    @POST(ApiClient.Credentials.postCredentialsLogin2)
-    suspend fun postLogin2(
-        @Query("userId") userId: String,
-    ): BaseResponse<AccessTokenResponse>
 
     @GET(ApiClient.Credentials.postCredentialsValidRegister)
     suspend fun getValidRegister(
