@@ -5,11 +5,13 @@ import com.junjange.data.repository.FirebaseRepositoryImpl
 import com.junjange.data.repository.KakaoLoginRepositoryImpl
 import com.junjange.data.repository.LocalRepositoryImpl
 import com.junjange.data.repository.LotteryRepositoryImpl
+import com.junjange.data.repository.PensionLotteryRepositoryImpl
 import com.junjange.domain.repository.CredentialRepository
 import com.junjange.domain.repository.FirebaseRepository
 import com.junjange.domain.repository.KakaoLoginRepository
 import com.junjange.domain.repository.LocalRepository
 import com.junjange.domain.repository.LotteryRepository
+import com.junjange.domain.repository.PensionLotteryRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -39,4 +41,8 @@ internal abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindLotteryRepository(lotteryRepositoryImpl: LotteryRepositoryImpl): LotteryRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindPensionLotteryRepository(pensionLotteryRepositoryImpl: PensionLotteryRepositoryImpl): PensionLotteryRepository
 }
