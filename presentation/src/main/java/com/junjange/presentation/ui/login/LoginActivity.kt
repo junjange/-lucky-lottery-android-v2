@@ -34,8 +34,11 @@ class LoginActivity : BaseActivity() {
         finish()
     }
 
-    private fun startRegisterActivity() {
-        RegisterActivity.startActivity(this)
+    private fun startRegisterActivity(
+        idToken: String,
+        provider: String
+    ) {
+        RegisterActivity.startActivity(this, idToken, provider)
     }
 
     companion object {

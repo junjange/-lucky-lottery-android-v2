@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task
 import com.junjange.domain.usecase.GetValidRegisterUseCase
 import com.junjange.domain.usecase.KakaoLoginUseCase
 import com.junjange.domain.usecase.PostLoginUseCase
+import com.junjange.domain.usecase.SaveJwtTokenUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.ui.login.LoginEffect.NavigateToMain
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,6 +23,7 @@ class LoginViewModel @Inject constructor(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val getValidRegisterUseCase: GetValidRegisterUseCase,
     private val postLoginUseCase: PostLoginUseCase,
+    private val saveJwtTokenUseCase: SaveJwtTokenUseCase
 ) : BaseViewModel() {
     private val _uiState = MutableStateFlow(LoginState())
     val uiState: StateFlow<LoginState> = _uiState.asStateFlow()
@@ -37,17 +39,27 @@ class LoginViewModel @Inject constructor(
                         idToken = idToken,
                         provider = KAKAO
                     ).onSuccess { isRegistered ->
-                        if (isRegistered.isRegistered) postLogin(
-                            idToken = idToken,
-                            provider = KAKAO
-                        )
-                        else _effect.emit(LoginEffect.NavigateToRegister)
+                        if (isRegistered.isRegistered) {
+                            postLogin(
+                                idToken = idToken,
+                                provider = KAKAO
+                            )
+                        } else {
+                            _effect.emit(
+                                LoginEffect.NavigateToRegister(
+                                    idToken = idToken,
+                                    provider = KAKAO
+                                )
+                            )
+                        }
                     }.onFailure {
                         //TODO 예외 처리
                     }
                 }
 
-            }.onFailure { }
+            }.onFailure {
+                //TODO 예외 처리
+            }
         }
     }
 
@@ -61,11 +73,19 @@ class LoginViewModel @Inject constructor(
                             idToken = idToken,
                             provider = GOOGLE
                         ).onSuccess { isRegistered ->
-                            if (isRegistered.isRegistered) postLogin(
-                                idToken = idToken,
-                                provider = GOOGLE
-                            )
-                            else _effect.emit(LoginEffect.NavigateToRegister)
+                            if (isRegistered.isRegistered) {
+                                postLogin(
+                                    idToken = idToken,
+                                    provider = GOOGLE
+                                )
+                            } else {
+                                _effect.emit(
+                                    LoginEffect.NavigateToRegister(
+                                        idToken = idToken,
+                                        provider = GOOGLE
+                                    )
+                                )
+                            }
 
                         }.onFailure {
                             //TODO 예외 처리
@@ -86,7 +106,11 @@ class LoginViewModel @Inject constructor(
         launch {
             postLoginUseCase(idToken = idToken, provider = provider)
                 .onSuccess {
-                    _effect.emit(NavigateToMain)
+                    saveJwtTokenUseCase(jwtToken = it)
+                        .onSuccess { _effect.emit(NavigateToMain) }
+                        .onFailure {
+                            //TODO 예외 처리
+                        }
                 }.onFailure {
                     //TODO 예외 처리
                 }
