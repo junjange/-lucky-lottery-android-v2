@@ -33,14 +33,18 @@ class LoginViewModel @Inject constructor(
         launch {
             kakaoLoginUseCase().onSuccess {
                 it.idToken?.let { idToken ->
-                    getValidRegister(idToken = idToken, provider = KAKAO)?.let { result ->
-                        if (result) {
-                            postLogin(idToken = idToken, provider = KAKAO)
-                        } else {
-                            // TODO 회원가입 페이지로 이동
-                        }
+                    getValidRegisterUseCase(
+                        idToken = idToken,
+                        provider = KAKAO
+                    ).onSuccess { isRegistered ->
+                        if (isRegistered.isRegistered) postLogin(
+                            idToken = idToken,
+                            provider = KAKAO
+                        )
+                        else _effect.emit(LoginEffect.NavigateToRegister)
+                    }.onFailure {
+                        //TODO 예외 처리
                     }
-
                 }
 
             }.onFailure { }
@@ -52,11 +56,19 @@ class LoginViewModel @Inject constructor(
             val account = result?.getResult(ApiException::class.java)
             account?.let {
                 account.idToken?.let { idToken ->
-                    getValidRegister(idToken = idToken, provider = GOOGLE)?.let { result ->
-                        if (result) {
-                            postLogin(idToken = idToken, provider = GOOGLE)
-                        } else {
-                            // TODO 회원가입 페이지로 이동
+                    launch {
+                        getValidRegisterUseCase(
+                            idToken = idToken,
+                            provider = GOOGLE
+                        ).onSuccess { isRegistered ->
+                            if (isRegistered.isRegistered) postLogin(
+                                idToken = idToken,
+                                provider = GOOGLE
+                            )
+                            else _effect.emit(LoginEffect.NavigateToRegister)
+
+                        }.onFailure {
+                            //TODO 예외 처리
                         }
                     }
                 } ?: run {
@@ -68,24 +80,6 @@ class LoginViewModel @Inject constructor(
         } catch (e: ApiException) {
             //TODO network error
         }
-    }
-
-    private fun getValidRegister(idToken: String, provider: String): Boolean? {
-        var isRegistered: Boolean? = null
-
-        launch {
-            getValidRegisterUseCase(
-                idToken = idToken,
-                provider = provider
-            ).onSuccess {
-                isRegistered = it.isRegistered
-            }.onFailure {
-                isRegistered = null
-                //TODO 예외 처리
-            }
-
-        }
-        return isRegistered
     }
 
     private fun postLogin(idToken: String, provider: String) {

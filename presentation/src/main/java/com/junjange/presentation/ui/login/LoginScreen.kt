@@ -28,7 +28,8 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel,
-    navigateToMain: () -> Unit
+    navigateToMain: () -> Unit,
+    navigateToRegister: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -43,6 +44,7 @@ fun LoginScreen(
         viewModel.effect.collectLatest { effect ->
             when (effect) {
                 is LoginEffect.NavigateToMain -> navigateToMain()
+                is LoginEffect.NavigateToRegister -> navigateToRegister()
             }
         }
     }
