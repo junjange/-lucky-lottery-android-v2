@@ -6,7 +6,7 @@ import com.junjange.domain.model.Pageable
 internal fun PageableEntity.toDomain() =
     Pageable(
         offset = offset,
-        sort = sort.toData(),
+        sort = sort.toDomain(),
         pageSize = pageSize,
         paged = paged,
         pageNumber = pageNumber,
