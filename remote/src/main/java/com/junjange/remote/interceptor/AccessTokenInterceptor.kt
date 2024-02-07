@@ -21,11 +21,11 @@ class AccessTokenInterceptor(
     }
 
     companion object {
-        private const val X_AUTH_TOKEN = "X-AUTH-TOKEN"
+        private const val AUTHORIZATION = "Authorization"
 
         fun from(request: Request, accessToken: String): Request = request.newBuilder()
-            .removeHeader(X_AUTH_TOKEN)
-            .addHeader(X_AUTH_TOKEN, accessToken)
+            .removeHeader(AUTHORIZATION)
+            .addHeader(AUTHORIZATION, "Bearer $accessToken")
             .build()
     }
 }
