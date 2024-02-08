@@ -29,11 +29,9 @@ class SplashActivity : BaseActivity() {
 
     private fun startMainActivity() {
         MainActivity.startActivity(this)
-        finish()
     }
 
     private fun startLoginActivity() {
         LoginActivity.startActivity(this)
-        finish()
     }
 }

@@ -31,7 +31,6 @@ class LoginActivity : BaseActivity() {
 
     private fun startMainActivity() {
         MainActivity.startActivity(this)
-        finish()
     }
 
     private fun startRegisterActivity(
@@ -44,6 +43,7 @@ class LoginActivity : BaseActivity() {
     companion object {
         fun startActivity(context: Context) {
             val intent = Intent(context, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
         }
     }

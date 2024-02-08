@@ -31,7 +31,6 @@ class RegisterActivity : BaseActivity() {
 
     private fun startMainActivity() {
         MainActivity.startActivity(this)
-        finish()
     }
 
     companion object {
