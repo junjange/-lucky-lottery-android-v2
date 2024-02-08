@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.junjange.lotto3.BuildConfig
+import com.junjange.presentation.ui.login.LoginActivity
 import com.junjange.remote.api.AuthenticationListener
 import com.junjange.remote.interceptor.Interceptors
 import dagger.Module
@@ -41,6 +42,7 @@ internal object AppModule {
     ): AuthenticationListener = object : AuthenticationListener {
         override fun onSessionExpired() {
             sharedPreferences.edit { clear() }
+            LoginActivity.startActivity(context = context)
         }
     }
 }
