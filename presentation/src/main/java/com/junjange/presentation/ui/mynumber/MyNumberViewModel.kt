@@ -1,5 +1,8 @@
 package com.junjange.presentation.ui.mynumber
 
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
+import com.junjange.domain.usecase.GetPensionLotteryGetUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.feature.ocr.OcrService
 import com.junjange.presentation.ui.mynumber.MyNumberEffect.NavigateToGallery
@@ -17,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyNumberViewModel @Inject constructor(
     private val ocrService: OcrService,
+    private val getPensionLotteryGetUseCase: GetPensionLotteryGetUseCase
 ) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(MyNumberState())
@@ -24,6 +28,13 @@ class MyNumberViewModel @Inject constructor(
 
     private val _effect = MutableSharedFlow<MyNumberEffect>()
     val effect: SharedFlow<MyNumberEffect> = _effect.asSharedFlow()
+
+    init {
+        uiState.value.pensionLotteryGetContent =
+            createPensionLotteryPagingSource(getPensionLotteryGetUseCase = getPensionLotteryGetUseCase).flow.cachedIn(
+                viewModelScope
+            )
+    }
 
     fun onPickedImage() {
         launch {
