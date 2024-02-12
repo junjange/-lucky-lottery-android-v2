@@ -7,5 +7,9 @@ data class PensionLotteryNumbersEntity(
     val pensionThirdNum: Int,
     val pensionFourthNum: Int,
     val pensionFifthNum: Int,
-    val pensionSixthNum: Int
+    val pensionSixthNum: Int,
+    val rank: String,
+    val checkWinningBonus: Boolean,
+    val correctNumbers: List<Boolean>,
+    val bonusCorrectNumbers: List<Boolean>,
 )
