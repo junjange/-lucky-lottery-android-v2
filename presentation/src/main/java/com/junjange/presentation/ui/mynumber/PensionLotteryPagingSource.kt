@@ -14,7 +14,7 @@ fun createPensionLotteryPagingSource(getPensionLotteryGetUseCase: GetPensionLott
             initialLoadSize = 30,
             enablePlaceholders = true
         ),
-        initialKey = 1,
+        initialKey = 0,
         pagingSourceFactory = { PensionLotteryPagingSource(getPensionLotteryGetUseCase = getPensionLotteryGetUseCase) }
     )
 
@@ -24,7 +24,7 @@ class PensionLotteryPagingSource(private val getPensionLotteryGetUseCase: GetPen
         state.anchorPosition
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PensionLotteryGetContent> {
-        val pageIndex = params.key ?: 1
+        val pageIndex = params.key ?: 0
 
         val result = getPensionLotteryGetUseCase(
             page = pageIndex,
