@@ -1,7 +1,7 @@
 package com.junjange.remote.datasource
 
 import com.junjange.data.datasource.LotteryDataSource
-import com.junjange.data.model.remote.LotteryRandomEntity
+import com.junjange.data.model.remote.LotteryNumbersEntity
 import com.junjange.remote.api.ApiService
 import com.junjange.remote.model.request.LotteryRandomRequest
 import com.junjange.remote.model.response.toData
@@ -32,7 +32,7 @@ internal class LotteryDataSourceImpl @Inject constructor(
         }
 
 
-    override suspend fun getLotteryRandom(): Result<LotteryRandomEntity> = runCatching {
+    override suspend fun getLotteryRandom(): Result<LotteryNumbersEntity> = runCatching {
         apiService.getLotteryRandom().data.toData()
     }
 }

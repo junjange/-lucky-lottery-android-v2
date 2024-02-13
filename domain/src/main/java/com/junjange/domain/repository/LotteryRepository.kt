@@ -1,6 +1,6 @@
 package com.junjange.domain.repository
 
-import com.junjange.domain.model.LotteryRandom
+import com.junjange.domain.model.LotteryNumbers
 
 interface LotteryRepository {
     suspend fun postLotterySave(
@@ -12,6 +12,6 @@ interface LotteryRepository {
         sixthNum: Int
     ): Result<Unit>
 
-    suspend fun getLotteryRandom(): Result<LotteryRandom>
+    suspend fun getLotteryRandom(): Result<LotteryNumbers>
 
 }

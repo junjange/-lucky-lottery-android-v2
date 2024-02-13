@@ -1,5 +1,6 @@
 package com.junjange.data.datasource
 
+import com.junjange.data.model.remote.PensionLotteryGetEntity
 import com.junjange.data.model.remote.PensionLotteryRandomEntity
 
 interface PensionLotteryDataSource {
@@ -15,4 +16,8 @@ interface PensionLotteryDataSource {
 
     suspend fun getPensionLotteryRandom(): Result<PensionLotteryRandomEntity>
 
+    suspend fun getPensionLotteryGet(
+        page: Int,
+        size: Int
+    ): Result<PensionLotteryGetEntity>
 }

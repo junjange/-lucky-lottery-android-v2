@@ -22,6 +22,7 @@ class ApiClient {
         private const val BASE = "/api/v1/pension/lottery/"
         const val postPensionLotterySave = BASE + "save"
         const val getPensionLotteryRandom = BASE + "random"
+        const val getPensionLotteryGet = BASE + "get"
     }
 
 }

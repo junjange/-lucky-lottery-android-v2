@@ -7,8 +7,9 @@ import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.request.RegisterRequest
 import com.junjange.remote.model.response.IsRegisteredResponse
 import com.junjange.remote.model.response.JwtTokenResponse
-import com.junjange.remote.model.response.LotteryRandomResponse
-import com.junjange.remote.model.response.LotteryResultResponse
+import com.junjange.remote.model.response.LotteryNumbersResponse
+import com.junjange.remote.model.response.LotteryGetResponse
+import com.junjange.remote.model.response.PensionLotteryGetResponse
 import com.junjange.remote.model.response.PensionLotteryRandomResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -48,12 +49,12 @@ internal interface ApiService {
     ): BaseResponse<Unit>
 
     @GET(ApiClient.Lottery.getLotteryRandom)
-    suspend fun getLotteryRandom(): BaseResponse<LotteryRandomResponse>
+    suspend fun getLotteryRandom(): BaseResponse<LotteryNumbersResponse>
 
     @GET(ApiClient.Lottery.getLotteryGet)
     suspend fun getLotteryGet(
         @Body body: RefreshRequest,
-    ): BaseResponse<LotteryResultResponse>
+    ): BaseResponse<LotteryGetResponse>
 
     @POST(ApiClient.PensionLottery.postPensionLotterySave)
     suspend fun postPensionLotterySave(@Body body: PensionLotteryRandomRequest): BaseResponse<Unit>
@@ -61,4 +62,9 @@ internal interface ApiService {
     @GET(ApiClient.PensionLottery.getPensionLotteryRandom)
     suspend fun getPensionLotteryRandom(): BaseResponse<PensionLotteryRandomResponse>
 
+    @GET(ApiClient.PensionLottery.getPensionLotteryGet)
+    suspend fun getPensionLotteryGet(
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+    ): BaseResponse<PensionLotteryGetResponse>
 }

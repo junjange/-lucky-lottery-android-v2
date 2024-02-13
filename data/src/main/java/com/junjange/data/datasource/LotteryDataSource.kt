@@ -1,6 +1,6 @@
 package com.junjange.data.datasource
 
-import com.junjange.data.model.remote.LotteryRandomEntity
+import com.junjange.data.model.remote.LotteryNumbersEntity
 
 interface LotteryDataSource {
 
@@ -13,6 +13,6 @@ interface LotteryDataSource {
         sixthNum: Int
     ): Result<Unit>
 
-    suspend fun getLotteryRandom(): Result<LotteryRandomEntity>
+    suspend fun getLotteryRandom(): Result<LotteryNumbersEntity>
 
 }

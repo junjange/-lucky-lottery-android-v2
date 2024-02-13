@@ -2,7 +2,7 @@ package com.junjange.data.repository
 
 import com.junjange.data.datasource.LotteryDataSource
 import com.junjange.data.mapper.toDomain
-import com.junjange.domain.model.LotteryRandom
+import com.junjange.domain.model.LotteryNumbers
 import com.junjange.domain.repository.LotteryRepository
 import javax.inject.Inject
 
@@ -26,7 +26,7 @@ internal class LotteryRepositoryImpl @Inject constructor(
         sixthNum = sixthNum
     )
 
-    override suspend fun getLotteryRandom(): Result<LotteryRandom> =
+    override suspend fun getLotteryRandom(): Result<LotteryNumbers> =
         dataSource.getLotteryRandom().mapCatching { it.toDomain() }
 
 }
