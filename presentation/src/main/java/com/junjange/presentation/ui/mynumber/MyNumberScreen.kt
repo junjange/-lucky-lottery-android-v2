@@ -20,7 +20,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
@@ -53,12 +52,12 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
+import com.junjange.domain.model.LotteryNumbers
 import com.junjange.domain.model.PensionLotteryNumbers
 import com.junjange.presentation.R
 import com.junjange.presentation.component.Lotto645Content
 import com.junjange.presentation.component.Lotto720Content
 import com.junjange.presentation.component.LottoContentTitle
-import com.junjange.presentation.component.LottoType
 import com.junjange.presentation.ui.mynumber.MyNumberEffect.NavigateToGallery
 import com.junjange.presentation.ui.theme.LottoTheme
 import kotlinx.coroutines.flow.collectLatest
@@ -126,7 +125,6 @@ fun MyNumberScreen(viewModel: MyNumberViewModel = hiltViewModel()) {
         HorizontalPager(state = pagerState) { page ->
             when (page) {
                 0 -> MyLotteryContent(
-                    lottoType = LottoType.LOTTO645,
                     uiState = uiState,
                     viewModel = viewModel
                 )
@@ -207,21 +205,18 @@ fun MyPensionLotteryContent(
 
 @Composable
 fun MyLotteryContent(
-    lottoType: LottoType,
     uiState: MyNumberState,
     viewModel: MyNumberViewModel
 ) {
+
+    val lotteryGetContent = uiState.lotteryGetContent.collectAsLazyPagingItems()
+
     Box(modifier = Modifier.fillMaxSize()) {
 
-        LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
-            items(uiState.tempList) {
-
-                val title = if (lottoType == LottoType.LOTTO645) {
-                    stringResource(R.string.lotto_645_title)
-                } else {
-                    stringResource(R.string.lotto_720_title)
-                }
-
+        LazyColumn(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(lotteryGetContent.itemCount) {
                 Spacer(modifier = Modifier.height(20.dp))
                 Card(
                     modifier = Modifier.padding(8.dp),
@@ -232,11 +227,19 @@ fun MyLotteryContent(
                         modifier = Modifier.padding(8.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        LottoContentTitle(title = title, 1, "2024-02-12")
-                        if (lottoType == LottoType.LOTTO645) Lotto645Content()
-                        else Lotto720Content()
-                        Spacer(modifier = Modifier.height(8.dp))
-                        MyNumberContentItem(lottoType = lottoType, tempList = it)
+                        lotteryGetContent[it]?.let { lotteryGetContent ->
+                            LottoContentTitle(
+                                title = stringResource(R.string.lotto_645_title),
+                                round = lotteryGetContent.round,
+                                winningDate = lotteryGetContent.winningDate
+                            )
+                            lotteryGetContent.winningLotteryNumbers?.let { winningLotteryNumbers ->
+                                Lotto645Content()
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+                            MyLotteryNumber(lotteryNumbers = lotteryGetContent.lotteryNumbers)
+                        }
                     }
                 }
             }
@@ -259,11 +262,17 @@ fun MyLotteryContent(
 }
 
 @Composable
-fun MyNumberContentItem(lottoType: LottoType, tempList: List<List<String>>) {
-    tempList.forEach { tempListItem ->
+fun MyLotteryNumber(lotteryNumbers: List<LotteryNumbers>) {
+    lotteryNumbers.forEach { lotteryNumber ->
         Row(Modifier.fillMaxWidth()) {
-            TableCell(rank = "미발표", weight = 2f)
-//            TableCell(lottoType = lottoType, lottoNumber = tempListItem, weight = 8f)
+            TableCell(
+                rank = lotteryNumber.rank,
+                weight = 2f
+            )
+            TableCell(
+                lottoNumbers = lotteryNumber,
+                weight = 8f
+            )
         }
     }
 }
@@ -357,12 +366,12 @@ fun RowScope.TableCell(
             }
 
             if (checkWinningBonus) {
-                MyLottoBall(
+                MyPensionLotteryBall(
                     isSuccess = true,
                     lottoTitle = title,
                 )
             } else {
-                MyLottoBall(
+                MyPensionLotteryBall(
                     isSuccess = if (lottoNumbers.correctNumbers == null) false else lottoNumbers.correctNumbers!![index],
                     lottoTitle = title,
                     index = index
@@ -373,25 +382,59 @@ fun RowScope.TableCell(
 }
 
 @Composable
-fun MyLottoBall(isSuccess: Boolean, lottoType: LottoType, lottoTitle: String) {
-    val borderColor = if (isSuccess && lottoType == LottoType.LOTTO720) BorderStroke(
-        width = 4.dp,
-        color = LottoTheme.colors.lottoGreen
-    ) else null
-    val backgroundColor = if (isSuccess) {
-        if (lottoType == LottoType.LOTTO720) LottoTheme.colors.white else LottoTheme.colors.lottoGreen
-    } else {
-        LottoTheme.colors.gray200
+fun RowScope.TableCell(
+    lottoNumbers: LotteryNumbers,
+    weight: Float
+) {
+    Row(
+        modifier = Modifier
+            .border(width = 1.dp, color = LottoTheme.colors.gray400)
+            .weight(weight)
+            .padding(4.5.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
+
+        val lottoTitle = listOf(
+            lottoNumbers.firstNum,
+            lottoNumbers.secondNum,
+            lottoNumbers.thirdNum,
+            lottoNumbers.fourthNum,
+            lottoNumbers.fifthNum,
+            lottoNumbers.sixthNum,
+        ).map { it.toString() }
+
+        lottoTitle.forEachIndexed { index, title ->
+            MyLotteryBall(
+                isSuccess = false,
+                lottoTitle = title,
+                index = index
+            )
+        }
     }
-    val textColor = if (isSuccess) {
-        if (lottoType == LottoType.LOTTO720) LottoTheme.colors.black else LottoTheme.colors.white
-    } else {
-        LottoTheme.colors.black
-    }
+}
+
+@Composable
+fun MyLotteryBall(
+    isSuccess: Boolean,
+    lottoTitle: String,
+    index: Int
+) {
+
+    val lotteryColors = listOf(
+        LottoTheme.colors.gray600,
+        LottoTheme.colors.lottoError,
+        LottoTheme.colors.lottoOrange,
+        LottoTheme.colors.lottoYellow,
+        LottoTheme.colors.lottoBlue,
+        LottoTheme.colors.lottoPurple,
+        LottoTheme.colors.lottoBlack,
+    )
+
+    val backgroundColor = if (isSuccess) lotteryColors[index] else LottoTheme.colors.gray200
+    val textColor = if (isSuccess) LottoTheme.colors.white else LottoTheme.colors.black
 
     Surface(
         modifier = Modifier.size(30.dp),
-        border = borderColor,
         shape = CircleShape,
         color = backgroundColor,
     ) {
@@ -409,11 +452,13 @@ fun MyLottoBall(isSuccess: Boolean, lottoType: LottoType, lottoTitle: String) {
             )
         }
     }
+
+    Spacer(modifier = Modifier.width(4.dp))
 }
 
 
 @Composable
-fun MyLottoBall(
+fun MyPensionLotteryBall(
     isSuccess: Boolean,
     lottoTitle: String,
     index: Int? = null
