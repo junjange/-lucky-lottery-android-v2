@@ -8,15 +8,20 @@ data class LotteryNumbersResponse(
     val thirdNum: Int,
     val fourthNum: Int,
     val fifthNum: Int,
-    val sixthNum: Int
+    val sixthNum: Int,
+    val correctNumbers: List<Boolean>?,
+    val rank: String?
 )
 
-internal fun LotteryNumbersResponse.toData(): LotteryNumbersEntity =
+internal fun List<LotteryNumbersResponse>.toData(): List<LotteryNumbersEntity> = map {
     LotteryNumbersEntity(
-        firstNum = firstNum,
-        secondNum = secondNum,
-        thirdNum = thirdNum,
-        fourthNum = fourthNum,
-        fifthNum = fifthNum,
-        sixthNum = sixthNum
+        firstNum = it.firstNum,
+        secondNum = it.secondNum,
+        thirdNum = it.thirdNum,
+        fourthNum = it.fourthNum,
+        fifthNum = it.fifthNum,
+        sixthNum = it.sixthNum,
+        correctNumbers = it.correctNumbers,
+        rank = it.rank
     )
+}

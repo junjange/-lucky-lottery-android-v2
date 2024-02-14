@@ -1,6 +1,7 @@
 package com.junjange.remote.datasource
 
 import com.junjange.data.datasource.LotteryDataSource
+import com.junjange.data.model.remote.LotteryGetEntity
 import com.junjange.data.model.remote.LotteryNumbersEntity
 import com.junjange.data.model.remote.LotteryRandomNumbersEntity
 import com.junjange.remote.api.ApiService
@@ -11,6 +12,11 @@ import javax.inject.Inject
 internal class LotteryDataSourceImpl @Inject constructor(
     private val apiService: ApiService,
 ) : LotteryDataSource {
+
+    override suspend fun getLotteryGet(page: Int, size: Int): Result<LotteryGetEntity> =
+        runCatching {
+            apiService.getLotteryGet(page = page, size = size).data.toData()
+        }
 
     override suspend fun postLotterySave(
         firstNum: Int,

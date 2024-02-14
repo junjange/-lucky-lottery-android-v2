@@ -54,7 +54,8 @@ internal interface ApiService {
 
     @GET(ApiClient.Lottery.getLotteryGet)
     suspend fun getLotteryGet(
-        @Body body: RefreshRequest,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
     ): BaseResponse<LotteryGetResponse>
 
     @POST(ApiClient.PensionLottery.postPensionLotterySave)

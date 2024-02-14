@@ -6,5 +6,7 @@ data class LotteryNumbers(
     val thirdNum: Int,
     val fourthNum: Int,
     val fifthNum: Int,
-    val sixthNum: Int
+    val sixthNum: Int,
+    val correctNumbers: List<Boolean>?,
+    val rank: String?
 )
