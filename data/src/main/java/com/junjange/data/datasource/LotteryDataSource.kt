@@ -18,4 +18,6 @@ interface LotteryDataSource {
 
     suspend fun getLotteryRandom(): Result<LotteryNumbersEntity>
 
+    suspend fun getLotteryHome(): Result<LotteryNumbersEntity>
+
 }

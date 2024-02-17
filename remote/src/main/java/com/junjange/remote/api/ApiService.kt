@@ -58,6 +58,10 @@ internal interface ApiService {
         @Query("size") size: Int,
     ): BaseResponse<LotteryGetResponse>
 
+
+    @GET(ApiClient.Lottery.getLotteryHome)
+    suspend fun getLotteryHome(): BaseResponse<LotteryNumbersResponse>
+
     @POST(ApiClient.PensionLottery.postPensionLotterySave)
     suspend fun postPensionLotterySave(@Body body: PensionLotteryRandomRequest): BaseResponse<Unit>
 

@@ -41,4 +41,8 @@ internal class LotteryDataSourceImpl @Inject constructor(
     override suspend fun getLotteryRandom(): Result<LotteryNumbersEntity> = runCatching {
         apiService.getLotteryRandom().data.toData()
     }
+
+    override suspend fun getLotteryHome(): Result<LotteryNumbersEntity> = runCatching {
+        apiService.getLotteryHome().data.toData()
+    }
 }

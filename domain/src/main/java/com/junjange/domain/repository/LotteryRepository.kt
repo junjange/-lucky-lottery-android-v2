@@ -18,4 +18,6 @@ interface LotteryRepository {
 
     suspend fun getLotteryRandom(): Result<LotteryNumbers>
 
+    suspend fun getLotteryHome(): Result<LotteryNumbers>
+
 }
