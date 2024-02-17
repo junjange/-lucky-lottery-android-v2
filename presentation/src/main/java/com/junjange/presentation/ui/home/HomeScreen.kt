@@ -7,11 +7,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.junjange.presentation.R
 import com.junjange.presentation.component.LottoContent
 import com.junjange.presentation.component.LottoHomeTopBar
@@ -22,6 +24,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToQRScanner: () -> Unit
 ) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -31,7 +34,10 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             LottoHomeTopBar(onActionClick = {})
-            LottoContent()
+            LottoContent(
+                lotteryNumbers = uiState.lotteryNumbers,
+                pensionLotteryHome = uiState.pensionLotteryHome
+            )
         }
 
         FloatingActionButton(

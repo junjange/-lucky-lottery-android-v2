@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.junjange.domain.model.LotteryNumbers
+import com.junjange.domain.model.PensionLotteryHome
 import com.junjange.domain.model.WinningLotteryNumbers
 import com.junjange.domain.model.WinningPensionLotteryBonusNumbers
 import com.junjange.presentation.R
@@ -25,41 +27,49 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Composable
-fun LottoContent() {
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(0.5.dp)
-            .padding(
-                start = 20.dp,
-                end = 20.dp
-            )
-            .background(color = LottoTheme.colors.gray400)
-    )
-    LottoContentTitle(
-        title = stringResource(R.string.lotto_645_title),
-        round = 937,
-        winningDate = "2024-02-12"
-    )
-    Lotto645Content()
-    Spacer(modifier = Modifier.height(20.dp))
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(0.5.dp)
-            .padding(
-                start = 20.dp,
-                end = 20.dp
-            )
-            .background(color = LottoTheme.colors.gray400)
-    )
-    LottoContentTitle(
-        title = stringResource(R.string.lotto_720_title),
-        round = 937,
-        winningDate = "2024-02-12"
-    )
-    Lotto720Content()
-    Spacer(modifier = Modifier.height(20.dp))
+fun LottoContent(
+    lotteryNumbers: LotteryNumbers?,
+    pensionLotteryHome: PensionLotteryHome?
+) {
+    lotteryNumbers?.let {
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(0.5.dp)
+                .padding(
+                    start = 20.dp,
+                    end = 20.dp
+                )
+                .background(color = LottoTheme.colors.gray400)
+        )
+        LottoContentTitle(
+            title = stringResource(R.string.lotto_645_title),
+            round = lotteryNumbers.round,
+            winningDate = lotteryNumbers.winningDate
+        )
+        Lotto645Content(lotteryNumbers = lotteryNumbers)
+        Spacer(modifier = Modifier.height(20.dp))
+    }
+
+    pensionLotteryHome?.let {
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(0.5.dp)
+                .padding(
+                    start = 20.dp,
+                    end = 20.dp
+                )
+                .background(color = LottoTheme.colors.gray400)
+        )
+        LottoContentTitle(
+            title = stringResource(R.string.lotto_720_title),
+            round = pensionLotteryHome.round,
+            winningDate = pensionLotteryHome.winningDate
+        )
+        Lotto720Content(pensionLotteryHome = pensionLotteryHome)
+        Spacer(modifier = Modifier.height(20.dp))
+    }
 }
 
 @Composable
@@ -98,23 +108,22 @@ fun String.parseDateToKoreanFormat(): String {
 }
 
 @Composable
-fun Lotto645Content() {
-    // TODO 임시 데이터
-    val temp = listOf(
-        LottoTheme.colors.lottoBlack to "1",
-        LottoTheme.colors.lottoGreen to "2",
-        LottoTheme.colors.lottoError to "3",
-        LottoTheme.colors.lottoGreen to "4",
-        LottoTheme.colors.lottoOrange to "5",
-        LottoTheme.colors.lottoPurple to "6",
-        LottoTheme.colors.lottoYellow to "7",
+fun Lotto645Content(lotteryNumbers: LotteryNumbers) {
+    val lotteryContent = listOf(
+        LottoTheme.colors.lottoBlack to lotteryNumbers.firstNum,
+        LottoTheme.colors.lottoGreen to lotteryNumbers.secondNum,
+        LottoTheme.colors.lottoError to lotteryNumbers.thirdNum,
+        LottoTheme.colors.lottoGreen to lotteryNumbers.fourthNum,
+        LottoTheme.colors.lottoOrange to lotteryNumbers.fifthNum,
+        LottoTheme.colors.lottoPurple to lotteryNumbers.sixthNum,
+        LottoTheme.colors.lottoYellow to lotteryNumbers.bonusNum,
     )
 
     Row(
         modifier = Modifier.padding(horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        temp.forEachIndexed { index, s ->
+        lotteryContent.forEachIndexed { index, s ->
             if (index == 6) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Icon(
@@ -127,7 +136,7 @@ fun Lotto645Content() {
             LottoBall(
                 lottoType = LottoType.LOTTO645,
                 lottoColor = s.first,
-                lottoTitle = s.second
+                lottoTitle = s.second.toString()
             )
             Spacer(modifier = Modifier.width(4.dp))
         }
@@ -140,34 +149,32 @@ fun Lotto645Content() {
 }
 
 @Composable
-fun Lotto720Content() {
-    // TODO 임시 데이터
-    val temp = listOf(
-        LottoTheme.colors.lottoBlack to "1",
-        LottoTheme.colors.lottoGreen to "2",
-        LottoTheme.colors.lottoError to "3",
-        LottoTheme.colors.lottoGreen to "4",
-        LottoTheme.colors.lottoOrange to "5",
-        LottoTheme.colors.lottoPurple to "6",
-        LottoTheme.colors.lottoYellow to "7",
-
+fun Lotto720Content(pensionLotteryHome: PensionLotteryHome) {
+    val pensionLotteryContent = listOf(
+        LottoTheme.colors.lottoBlack to pensionLotteryHome.lotteryGroup,
+        LottoTheme.colors.lottoGreen to pensionLotteryHome.winningFirstNum,
+        LottoTheme.colors.lottoError to pensionLotteryHome.winningSecondNum,
+        LottoTheme.colors.lottoGreen to pensionLotteryHome.winningThirdNum,
+        LottoTheme.colors.lottoOrange to pensionLotteryHome.winningFourthNum,
+        LottoTheme.colors.lottoPurple to pensionLotteryHome.winningFifthNum,
+        LottoTheme.colors.lottoYellow to pensionLotteryHome.winningSixthNum,
         )
 
-    val temp2 = listOf(
+    val pensionBonusLotteryContent = listOf(
         LottoTheme.colors.lottoBlack to "각",
-        LottoTheme.colors.lottoGreen to "2",
-        LottoTheme.colors.lottoError to "3",
-        LottoTheme.colors.lottoGreen to "4",
-        LottoTheme.colors.lottoOrange to "5",
-        LottoTheme.colors.lottoPurple to "6",
-        LottoTheme.colors.lottoYellow to "7",
+        LottoTheme.colors.lottoGreen to pensionLotteryHome.bonusFirstNum,
+        LottoTheme.colors.lottoError to pensionLotteryHome.bonusSecondNum,
+        LottoTheme.colors.lottoGreen to pensionLotteryHome.bonusThirdNum,
+        LottoTheme.colors.lottoOrange to pensionLotteryHome.bonusFourthNum,
+        LottoTheme.colors.lottoPurple to pensionLotteryHome.bonusFifthNum,
+        LottoTheme.colors.lottoYellow to pensionLotteryHome.bonusSixthNum,
     )
 
     Row(
         modifier = Modifier.padding(horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        temp.forEachIndexed { index, s ->
+        pensionLotteryContent.forEachIndexed { index, s ->
             if (index == 1) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
@@ -179,7 +186,7 @@ fun Lotto720Content() {
             LottoBall(
                 lottoType = LottoType.LOTTO720,
                 lottoColor = s.first,
-                lottoTitle = s.second
+                lottoTitle = s.second.toString()
             )
             Spacer(modifier = Modifier.width(4.dp))
         }
@@ -194,7 +201,7 @@ fun Lotto720Content() {
         modifier = Modifier.padding(horizontal = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        temp2.forEachIndexed { index, s ->
+        pensionBonusLotteryContent.forEachIndexed { index, s ->
             if (index == 1) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Text(
@@ -206,7 +213,7 @@ fun Lotto720Content() {
             LottoBall(
                 lottoType = LottoType.LOTTO720,
                 lottoColor = s.first,
-                lottoTitle = s.second
+                lottoTitle = s.second.toString()
             )
             Spacer(modifier = Modifier.width(4.dp))
         }

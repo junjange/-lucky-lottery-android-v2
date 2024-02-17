@@ -234,7 +234,7 @@ fun MyLotteryContent(
                                 winningDate = lotteryGetContent.winningDate
                             )
                             lotteryGetContent.winningLotteryNumbers?.let { winningLotteryNumbers ->
-                                Lotto645Content()
+//                                Lotto645Content(winningLotteryNumbers = winningLotteryNumbers)
                             }
 
                             Spacer(modifier = Modifier.height(8.dp))
