@@ -7,7 +7,6 @@ import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.request.RegisterRequest
 import com.junjange.remote.model.response.IsRegisteredResponse
 import com.junjange.remote.model.response.JwtTokenResponse
-import com.junjange.remote.model.response.LotteryNumbersResponse
 import com.junjange.remote.model.response.LotteryGetResponse
 import com.junjange.remote.model.response.LotteryRandomNumbersResponse
 import com.junjange.remote.model.response.PensionLotteryGetResponse

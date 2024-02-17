@@ -6,6 +6,6 @@ import com.junjange.domain.model.LotteryGetContent
 internal fun LotteryGetContentEntity.toDomain() = LotteryGetContent(
     round = round,
     winningDate = winningDate,
-    lotteryNumbers = lotteryNumbersEntity.toDomain(),
+    lotteryGetNumbers = lotteryGetNumbersEntity.toDomain(),
     winningLotteryNumbers = winningLotteryNumbersEntity?.toDomain(),
 )

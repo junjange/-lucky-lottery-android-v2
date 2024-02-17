@@ -7,7 +7,7 @@ import com.junjange.data.model.remote.LotteryGetContentEntity
 data class LotteryGetContentResponse(
     val round: Int,
     val winningDate: String,
-    @SerializedName("lotteryResponses") val lotteryNumbersResponse: List<LotteryNumbersResponse>,
+    @SerializedName("lotteryResponses") val lotteryGetNumbersResponse: List<LotteryGetNumbersResponse>,
     val winningLotteryNumbersResponse: WinningLotteryNumbersResponse?,
 )
 
@@ -16,7 +16,7 @@ internal fun List<LotteryGetContentResponse>.toData() = map {
     LotteryGetContentEntity(
         round = it.round,
         winningDate = it.winningDate,
-        lotteryNumbersEntity = it.lotteryNumbersResponse.toData(),
+        lotteryGetNumbersEntity = it.lotteryGetNumbersResponse.toData(),
         winningLotteryNumbersEntity = it.winningLotteryNumbersResponse?.toData()
     )
 }

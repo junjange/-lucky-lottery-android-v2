@@ -1,8 +1,8 @@
 package com.junjange.remote.model.response
 
-import com.junjange.data.model.remote.LotteryNumbersEntity
+import com.junjange.data.model.remote.LotteryGetNumbersEntity
 
-data class LotteryNumbersResponse(
+data class LotteryGetNumbersResponse(
     val firstNum: Int,
     val secondNum: Int,
     val thirdNum: Int,
@@ -13,8 +13,8 @@ data class LotteryNumbersResponse(
     val rank: String?
 )
 
-internal fun List<LotteryNumbersResponse>.toData(): List<LotteryNumbersEntity> = map {
-    LotteryNumbersEntity(
+internal fun List<LotteryGetNumbersResponse>.toData(): List<LotteryGetNumbersEntity> = map {
+    LotteryGetNumbersEntity(
         firstNum = it.firstNum,
         secondNum = it.secondNum,
         thirdNum = it.thirdNum,

@@ -1,10 +1,10 @@
 package com.junjange.data.mapper
 
-import com.junjange.data.model.remote.LotteryNumbersEntity
-import com.junjange.domain.model.LotteryNumbers
+import com.junjange.data.model.remote.LotteryGetNumbersEntity
+import com.junjange.domain.model.LotteryGetNumbers
 
-internal fun List<LotteryNumbersEntity>.toDomain() = map {
-    LotteryNumbers(
+internal fun List<LotteryGetNumbersEntity>.toDomain() = map {
+    LotteryGetNumbers(
         firstNum = it.firstNum,
         secondNum = it.secondNum,
         thirdNum = it.thirdNum,

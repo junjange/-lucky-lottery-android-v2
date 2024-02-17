@@ -2,7 +2,6 @@ package com.junjange.remote.datasource
 
 import com.junjange.data.datasource.LotteryDataSource
 import com.junjange.data.model.remote.LotteryGetEntity
-import com.junjange.data.model.remote.LotteryNumbersEntity
 import com.junjange.data.model.remote.LotteryRandomNumbersEntity
 import com.junjange.remote.api.ApiService
 import com.junjange.remote.model.request.LotteryRandomRequest

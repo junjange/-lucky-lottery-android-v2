@@ -1,7 +1,6 @@
 package com.junjange.domain.repository
 
 import com.junjange.domain.model.LotteryGet
-import com.junjange.domain.model.LotteryNumbers
 import com.junjange.domain.model.LotteryRandomNumbers
 
 interface LotteryRepository {

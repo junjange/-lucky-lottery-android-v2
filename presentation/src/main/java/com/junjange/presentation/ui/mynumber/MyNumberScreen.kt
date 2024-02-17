@@ -52,7 +52,7 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.canhub.cropper.CropImageView
-import com.junjange.domain.model.LotteryNumbers
+import com.junjange.domain.model.LotteryGetNumbers
 import com.junjange.domain.model.PensionLotteryNumbers
 import com.junjange.presentation.R
 import com.junjange.presentation.component.Lotto645Content
@@ -238,7 +238,7 @@ fun MyLotteryContent(
                             }
 
                             Spacer(modifier = Modifier.height(8.dp))
-                            MyLotteryNumber(lotteryNumbers = lotteryGetContent.lotteryNumbers)
+                            MyLotteryNumber(lotteryGetNumbers = lotteryGetContent.lotteryGetNumbers)
                         }
                     }
                 }
@@ -262,15 +262,15 @@ fun MyLotteryContent(
 }
 
 @Composable
-fun MyLotteryNumber(lotteryNumbers: List<LotteryNumbers>) {
-    lotteryNumbers.forEach { lotteryNumber ->
+fun MyLotteryNumber(lotteryGetNumbers: List<LotteryGetNumbers>) {
+    lotteryGetNumbers.forEach { lotteryGetNumber ->
         Row(Modifier.fillMaxWidth()) {
             TableCell(
-                rank = lotteryNumber.rank,
+                rank = lotteryGetNumber.rank,
                 weight = 2f
             )
             TableCell(
-                lottoNumbers = lotteryNumber,
+                lotteryGetNumbers = lotteryGetNumber,
                 weight = 8f
             )
         }
@@ -383,7 +383,7 @@ fun RowScope.TableCell(
 
 @Composable
 fun RowScope.TableCell(
-    lottoNumbers: LotteryNumbers,
+    lotteryGetNumbers: LotteryGetNumbers,
     weight: Float
 ) {
     Row(
@@ -395,12 +395,12 @@ fun RowScope.TableCell(
     ) {
 
         val lottoTitle = listOf(
-            lottoNumbers.firstNum,
-            lottoNumbers.secondNum,
-            lottoNumbers.thirdNum,
-            lottoNumbers.fourthNum,
-            lottoNumbers.fifthNum,
-            lottoNumbers.sixthNum,
+            lotteryGetNumbers.firstNum,
+            lotteryGetNumbers.secondNum,
+            lotteryGetNumbers.thirdNum,
+            lotteryGetNumbers.fourthNum,
+            lotteryGetNumbers.fifthNum,
+            lotteryGetNumbers.sixthNum,
         ).map { it.toString() }
 
         lottoTitle.forEachIndexed { index, title ->
