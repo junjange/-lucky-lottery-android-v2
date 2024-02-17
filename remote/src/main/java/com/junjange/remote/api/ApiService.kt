@@ -11,6 +11,7 @@ import com.junjange.remote.model.response.LotteryNumbersResponse
 import com.junjange.remote.model.response.LotteryGetResponse
 import com.junjange.remote.model.response.LotteryRandomNumbersResponse
 import com.junjange.remote.model.response.PensionLotteryGetResponse
+import com.junjange.remote.model.response.PensionLotteryHomeResponse
 import com.junjange.remote.model.response.PensionLotteryRandomResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -69,4 +70,7 @@ internal interface ApiService {
         @Query("page") page: Int,
         @Query("size") size: Int,
     ): BaseResponse<PensionLotteryGetResponse>
+
+    @GET(ApiClient.PensionLottery.getPensionLotteryHome)
+    suspend fun getPensionLotteryHome(): BaseResponse<PensionLotteryHomeResponse>
 }

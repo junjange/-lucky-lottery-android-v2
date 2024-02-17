@@ -1,6 +1,7 @@
 package com.junjange.domain.repository
 
 import com.junjange.domain.model.PensionLotteryGet
+import com.junjange.domain.model.PensionLotteryHome
 import com.junjange.domain.model.PensionLotteryRandom
 
 interface PensionLotteryRepository {
@@ -20,4 +21,6 @@ interface PensionLotteryRepository {
         page: Int,
         size: Int
     ): Result<PensionLotteryGet>
+
+    suspend fun getPensionLotteryHome(): Result<PensionLotteryHome>
 }
