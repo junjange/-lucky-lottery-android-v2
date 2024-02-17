@@ -1,8 +1,8 @@
 package com.junjange.remote.model.response
 
-import com.junjange.data.model.remote.LotteryRandomNumbersEntity
+import com.junjange.data.model.remote.LotteryNumbersEntity
 
-data class LotteryRandomNumbersResponse(
+data class LotteryNumbersResponse(
     val round: Int,
     val winningDate: String,
     val firstNum: Int,
@@ -13,8 +13,8 @@ data class LotteryRandomNumbersResponse(
     val sixthNum: Int,
 )
 
-internal fun LotteryRandomNumbersResponse.toData(): LotteryRandomNumbersEntity =
-    LotteryRandomNumbersEntity(
+internal fun LotteryNumbersResponse.toData(): LotteryNumbersEntity =
+    LotteryNumbersEntity(
         round = round,
         winningDate = winningDate,
         firstNum = firstNum,

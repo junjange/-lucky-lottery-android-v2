@@ -8,7 +8,7 @@ import com.junjange.remote.model.request.RegisterRequest
 import com.junjange.remote.model.response.IsRegisteredResponse
 import com.junjange.remote.model.response.JwtTokenResponse
 import com.junjange.remote.model.response.LotteryGetResponse
-import com.junjange.remote.model.response.LotteryRandomNumbersResponse
+import com.junjange.remote.model.response.LotteryNumbersResponse
 import com.junjange.remote.model.response.PensionLotteryGetResponse
 import com.junjange.remote.model.response.PensionLotteryHomeResponse
 import com.junjange.remote.model.response.PensionLotteryRandomResponse
@@ -50,7 +50,7 @@ internal interface ApiService {
     ): BaseResponse<Unit>
 
     @GET(ApiClient.Lottery.getLotteryRandom)
-    suspend fun getLotteryRandom(): BaseResponse<LotteryRandomNumbersResponse>
+    suspend fun getLotteryRandom(): BaseResponse<LotteryNumbersResponse>
 
     @GET(ApiClient.Lottery.getLotteryGet)
     suspend fun getLotteryGet(
