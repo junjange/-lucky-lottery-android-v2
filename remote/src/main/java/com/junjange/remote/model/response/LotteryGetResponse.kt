@@ -1,12 +1,14 @@
 package com.junjange.remote.model.response
 
-import com.google.gson.annotations.SerializedName
+import com.junjange.data.model.remote.LotteryGetEntity
+
 
 data class LotteryGetResponse(
-    @SerializedName("round") val round: Int,
-    @SerializedName("winningDate") val winningDate: String,
-    @SerializedName("lotteryNumbersResponse") val lotteryNumbersResponse: LotteryNumbersResponse,
-    @SerializedName("winningLotteryNumbersResponse") val winningLotteryNumbersResponse: WinningLotteryNumbersResponse,
-    @SerializedName("correctNumbers") val correctNumbers: List<Int>,
-    @SerializedName("rank") val rank: String
+    val content: List<LotteryGetContentResponse>,
+    val last: Boolean,
+)
+
+internal fun LotteryGetResponse.toData() = LotteryGetEntity(
+    content = content.toData(),
+    last = last
 )

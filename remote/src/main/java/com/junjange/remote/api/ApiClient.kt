@@ -25,4 +25,10 @@ class ApiClient {
         const val getPensionLotteryGet = BASE + "get"
     }
 
+    object Winning {
+        private const val BASE = "/api/v1/winning/"
+        const val getWinningLotteryHome = BASE + "lottery/recent/round"
+        const val getWinningPensionLotteryHome = BASE + "pension/lottery/home"
+    }
+
 }

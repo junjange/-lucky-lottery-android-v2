@@ -1,13 +1,12 @@
 package com.junjange.domain.model
 
-data class LotteryNumbers(
-    val round: Int,
-    val winningDate: String,
+data class LotteryGetNumbers(
     val firstNum: Int,
     val secondNum: Int,
     val thirdNum: Int,
     val fourthNum: Int,
     val fifthNum: Int,
     val sixthNum: Int,
-    val bonusNum :Int
+    val correctNumbers: List<Boolean>?,
+    val rank: String?
 )

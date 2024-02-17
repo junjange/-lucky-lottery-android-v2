@@ -3,6 +3,7 @@ package com.junjange.data.repository
 import com.junjange.data.datasource.PensionLotteryDataSource
 import com.junjange.data.mapper.toDomain
 import com.junjange.domain.model.PensionLotteryGet
+import com.junjange.domain.model.PensionLotteryHome
 import com.junjange.domain.model.PensionLotteryRandom
 import com.junjange.domain.repository.PensionLotteryRepository
 import javax.inject.Inject
@@ -34,5 +35,4 @@ internal class PensionLotteryRepositoryImpl @Inject constructor(
         dataSource.getPensionLotteryGet(
             page = page, size = size
         ).mapCatching { it.toDomain() }
-
 }

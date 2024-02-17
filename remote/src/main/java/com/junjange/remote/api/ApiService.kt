@@ -7,9 +7,11 @@ import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.request.RegisterRequest
 import com.junjange.remote.model.response.IsRegisteredResponse
 import com.junjange.remote.model.response.JwtTokenResponse
-import com.junjange.remote.model.response.LotteryNumbersResponse
 import com.junjange.remote.model.response.LotteryGetResponse
+import com.junjange.remote.model.response.LotteryNumbersResponse
+import com.junjange.remote.model.response.LotteryRandomNumbersResponse
 import com.junjange.remote.model.response.PensionLotteryGetResponse
+import com.junjange.remote.model.response.PensionLotteryHomeResponse
 import com.junjange.remote.model.response.PensionLotteryRandomResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -49,11 +51,12 @@ internal interface ApiService {
     ): BaseResponse<Unit>
 
     @GET(ApiClient.Lottery.getLotteryRandom)
-    suspend fun getLotteryRandom(): BaseResponse<LotteryNumbersResponse>
+    suspend fun getLotteryRandom(): BaseResponse<LotteryRandomNumbersResponse>
 
     @GET(ApiClient.Lottery.getLotteryGet)
     suspend fun getLotteryGet(
-        @Body body: RefreshRequest,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
     ): BaseResponse<LotteryGetResponse>
 
     @POST(ApiClient.PensionLottery.postPensionLotterySave)
@@ -67,4 +70,10 @@ internal interface ApiService {
         @Query("page") page: Int,
         @Query("size") size: Int,
     ): BaseResponse<PensionLotteryGetResponse>
+
+    @GET(ApiClient.Winning.getWinningLotteryHome)
+    suspend fun getLotteryHome(): BaseResponse<LotteryNumbersResponse>
+
+    @GET(ApiClient.Winning.getWinningPensionLotteryHome)
+    suspend fun getPensionLotteryHome(): BaseResponse<PensionLotteryHomeResponse>
 }

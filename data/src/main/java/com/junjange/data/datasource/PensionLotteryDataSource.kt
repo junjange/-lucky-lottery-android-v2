@@ -1,6 +1,7 @@
 package com.junjange.data.datasource
 
 import com.junjange.data.model.remote.PensionLotteryGetEntity
+import com.junjange.data.model.remote.PensionLotteryHomeEntity
 import com.junjange.data.model.remote.PensionLotteryRandomEntity
 
 interface PensionLotteryDataSource {
