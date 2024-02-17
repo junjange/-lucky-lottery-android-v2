@@ -35,8 +35,4 @@ internal class PensionLotteryRepositoryImpl @Inject constructor(
         dataSource.getPensionLotteryGet(
             page = page, size = size
         ).mapCatching { it.toDomain() }
-
-    override suspend fun getPensionLotteryHome(): Result<PensionLotteryHome> =
-        dataSource.getPensionLotteryHome().mapCatching { it.toDomain() }
-
 }

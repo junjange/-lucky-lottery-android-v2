@@ -58,10 +58,6 @@ internal interface ApiService {
         @Query("size") size: Int,
     ): BaseResponse<LotteryGetResponse>
 
-
-    @GET(ApiClient.Lottery.getLotteryHome)
-    suspend fun getLotteryHome(): BaseResponse<LotteryNumbersResponse>
-
     @POST(ApiClient.PensionLottery.postPensionLotterySave)
     suspend fun postPensionLotterySave(@Body body: PensionLotteryRandomRequest): BaseResponse<Unit>
 
@@ -74,6 +70,9 @@ internal interface ApiService {
         @Query("size") size: Int,
     ): BaseResponse<PensionLotteryGetResponse>
 
-    @GET(ApiClient.PensionLottery.getPensionLotteryHome)
+    @GET(ApiClient.Winning.getWinningLotteryHome)
+    suspend fun getLotteryHome(): BaseResponse<LotteryNumbersResponse>
+
+    @GET(ApiClient.Winning.getWinningPensionLotteryHome)
     suspend fun getPensionLotteryHome(): BaseResponse<PensionLotteryHomeResponse>
 }

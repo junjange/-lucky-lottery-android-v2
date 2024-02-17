@@ -2,7 +2,6 @@ package com.junjange.remote.datasource
 
 import com.junjange.data.datasource.PensionLotteryDataSource
 import com.junjange.data.model.remote.PensionLotteryGetEntity
-import com.junjange.data.model.remote.PensionLotteryHomeEntity
 import com.junjange.data.model.remote.PensionLotteryRandomEntity
 import com.junjange.remote.api.ApiService
 import com.junjange.remote.model.request.PensionLotteryRandomRequest
@@ -45,9 +44,5 @@ internal class PensionLotteryDataSourceImpl @Inject constructor(
         apiService.getPensionLotteryGet(
             page = page, size = size
         ).data.toData()
-    }
-
-    override suspend fun getPensionLotteryHome(): Result<PensionLotteryHomeEntity> = runCatching {
-        apiService.getPensionLotteryHome().data.toData()
     }
 }

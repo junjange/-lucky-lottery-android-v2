@@ -21,6 +21,4 @@ interface PensionLotteryRepository {
         page: Int,
         size: Int
     ): Result<PensionLotteryGet>
-
-    suspend fun getPensionLotteryHome(): Result<PensionLotteryHome>
 }

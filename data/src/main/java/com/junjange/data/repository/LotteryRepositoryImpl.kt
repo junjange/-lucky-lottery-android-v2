@@ -34,8 +34,4 @@ internal class LotteryRepositoryImpl @Inject constructor(
 
     override suspend fun getLotteryRandom(): Result<LotteryNumbers> =
         dataSource.getLotteryRandom().mapCatching { it.toDomain() }
-
-    override suspend fun getLotteryHome(): Result<LotteryNumbers> =
-        dataSource.getLotteryHome().mapCatching { it.toDomain() }
-
 }

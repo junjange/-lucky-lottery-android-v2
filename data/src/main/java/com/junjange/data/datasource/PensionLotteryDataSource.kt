@@ -21,6 +21,4 @@ interface PensionLotteryDataSource {
         page: Int,
         size: Int
     ): Result<PensionLotteryGetEntity>
-
-    suspend fun getPensionLotteryHome(): Result<PensionLotteryHomeEntity>
 }

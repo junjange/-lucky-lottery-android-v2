@@ -16,7 +16,6 @@ class ApiClient {
         const val postLotterySave = BASE + "save"
         const val getLotteryRandom = BASE + "random"
         const val getLotteryGet = BASE + "get"
-        const val getLotteryHome = BASE + "recent/round"
     }
 
     object PensionLottery {
@@ -24,8 +23,12 @@ class ApiClient {
         const val postPensionLotterySave = BASE + "save"
         const val getPensionLotteryRandom = BASE + "random"
         const val getPensionLotteryGet = BASE + "get"
-        const val getPensionLotteryHome = BASE + "home"
+    }
 
+    object Winning {
+        private const val BASE = "/api/v1/winning/"
+        const val getWinningLotteryHome = BASE + "lottery/recent/round"
+        const val getWinningPensionLotteryHome = BASE + "pension/lottery/home"
     }
 
 }
