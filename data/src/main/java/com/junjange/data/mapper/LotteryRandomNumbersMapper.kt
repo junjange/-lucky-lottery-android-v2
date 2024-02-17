@@ -1,9 +1,9 @@
 package com.junjange.data.mapper
 
-import com.junjange.data.model.remote.LotteryNumbersEntity
-import com.junjange.domain.model.LotteryNumbers
+import com.junjange.data.model.remote.LotteryRandomNumbersEntity
+import com.junjange.domain.model.LotteryRandomNumbers
 
-fun LotteryNumbersEntity.toDomain() = LotteryNumbers(
+fun LotteryRandomNumbersEntity.toDomain() = LotteryRandomNumbers(
     round = round,
     winningDate = winningDate,
     firstNum = firstNum,
@@ -12,5 +12,4 @@ fun LotteryNumbersEntity.toDomain() = LotteryNumbers(
     fourthNum = fourthNum,
     fifthNum = fifthNum,
     sixthNum = sixthNum,
-    bonusNum = bonusNum,
 )

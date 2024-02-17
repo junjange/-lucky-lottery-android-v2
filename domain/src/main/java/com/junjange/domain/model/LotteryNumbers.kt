@@ -1,6 +1,6 @@
 package com.junjange.domain.model
 
-data class LotteryRandomNumbers(
+data class LotteryNumbers(
     val round: Int,
     val winningDate: String,
     val firstNum: Int,
@@ -9,4 +9,5 @@ data class LotteryRandomNumbers(
     val fourthNum: Int,
     val fifthNum: Int,
     val sixthNum: Int,
+    val bonusNum :Int
 )

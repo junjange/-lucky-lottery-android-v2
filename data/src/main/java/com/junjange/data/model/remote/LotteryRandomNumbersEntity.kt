@@ -1,6 +1,6 @@
-package com.junjange.domain.model
+package com.junjange.data.model.remote
 
-data class LotteryRandomNumbers(
+data class LotteryRandomNumbersEntity(
     val round: Int,
     val winningDate: String,
     val firstNum: Int,
