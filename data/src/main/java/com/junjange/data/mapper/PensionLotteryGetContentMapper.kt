@@ -8,6 +8,6 @@ internal fun PensionLotteryGetContentEntity.toDomain() = PensionLotteryGetConten
     winningDate = winningDate,
     checkWinningBonus = checkWinningBonus,
     pensionLotteryNumbers = pensionLotteryNumbersEntity.toDomain(),
-    winningLotteryNumbers = winningLotteryNumbersEntity?.toDomain(),
+    winningPensionLotteryNumbers = winningPensionLotteryNumbersEntity?.toDomain(),
     winningPensionLotteryBonusNumbers = winningPensionLotteryBonusNumbersEntity?.toDomain(),
 )

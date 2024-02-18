@@ -3,22 +3,22 @@ package com.junjange.remote.model.response
 import com.junjange.data.model.remote.WinningLotteryNumbersEntity
 
 data class WinningLotteryNumbersResponse(
-    val lotteryGroup: Int,
-    val winningFirstNum: Int,
-    val winningSecondNum: Int,
-    val winningThirdNum: Int,
-    val winningFourthNum: Int,
-    val winningFifthNum: Int,
-    val winningSixthNum: Int
+    val bonusNum: Int,
+    val firstNum: Int,
+    val secondNum: Int,
+    val thirdNum: Int,
+    val fourthNum: Int,
+    val fifthNum: Int,
+    val sixthNum: Int
 )
 
 internal fun WinningLotteryNumbersResponse.toData() =
     WinningLotteryNumbersEntity(
-        lotteryGroup = lotteryGroup,
-        winningFirstNum = winningFirstNum,
-        winningSecondNum = winningSecondNum,
-        winningThirdNum = winningThirdNum,
-        winningFourthNum = winningFourthNum,
-        winningFifthNum = winningFifthNum,
-        winningSixthNum = winningSixthNum
+        bonusNum = bonusNum,
+        firstNum = firstNum,
+        secondNum = secondNum,
+        thirdNum = thirdNum,
+        fourthNum = fourthNum,
+        fifthNum = fifthNum,
+        sixthNum = sixthNum
     )
