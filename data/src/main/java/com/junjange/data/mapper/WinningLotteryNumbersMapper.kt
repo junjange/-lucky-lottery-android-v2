@@ -6,11 +6,11 @@ import com.junjange.domain.model.WinningLotteryNumbers
 
 internal fun WinningLotteryNumbersEntity.toDomain() =
     WinningLotteryNumbers(
-        lotteryGroup = lotteryGroup,
-        winningFirstNum = winningFirstNum,
-        winningSecondNum = winningSecondNum,
-        winningThirdNum = winningThirdNum,
-        winningFourthNum = winningFourthNum,
-        winningFifthNum = winningFifthNum,
-        winningSixthNum = winningSixthNum
+        bonusNum = bonusNum,
+        firstNum = firstNum,
+        secondNum = secondNum,
+        thirdNum = thirdNum,
+        fourthNum = fourthNum,
+        fifthNum = fifthNum,
+        sixthNum = sixthNum
     )

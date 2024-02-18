@@ -30,9 +30,8 @@ class LotteryPagingSource(private val getLotteryGetUseCase: GetLotteryGetUseCase
         val result = getLotteryGetUseCase(
             page = pageIndex,
             size = params.loadSize
-        ).onSuccess { Log.d("Ttt onSuccess", it.toString()) }
-            .onFailure { Log.d("Ttt onFailure", it.toString()) }
-
+        )
+        
         return result.fold(
             onSuccess = {
                 LoadResult.Page(

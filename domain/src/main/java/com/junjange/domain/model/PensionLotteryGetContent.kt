@@ -5,6 +5,6 @@ data class PensionLotteryGetContent(
     val winningDate: String,
     val checkWinningBonus: Boolean,
     val pensionLotteryNumbers: List<PensionLotteryNumbers>,
-    val winningLotteryNumbers: WinningLotteryNumbers?,
+    val winningPensionLotteryNumbers: WinningPensionLotteryNumbers?,
     val winningPensionLotteryBonusNumbers: WinningPensionLotteryBonusNumbers?,
 )

@@ -21,6 +21,7 @@ import com.junjange.domain.model.LotteryNumbers
 import com.junjange.domain.model.PensionLotteryHome
 import com.junjange.domain.model.WinningLotteryNumbers
 import com.junjange.domain.model.WinningPensionLotteryBonusNumbers
+import com.junjange.domain.model.WinningPensionLotteryNumbers
 import com.junjange.presentation.R
 import com.junjange.presentation.ui.theme.LottoTheme
 import java.text.SimpleDateFormat
@@ -110,13 +111,13 @@ fun String.parseDateToKoreanFormat(): String {
 @Composable
 fun Lotto645Content(lotteryNumbers: LotteryNumbers) {
     val lotteryContent = listOf(
-        LottoTheme.colors.lottoBlack to lotteryNumbers.firstNum,
-        LottoTheme.colors.lottoGreen to lotteryNumbers.secondNum,
-        LottoTheme.colors.lottoError to lotteryNumbers.thirdNum,
-        LottoTheme.colors.lottoGreen to lotteryNumbers.fourthNum,
-        LottoTheme.colors.lottoOrange to lotteryNumbers.fifthNum,
-        LottoTheme.colors.lottoPurple to lotteryNumbers.sixthNum,
-        LottoTheme.colors.lottoYellow to lotteryNumbers.bonusNum,
+        lotteryNumbers.firstNum,
+        lotteryNumbers.secondNum,
+        lotteryNumbers.thirdNum,
+        lotteryNumbers.fourthNum,
+        lotteryNumbers.fifthNum,
+        lotteryNumbers.sixthNum,
+        lotteryNumbers.bonusNum,
     )
 
     Row(
@@ -124,6 +125,15 @@ fun Lotto645Content(lotteryNumbers: LotteryNumbers) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         lotteryContent.forEachIndexed { index, s ->
+            val color = when (s) {
+                in 1..10 -> LottoTheme.colors.lottoYellow
+                in 11..20 -> LottoTheme.colors.lottoBlue
+                in 21..30 -> LottoTheme.colors.lottoError
+                in 31..40 -> LottoTheme.colors.gray400
+                in 41..45 -> LottoTheme.colors.lottoGreen
+                else -> LottoTheme.colors.lottoPurple
+            }
+
             if (index == 6) {
                 Spacer(modifier = Modifier.width(4.dp))
                 Icon(
@@ -135,8 +145,58 @@ fun Lotto645Content(lotteryNumbers: LotteryNumbers) {
             }
             LottoBall(
                 lottoType = LottoType.LOTTO645,
-                lottoColor = s.first,
-                lottoTitle = s.second.toString()
+                lottoColor = color,
+                lottoTitle = s.toString()
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+        }
+    }
+    Spacer(modifier = Modifier.height(5.dp))
+    Text(
+        text = stringResource(R.string.winning_numbers_title),
+        style = LottoTheme.typography.body3,
+    )
+}
+
+@Composable
+fun Lotto645Content(winningLotteryNumbers: WinningLotteryNumbers) {
+    val lotteryContent = listOf(
+        winningLotteryNumbers.firstNum,
+        winningLotteryNumbers.secondNum,
+        winningLotteryNumbers.thirdNum,
+        winningLotteryNumbers.fourthNum,
+        winningLotteryNumbers.fifthNum,
+        winningLotteryNumbers.sixthNum,
+        winningLotteryNumbers.bonusNum,
+    )
+
+    Row(
+        modifier = Modifier.padding(horizontal = 4.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        lotteryContent.forEachIndexed { index, s ->
+            val color = when (s) {
+                in 1..10 -> LottoTheme.colors.lottoYellow
+                in 11..20 -> LottoTheme.colors.lottoBlue
+                in 21..30 -> LottoTheme.colors.lottoError
+                in 31..40 -> LottoTheme.colors.gray400
+                in 41..45 -> LottoTheme.colors.lottoGreen
+                else -> LottoTheme.colors.lottoPurple
+            }
+
+            if (index == 6) {
+                Spacer(modifier = Modifier.width(4.dp))
+                Icon(
+                    modifier = Modifier.size(14.dp),
+                    painter = painterResource(id = R.drawable.ic_plus),
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+            LottoBall(
+                lottoType = LottoType.LOTTO645,
+                lottoColor = color,
+                lottoTitle = s.toString()
             )
             Spacer(modifier = Modifier.width(4.dp))
         }
@@ -151,23 +211,23 @@ fun Lotto645Content(lotteryNumbers: LotteryNumbers) {
 @Composable
 fun Lotto720Content(pensionLotteryHome: PensionLotteryHome) {
     val pensionLotteryContent = listOf(
-        LottoTheme.colors.lottoBlack to pensionLotteryHome.lotteryGroup,
-        LottoTheme.colors.lottoGreen to pensionLotteryHome.winningFirstNum,
-        LottoTheme.colors.lottoError to pensionLotteryHome.winningSecondNum,
-        LottoTheme.colors.lottoGreen to pensionLotteryHome.winningThirdNum,
-        LottoTheme.colors.lottoOrange to pensionLotteryHome.winningFourthNum,
+        LottoTheme.colors.gray600 to pensionLotteryHome.lotteryGroup,
+        LottoTheme.colors.lottoError to pensionLotteryHome.winningFirstNum,
+        LottoTheme.colors.lottoOrange to pensionLotteryHome.winningSecondNum,
+        LottoTheme.colors.lottoYellow to pensionLotteryHome.winningThirdNum,
+        LottoTheme.colors.lottoBlue to pensionLotteryHome.winningFourthNum,
         LottoTheme.colors.lottoPurple to pensionLotteryHome.winningFifthNum,
-        LottoTheme.colors.lottoYellow to pensionLotteryHome.winningSixthNum,
-        )
+        LottoTheme.colors.lottoBlack to pensionLotteryHome.winningSixthNum,
+    )
 
     val pensionBonusLotteryContent = listOf(
-        LottoTheme.colors.lottoBlack to "각",
-        LottoTheme.colors.lottoGreen to pensionLotteryHome.bonusFirstNum,
-        LottoTheme.colors.lottoError to pensionLotteryHome.bonusSecondNum,
-        LottoTheme.colors.lottoGreen to pensionLotteryHome.bonusThirdNum,
-        LottoTheme.colors.lottoOrange to pensionLotteryHome.bonusFourthNum,
+        LottoTheme.colors.gray600 to "각",
+        LottoTheme.colors.lottoError to pensionLotteryHome.bonusFirstNum,
+        LottoTheme.colors.lottoOrange to pensionLotteryHome.bonusSecondNum,
+        LottoTheme.colors.lottoYellow to pensionLotteryHome.bonusThirdNum,
+        LottoTheme.colors.lottoBlue to pensionLotteryHome.bonusFourthNum,
         LottoTheme.colors.lottoPurple to pensionLotteryHome.bonusFifthNum,
-        LottoTheme.colors.lottoYellow to pensionLotteryHome.bonusSixthNum,
+        LottoTheme.colors.lottoBlack to pensionLotteryHome.bonusSixthNum,
     )
 
     Row(
@@ -227,18 +287,18 @@ fun Lotto720Content(pensionLotteryHome: PensionLotteryHome) {
 
 @Composable
 fun Lotto720Content(
-    winningLotteryNumbers: WinningLotteryNumbers,
+    winningPensionLotteryNumbers: WinningPensionLotteryNumbers,
     winningPensionLotteryBonusNumbers: WinningPensionLotteryBonusNumbers
 ) {
 
     val winningLotteryNumbersTitle = listOf(
-        winningLotteryNumbers.lotteryGroup,
-        winningLotteryNumbers.winningFirstNum,
-        winningLotteryNumbers.winningSecondNum,
-        winningLotteryNumbers.winningThirdNum,
-        winningLotteryNumbers.winningFourthNum,
-        winningLotteryNumbers.winningFifthNum,
-        winningLotteryNumbers.winningSixthNum
+        winningPensionLotteryNumbers.lotteryGroup,
+        winningPensionLotteryNumbers.winningFirstNum,
+        winningPensionLotteryNumbers.winningSecondNum,
+        winningPensionLotteryNumbers.winningThirdNum,
+        winningPensionLotteryNumbers.winningFourthNum,
+        winningPensionLotteryNumbers.winningFifthNum,
+        winningPensionLotteryNumbers.winningSixthNum
     ).map { it.toString() }
 
     val winningPensionLotteryBonusNumbersTitle = listOf(
@@ -254,12 +314,12 @@ fun Lotto720Content(
 
     val lotteryColors = listOf(
         LottoTheme.colors.lottoBlack,
-        LottoTheme.colors.lottoGreen,
         LottoTheme.colors.lottoError,
-        LottoTheme.colors.lottoGreen,
         LottoTheme.colors.lottoOrange,
-        LottoTheme.colors.lottoPurple,
         LottoTheme.colors.lottoYellow,
+        LottoTheme.colors.lottoGreen,
+        LottoTheme.colors.lottoBlue,
+        LottoTheme.colors.lottoPurple,
     )
 
     Row(

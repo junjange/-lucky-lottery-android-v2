@@ -1,5 +1,6 @@
 package com.junjange.remote.model.response
 
+import com.google.gson.annotations.SerializedName
 import com.junjange.data.model.remote.PensionLotteryGetContentEntity
 
 data class PensionLotteryGetContentResponse(
@@ -7,7 +8,7 @@ data class PensionLotteryGetContentResponse(
     val winningDate: String,
     val checkWinningBonus: Boolean,
     val pensionLotteryNumbersResponse: List<PensionLotteryNumbersResponse>,
-    val winningLotteryNumbersResponse: WinningLotteryNumbersResponse?,
+    @SerializedName("winningLotteryNumbersResponse") val winningPensionLotteryNumbersResponse: WinningPensionLotteryNumbersResponse?,
     val winningPensionLotteryBonusNumbersResponse: WinningPensionLotteryBonusNumbersResponse?,
 )
 
@@ -16,6 +17,6 @@ internal fun PensionLotteryGetContentResponse.toData() = PensionLotteryGetConten
     winningDate = winningDate,
     checkWinningBonus = checkWinningBonus,
     pensionLotteryNumbersEntity = pensionLotteryNumbersResponse.toData(),
-    winningLotteryNumbersEntity = winningLotteryNumbersResponse?.toData(),
+    winningPensionLotteryNumbersEntity = winningPensionLotteryNumbersResponse?.toData(),
     winningPensionLotteryBonusNumbersEntity = winningPensionLotteryBonusNumbersResponse?.toData(),
 )
