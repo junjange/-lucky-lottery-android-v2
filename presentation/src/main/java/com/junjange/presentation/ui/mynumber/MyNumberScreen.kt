@@ -167,10 +167,10 @@ fun MyPensionLotteryContent(
                                 round = pensionLotteryGetContent.round,
                                 winningDate = pensionLotteryGetContent.winningDate
                             )
-                            pensionLotteryGetContent.winningLotteryNumbers?.let { winningLotteryNumbers ->
+                            pensionLotteryGetContent.winningPensionLotteryNumbers?.let { winningPensionLotteryNumbers ->
                                 pensionLotteryGetContent.winningPensionLotteryBonusNumbers?.let { winningPensionLotteryBonusNumbers ->
                                     Lotto720Content(
-                                        winningLotteryNumbers = winningLotteryNumbers,
+                                        winningPensionLotteryNumbers = winningPensionLotteryNumbers,
                                         winningPensionLotteryBonusNumbers = winningPensionLotteryBonusNumbers
                                     )
                                 }
@@ -234,7 +234,7 @@ fun MyLotteryContent(
                                 winningDate = lotteryGetContent.winningDate
                             )
                             lotteryGetContent.winningLotteryNumbers?.let { winningLotteryNumbers ->
-//                                Lotto645Content(winningLotteryNumbers = winningLotteryNumbers)
+                                Lotto645Content(winningLotteryNumbers = winningLotteryNumbers)
                             }
 
                             Spacer(modifier = Modifier.height(8.dp))
@@ -270,7 +270,7 @@ fun MyLotteryNumber(lotteryGetNumbers: List<LotteryGetNumbers>) {
                 weight = 2f
             )
             TableCell(
-                lotteryGetNumbers = lotteryGetNumber,
+                lottoNumbers = lotteryGetNumber,
                 weight = 8f
             )
         }
@@ -303,10 +303,11 @@ fun RowScope.TableCell(rank: String?, weight: Float) {
         "FIRST" -> "1등"
         "SECOND" -> "2등"
         "THIRD" -> "3등"
-        "FOUR" -> "4등"
-        "FIVE" -> "5등"
-        "SIX" -> "6등"
-        "SEVEN" -> "7등"
+        "FOURTH" -> "4등"
+        "FIFTH" -> "5등"
+        "SIXTH" -> "6등"
+        "SEVENTH" -> "7등"
+        "NONE" -> "꽝"
         else -> "미발표"
     }
 
@@ -383,7 +384,7 @@ fun RowScope.TableCell(
 
 @Composable
 fun RowScope.TableCell(
-    lotteryGetNumbers: LotteryGetNumbers,
+    lottoNumbers: LotteryGetNumbers,
     weight: Float
 ) {
     Row(
@@ -394,20 +395,29 @@ fun RowScope.TableCell(
         horizontalArrangement = Arrangement.Center
     ) {
 
-        val lottoTitle = listOf(
-            lotteryGetNumbers.firstNum,
-            lotteryGetNumbers.secondNum,
-            lotteryGetNumbers.thirdNum,
-            lotteryGetNumbers.fourthNum,
-            lotteryGetNumbers.fifthNum,
-            lotteryGetNumbers.sixthNum,
-        ).map { it.toString() }
+        val lottoNumbersContent = listOf(
+            lottoNumbers.firstNum,
+            lottoNumbers.secondNum,
+            lottoNumbers.thirdNum,
+            lottoNumbers.fourthNum,
+            lottoNumbers.fifthNum,
+            lottoNumbers.sixthNum,
+        )
 
-        lottoTitle.forEachIndexed { index, title ->
+        lottoNumbersContent.forEachIndexed { index, item ->
+            val color = when (item) {
+                in 1..10 -> LottoTheme.colors.lottoYellow
+                in 11..20 -> LottoTheme.colors.lottoBlue
+                in 21..30 -> LottoTheme.colors.lottoError
+                in 31..40 -> LottoTheme.colors.gray400
+                in 41..45 -> LottoTheme.colors.lottoGreen
+                else -> LottoTheme.colors.lottoPurple
+            }
+
             MyLotteryBall(
-                isSuccess = false,
-                lottoTitle = title,
-                index = index
+                isSuccess = if (lottoNumbers.correctNumbers == null) false else lottoNumbers.correctNumbers!![index],
+                lottoTitle = item.toString(),
+                color = color
             )
         }
     }
@@ -417,20 +427,9 @@ fun RowScope.TableCell(
 fun MyLotteryBall(
     isSuccess: Boolean,
     lottoTitle: String,
-    index: Int
+    color: androidx.compose.ui.graphics.Color
 ) {
-
-    val lotteryColors = listOf(
-        LottoTheme.colors.gray600,
-        LottoTheme.colors.lottoError,
-        LottoTheme.colors.lottoOrange,
-        LottoTheme.colors.lottoYellow,
-        LottoTheme.colors.lottoBlue,
-        LottoTheme.colors.lottoPurple,
-        LottoTheme.colors.lottoBlack,
-    )
-
-    val backgroundColor = if (isSuccess) lotteryColors[index] else LottoTheme.colors.gray200
+    val backgroundColor = if (isSuccess) color else LottoTheme.colors.gray200
     val textColor = if (isSuccess) LottoTheme.colors.white else LottoTheme.colors.black
 
     Surface(
