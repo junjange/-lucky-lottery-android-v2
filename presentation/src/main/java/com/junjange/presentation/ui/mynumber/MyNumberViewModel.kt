@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.junjange.domain.usecase.GetLotteryGetUseCase
 import com.junjange.domain.usecase.GetPensionLotteryGetUseCase
+import com.junjange.domain.usecase.PostLotterySaveUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.feature.ocr.OcrService
 import com.junjange.presentation.ui.mynumber.MyNumberEffect.NavigateToGallery
@@ -21,9 +22,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MyNumberViewModel @Inject constructor(
     private val ocrService: OcrService,
-    getPensionLotteryGetUseCase: GetPensionLotteryGetUseCase,
-    getLotteryGetUseCase: GetLotteryGetUseCase
-
+    private val getPensionLotteryGetUseCase: GetPensionLotteryGetUseCase,
+    private val getLotteryGetUseCase: GetLotteryGetUseCase,
+    private val postLotterySaveUseCase: PostLotterySaveUseCase,
 ) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(MyNumberState())
@@ -33,15 +34,53 @@ class MyNumberViewModel @Inject constructor(
     val effect: SharedFlow<MyNumberEffect> = _effect.asSharedFlow()
 
     init {
-        uiState.value.pensionLotteryGetContent =
-            createPensionLotteryPagingSource(getPensionLotteryGetUseCase = getPensionLotteryGetUseCase).flow.cachedIn(
-                viewModelScope
-            )
+        getLotteryGet()
+        getPensionLotteryGet()
+    }
 
+    private fun getLotteryGet() {
         uiState.value.lotteryGetContent =
             createLotteryPagingSource(getLotteryGetUseCase = getLotteryGetUseCase).flow.cachedIn(
                 viewModelScope
             )
+    }
+
+    private fun getPensionLotteryGet() {
+        uiState.value.pensionLotteryGetContent =
+            createPensionLotteryPagingSource(getPensionLotteryGetUseCase = getPensionLotteryGetUseCase).flow.cachedIn(
+                viewModelScope
+            )
+    }
+
+    private fun loading(isLoading: Boolean) {
+        _uiState.update { state ->
+            state.copy(isLoading = isLoading)
+        }
+    }
+
+    private fun postLotterySave(
+        firstNum: Int,
+        secondNum: Int,
+        thirdNum: Int,
+        fourthNum: Int,
+        fifthNum: Int,
+        sixthNum: Int,
+    ) {
+        launch {
+            loading(isLoading = true)
+            postLotterySaveUseCase(
+                firstNum = firstNum,
+                secondNum = secondNum,
+                thirdNum = thirdNum,
+                fourthNum = fourthNum,
+                fifthNum = fifthNum,
+                sixthNum = sixthNum,
+            ).onSuccess {
+                loading(false)
+            }.onFailure {
+                //TODO 예외처리
+            }
+        }
     }
 
     fun onPickedImage() {
@@ -56,11 +95,17 @@ class MyNumberViewModel @Inject constructor(
         val lottoNumbers = text.extractLottoNumbers()
 
         if (lottoNumbers.isValidLottoNumbers()) {
-            _uiState.update { state ->
-                state.copy(
-                    tempList = state.tempList.addLottoNumbers(lottoNumbers = lottoNumbers)
+            lottoNumbers.forEach { lottoNumber ->
+                postLotterySave(
+                    lottoNumber[0].toInt(),
+                    lottoNumber[1].toInt(),
+                    lottoNumber[2].toInt(),
+                    lottoNumber[3].toInt(),
+                    lottoNumber[4].toInt(),
+                    lottoNumber[5].toInt()
                 )
             }
+            getLotteryGet()
         }
     }
 }
@@ -75,11 +120,5 @@ private fun List<List<String>>.isValidLottoNumbers(): Boolean {
         lottoNumbers.size == 6 && lottoNumbers.all { lottoNumber ->
             lottoNumber.toIntOrNull() != null && lottoNumber.length <= 2
         }
-    }
-}
-
-private fun List<List<List<String>>>.addLottoNumbers(lottoNumbers: List<List<String>>): List<List<List<String>>> {
-    return mapIndexed { index, ints ->
-        if (index == 0) ints + lottoNumbers else ints
     }
 }

@@ -1,6 +1,9 @@
 package com.junjange.presentation.ui.mynumber
 
 import android.graphics.Color
+import android.graphics.ImageDecoder
+import android.os.Build
+import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
@@ -95,8 +98,10 @@ fun MyNumberScreen(viewModel: MyNumberViewModel = hiltViewModel()) {
 
     val imagePickerLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
-            val cropOptions = CropImageContractOptions(uri, imageCropperOptions)
-            imageCropLauncher.launch(cropOptions)
+            uri?.let {
+                val cropOptions = CropImageContractOptions(it, imageCropperOptions)
+                imageCropLauncher.launch(cropOptions)
+            }
         }
 
     LaunchedEffect(viewModel.effect) {
