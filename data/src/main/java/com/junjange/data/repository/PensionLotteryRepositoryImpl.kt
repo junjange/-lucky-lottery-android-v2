@@ -13,6 +13,7 @@ internal class PensionLotteryRepositoryImpl @Inject constructor(
 ) : PensionLotteryRepository {
 
     override suspend fun postPensionLotterySave(
+        pensionGroup: Int,
         pensionFirstNum: Int,
         pensionSecondNum: Int,
         pensionThirdNum: Int,
@@ -20,6 +21,7 @@ internal class PensionLotteryRepositoryImpl @Inject constructor(
         pensionFifthNum: Int,
         pensionSixthNum: Int
     ): Result<Unit> = dataSource.postPensionLotterySave(
+        pensionGroup = pensionGroup,
         pensionFirstNum = pensionFirstNum,
         pensionSecondNum = pensionSecondNum,
         pensionThirdNum = pensionThirdNum,

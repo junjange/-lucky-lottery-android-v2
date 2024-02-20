@@ -7,6 +7,7 @@ import com.junjange.domain.model.PensionLotteryRandom
 interface PensionLotteryRepository {
 
     suspend fun postPensionLotterySave(
+        pensionGroup: Int,
         pensionFirstNum: Int,
         pensionSecondNum: Int,
         pensionThirdNum: Int,
