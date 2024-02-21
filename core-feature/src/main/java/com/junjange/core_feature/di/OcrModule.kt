@@ -17,10 +17,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 internal object OcrModule {
 
+    private const val KOR = "kor.traineddata"
+    private const val KOR_VERT = "kor_vert.traineddata"
     private const val DIGITS = "digits.traineddata"
     private const val DIGITS1 = "digits1.traineddata"
     private const val DIGITS_COMMA = "digits_comma.traineddata"
     private const val DIGITS_LAYER = "digits_layer.traineddata"
+
 
     @Provides
     @Singleton
@@ -31,9 +34,18 @@ internal object OcrModule {
         val subdir = File(dataPath, "tessdata")
 
         checkDir(dataPath, subdir)
-        checkTrainedData(context, subdir, DIGITS, DIGITS1, DIGITS_COMMA, DIGITS_LAYER)
+        checkTrainedData(
+            context,
+            subdir,
+            KOR,
+            KOR_VERT,
+            DIGITS,
+            DIGITS1,
+            DIGITS_COMMA,
+            DIGITS_LAYER
+        )
 
-        tess.init(dataPath.absolutePath, "digits+digits1+digits_comma+digits_layer")
+        tess.init(dataPath.absolutePath, "kor+kor_vert+digits+digits1+digits_comma+digits_layer")
         //TODO: tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "");
         tess.setVariable(TessBaseAPI.VAR_CHAR_BLACKLIST, "!@#$%^&*()_+=-[]}{;:'\"\\|~`,./<>?");
         return tess
