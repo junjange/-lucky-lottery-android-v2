@@ -48,7 +48,7 @@ fun RandomNumberGenerationScreen(viewModel: RandomNumberGenerationViewModel) {
                     if (uiState.isLotto645) viewModel.generate645RandomNumbers()
                     else viewModel.generate720RandomNumbers()
                 },
-                onSaveClicked = { viewModel.generate645RandomNumbers() })
+                onSaveClicked = { viewModel.postLotterySave() })
         }
     }
 }

@@ -2,6 +2,7 @@ package com.junjange.presentation.ui.randomnumbergeneration
 
 import androidx.lifecycle.SavedStateHandle
 import com.junjange.domain.usecase.GetLotteryRandomUseCase
+import com.junjange.domain.usecase.PostLotterySaveUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.component.LottoType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class RandomNumberGenerationViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val getLotteryRandomUseCase: GetLotteryRandomUseCase,
+    private val postLotterySaveUseCase: PostLotterySaveUseCase,
 ) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(RandomNumberGenerationState())
@@ -52,6 +54,26 @@ class RandomNumberGenerationViewModel @Inject constructor(
 
         _uiState.update { state ->
             state.copy(lotto720Number = group + lottoNumbers)
+        }
+    }
+
+    fun postLotterySave() {
+        launch {
+            val lotteryNumbers = _uiState.value.lotteryRandomNumbers
+            lotteryNumbers?.let {
+                postLotterySaveUseCase(
+                    firstNum = it.firstNum,
+                    secondNum = it.secondNum,
+                    thirdNum = it.thirdNum,
+                    fourthNum = it.fourthNum,
+                    fifthNum = it.fifthNum,
+                    sixthNum = it.sixthNum
+                ).onSuccess { }.onFailure {
+                    // TODO 예외 처리
+                }
+            } ?: run {
+                // TODO 예외 처리
+            }
         }
     }
 }
