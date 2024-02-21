@@ -13,6 +13,7 @@ internal class PensionLotteryDataSourceImpl @Inject constructor(
 ) : PensionLotteryDataSource {
 
     override suspend fun postPensionLotterySave(
+        pensionGroup : Int,
         pensionFirstNum: Int,
         pensionSecondNum: Int,
         pensionThirdNum: Int,
@@ -21,6 +22,7 @@ internal class PensionLotteryDataSourceImpl @Inject constructor(
         pensionSixthNum: Int
     ): Result<Unit> = runCatching {
         val body = PensionLotteryRandomRequest(
+            pensionGroup = pensionGroup,
             pensionFirstNum = pensionFirstNum,
             pensionSecondNum = pensionSecondNum,
             pensionThirdNum = pensionThirdNum,

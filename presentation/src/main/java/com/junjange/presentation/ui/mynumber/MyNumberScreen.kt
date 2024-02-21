@@ -1,9 +1,6 @@
 package com.junjange.presentation.ui.mynumber
 
 import android.graphics.Color
-import android.graphics.ImageDecoder
-import android.os.Build
-import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
@@ -74,10 +71,17 @@ fun MyNumberScreen(viewModel: MyNumberViewModel = hiltViewModel()) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    val tabs = listOf(R.string.lotto_645_title, R.string.lotto_720_title)
+    val pagerState = rememberPagerState(pageCount = { tabs.size })
+
     val imageCropLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
         if (result.isSuccessful) {
             result.uriContent?.let {
-                viewModel.getTextOfImage(result.getUriFilePath(context, false)!!)
+                if (pagerState.currentPage == 0) {
+                    viewModel.getLottoTextOfImage(result.getUriFilePath(context, false)!!)
+                } else {
+                    viewModel.getPensionLottoTextOfImage(result.getUriFilePath(context, false)!!)
+                }
             }
         }
     }
@@ -112,8 +116,6 @@ fun MyNumberScreen(viewModel: MyNumberViewModel = hiltViewModel()) {
         }
     }
 
-    val tabs = listOf(R.string.lotto_645_title, R.string.lotto_720_title)
-    val pagerState = rememberPagerState(pageCount = { tabs.size })
     val coroutineScope = rememberCoroutineScope()
 
     Column(modifier = Modifier.fillMaxSize()) {

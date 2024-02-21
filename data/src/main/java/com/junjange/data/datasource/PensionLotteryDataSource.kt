@@ -7,6 +7,7 @@ import com.junjange.data.model.remote.PensionLotteryRandomEntity
 interface PensionLotteryDataSource {
 
     suspend fun postPensionLotterySave(
+        pensionGroup: Int,
         pensionFirstNum: Int,
         pensionSecondNum: Int,
         pensionThirdNum: Int,

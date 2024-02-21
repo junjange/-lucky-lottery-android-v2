@@ -1,6 +1,7 @@
 package com.junjange.remote.model.request
 
 data class PensionLotteryRandomRequest(
+    val pensionGroup : Int,
     val pensionFirstNum: Int,
     val pensionSecondNum: Int,
     val pensionThirdNum: Int,
