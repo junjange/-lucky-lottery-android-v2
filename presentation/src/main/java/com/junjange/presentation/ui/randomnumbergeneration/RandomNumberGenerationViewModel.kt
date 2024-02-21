@@ -1,6 +1,7 @@
 package com.junjange.presentation.ui.randomnumbergeneration
 
 import androidx.lifecycle.SavedStateHandle
+import com.junjange.domain.usecase.GetLotteryRandomUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.component.LottoType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RandomNumberGenerationViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val getLotteryRandomUseCase: GetLotteryRandomUseCase,
 ) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(RandomNumberGenerationState())
@@ -29,10 +31,14 @@ class RandomNumberGenerationViewModel @Inject constructor(
     }
 
     fun generate645RandomNumbers() {
-        val lottoNumbers = (1..45).shuffled().take(6)
-
-        _uiState.update { state ->
-            state.copy(lotto645Number = lottoNumbers)
+        launch {
+            getLotteryRandomUseCase().onSuccess {
+                _uiState.update { state ->
+                    state.copy(lotteryRandomNumbers = it)
+                }
+            }.onFailure {
+                // TODO 예외 처리
+            }
         }
     }
 
