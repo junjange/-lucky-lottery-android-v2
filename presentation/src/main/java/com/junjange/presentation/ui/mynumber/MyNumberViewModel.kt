@@ -165,10 +165,22 @@ private fun String.extractLottoNumbers(): List<List<String>> {
     return this.split("\n").map { it.split(" ") }
 }
 
+private fun String.extractPensionLottoNumbers(): List<List<String>> {
+    return this.split("\n").map { it.replace(" ", "").replace("조", "").map { it.toString() } }
+}
+
 private fun List<List<String>>.isValidLottoNumbers(): Boolean {
     return all { lottoNumbers ->
         lottoNumbers.size == 6 && lottoNumbers.all { lottoNumber ->
-            lottoNumber.toIntOrNull() != null && lottoNumber.length <= 2
+            lottoNumber.toIntOrNull() != null && lottoNumber.toInt() in 1..45
+        }
+    }
+}
+
+private fun List<List<String>>.isValidPensionLottoNumbers(): Boolean {
+    return all { lottoNumbers ->
+        lottoNumbers.size == 7 && lottoNumbers.all { lottoNumber ->
+            lottoNumber.toIntOrNull() != null && lottoNumber.toInt() in 0..9
         }
     }
 }
