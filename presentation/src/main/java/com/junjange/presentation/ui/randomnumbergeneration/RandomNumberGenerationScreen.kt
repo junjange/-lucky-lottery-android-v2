@@ -60,6 +60,16 @@ fun RandomNumberGenerationContent(
     onSaveClicked: () -> Unit
 ) {
 
+    val pensionLotteryColors = listOf(
+        LottoTheme.colors.gray600,
+        LottoTheme.colors.lottoError,
+        LottoTheme.colors.lottoOrange,
+        LottoTheme.colors.lottoYellow,
+        LottoTheme.colors.lottoBlue,
+        LottoTheme.colors.lottoPurple,
+        LottoTheme.colors.lottoBlack,
+    )
+
     Image(
         modifier = Modifier.size(140.dp),
         painter = painterResource(id = R.drawable.ic_random_poster),
@@ -118,21 +128,48 @@ fun RandomNumberGenerationContent(
 
 
         } else {
-            uiState.lotto720Number.forEachIndexed { index, s ->
-                if (index == 1) {
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = stringResource(R.string.group_title),
-                        style = LottoTheme.typography.headline3,
+            uiState.pensionLotteryRandom?.let {
+                listOf(
+                    it.pensionGroup,
+                    it.pensionFirstNum,
+                    it.pensionSecondNum,
+                    it.pensionThirdNum,
+                    it.pensionFourthNum,
+                    it.pensionFourthNum,
+                    it.pensionSixthNum
+                ).forEachIndexed { index, s ->
+                    if (index == 1) {
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = stringResource(R.string.group_title),
+                            style = LottoTheme.typography.headline3,
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+                    LottoBall(
+                        lottoType = LottoType.LOTTO720,
+                        lottoColor = pensionLotteryColors[index],
+                        lottoTitle = s.toString()
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
                 }
-                LottoBall(
-                    lottoType = LottoType.LOTTO720,
-                    lottoColor = LottoTheme.colors.lottoGreen,
-                    lottoTitle = s.toString()
-                )
-                Spacer(modifier = Modifier.width(4.dp))
+            } ?: run {
+                List(7) { 0 }.forEachIndexed { index, s ->
+                    if (index == 1) {
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = stringResource(R.string.group_title),
+                            style = LottoTheme.typography.headline3,
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                    }
+                    LottoBall(
+                        lottoType = LottoType.LOTTO720,
+                        lottoColor = pensionLotteryColors[index],
+                        lottoTitle = s.toString()
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                }
             }
         }
 
