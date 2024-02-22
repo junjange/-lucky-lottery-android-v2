@@ -311,15 +311,14 @@ fun Lotto720Content(
         winningPensionLotteryBonusNumbers.bonusSixthNum,
     ).map { it.toString() }
 
-
     val lotteryColors = listOf(
-        LottoTheme.colors.lottoBlack,
+        LottoTheme.colors.gray600,
         LottoTheme.colors.lottoError,
         LottoTheme.colors.lottoOrange,
         LottoTheme.colors.lottoYellow,
-        LottoTheme.colors.lottoGreen,
         LottoTheme.colors.lottoBlue,
         LottoTheme.colors.lottoPurple,
+        LottoTheme.colors.lottoBlack,
     )
 
     Row(
