@@ -5,6 +5,7 @@ import com.junjange.data.repository.FirebaseRepositoryImpl
 import com.junjange.data.repository.KakaoLoginRepositoryImpl
 import com.junjange.data.repository.LocalRepositoryImpl
 import com.junjange.data.repository.LotteryRepositoryImpl
+import com.junjange.data.repository.NotificationRepositoryImpl
 import com.junjange.data.repository.PensionLotteryRepositoryImpl
 import com.junjange.data.repository.UserRepositoryImpl
 import com.junjange.data.repository.WinningRepositoryImpl
@@ -13,6 +14,7 @@ import com.junjange.domain.repository.FirebaseRepository
 import com.junjange.domain.repository.KakaoLoginRepository
 import com.junjange.domain.repository.LocalRepository
 import com.junjange.domain.repository.LotteryRepository
+import com.junjange.domain.repository.NotificationRepository
 import com.junjange.domain.repository.PensionLotteryRepository
 import com.junjange.domain.repository.UserRepository
 import com.junjange.domain.repository.WinningRepository
@@ -57,4 +59,8 @@ internal abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindWinningRepository(winningRepositoryImpl: WinningRepositoryImpl): WinningRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindNotificationRepository(notificationRepositoryImpl: NotificationRepositoryImpl): NotificationRepository
 }
