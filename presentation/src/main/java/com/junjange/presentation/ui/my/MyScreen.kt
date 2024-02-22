@@ -1,6 +1,5 @@
 package com.junjange.presentation.ui.my
 
-import androidx.compose.foundation.layout.Column
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
@@ -8,6 +7,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,7 +37,6 @@ import coil.compose.AsyncImage
 import com.junjange.presentation.R
 import com.junjange.presentation.component.LottoButtonBar
 import com.junjange.presentation.component.LottoSimpleTopBar
-import com.junjange.presentation.component.LottoSwitchBar
 import com.junjange.presentation.component.LottoTextBar
 import com.junjange.presentation.ui.my.MyEffect.NavigateToEditProfile
 import com.junjange.presentation.ui.my.MyEffect.NavigateToUsageTerm
@@ -50,7 +49,8 @@ fun MyScreen(
     viewModel: MyViewModel = hiltViewModel(),
     navigateToWithdrawal: () -> Unit,
     navigateToSplash: () -> Unit,
-    navigateToEditProfile: () -> Unit
+    navigateToEditProfile: () -> Unit,
+    navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -69,6 +69,10 @@ fun MyScreen(
                 is NavigateToUsageTerm -> context.startActivity(intent)
                 is MyEffect.NavigateToSplash -> navigateToSplash()
                 is MyEffect.NavigateToWithdrawal -> navigateToWithdrawal()
+                is MyEffect.NavigateToNotification -> navigateToNotification(
+                    effect.lottoNotificationState,
+                    effect.pensionLottoNotificationState
+                )
             }
         }
     }
@@ -136,11 +140,9 @@ fun MyScreen(
                 modifier = Modifier.padding(vertical = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                LottoSwitchBar(
+                LottoButtonBar(
                     textRes = R.string.app_notification,
-                    isSwitchedOn = uiState.isNotificationAvailable,
-                    onSwitchOn = { viewModel.setNotification(true) },
-                    onSwitchOff = { viewModel.setNotification(false) }
+                    onClick = { viewModel.onClickedNotification() }
                 )
                 LottoTextBar(
                     textRes = R.string.version_info,

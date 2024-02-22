@@ -6,5 +6,9 @@ sealed class MyEffect {
     data object NavigateToUsageTerm : MyEffect()
     data object NavigateToSplash : MyEffect()
     data object NavigateToWithdrawal : MyEffect()
+    class NavigateToNotification(
+        val lottoNotificationState: Boolean,
+        val pensionLottoNotificationState: Boolean
+    ) : MyEffect()
 
 }
