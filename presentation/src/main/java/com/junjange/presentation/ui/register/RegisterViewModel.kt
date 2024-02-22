@@ -2,10 +2,14 @@ package com.junjange.presentation.ui.register
 
 import android.graphics.Bitmap
 import androidx.lifecycle.SavedStateHandle
+import com.junjange.domain.usecase.GetFCMTokenUseCase
+import com.junjange.domain.usecase.PostNotificationRegisterTokenUseCase
 import com.junjange.domain.usecase.PostRegisterUseCase
 import com.junjange.domain.usecase.SaveJwtTokenUseCase
 import com.junjange.presentation.base.BaseViewModel
-import com.junjange.presentation.ui.register.RegisterEffect.*
+import com.junjange.presentation.ui.register.RegisterEffect.Back
+import com.junjange.presentation.ui.register.RegisterEffect.LaunchImagePicker
+import com.junjange.presentation.ui.register.RegisterEffect.NavigateToMain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +25,8 @@ class RegisterViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val postRegisterUseCase: PostRegisterUseCase,
     private val saveJwtTokenUseCase: SaveJwtTokenUseCase,
+    private val postNotificationRegisterTokenUseCase: PostNotificationRegisterTokenUseCase,
+    private val getFCMTokenUseCase: GetFCMTokenUseCase
 ) : BaseViewModel() {
 
     private val idToken = requireNotNull(
@@ -42,7 +48,7 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun onClickedRegister(deviceId : String) {
+    fun onClickedRegister(deviceId: String) {
         launch {
             if (_uiState.value.newNickname.isNotEmpty()) {
                 postRegisterUseCase(
@@ -52,13 +58,30 @@ class RegisterViewModel @Inject constructor(
                 ).onSuccess { jwtToken ->
                     saveJwtTokenUseCase(jwtToken = jwtToken)
                         .onSuccess {
-                            _effect.emit(NavigateToMain)
+                            getFCMToken(deviceId = deviceId)
                         }.onFailure {
                             //TODO 예외 처리
                         }
                 }.onFailure {
                     //TODO 예외 처리
                 }
+            }
+        }
+    }
+
+    private fun getFCMToken(deviceId: String) {
+        launch {
+            getFCMTokenUseCase().onSuccess { fcmToken ->
+                postNotificationRegisterTokenUseCase(
+                    deviceId = deviceId,
+                    fcmToken = fcmToken
+                ).onSuccess {
+                    _effect.emit(NavigateToMain)
+                }.onFailure {
+                    //TODO 예외 처리
+                }
+            }.onFailure {
+                //TODO 예외 처리
             }
         }
     }

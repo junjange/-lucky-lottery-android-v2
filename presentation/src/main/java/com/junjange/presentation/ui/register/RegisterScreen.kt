@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.os.Build
 import android.provider.MediaStore
+import android.provider.Settings.*
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -140,8 +141,7 @@ fun RegisterScreen(
                     titleRes = R.string.register,
                     buttonTextRes = R.string.done,
                     onClickButton = {
-                        val deviceId =
-                            Secure.getString(requireContext().contentResolver, Secure.ANDROID_ID)
+                        val deviceId = Secure.getString(context.contentResolver, Secure.ANDROID_ID)
                         viewModel.onClickedRegister(deviceId = deviceId)
                     },
                     isEnabled = uiState.newNickname.isNotEmpty()
