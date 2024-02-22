@@ -79,4 +79,25 @@ class RandomNumberGenerationViewModel @Inject constructor(
             }
         }
     }
+
+    fun postPensionLotterySave() {
+        launch {
+            val lotteryNumbers = _uiState.value.pensionLotteryRandom
+            lotteryNumbers?.let {
+                postPensionLotterySaveUseCase(
+                    pensionGroup = it.pensionGroup,
+                    pensionFirstNum = it.pensionFirstNum,
+                    pensionSecondNum = it.pensionSecondNum,
+                    pensionThirdNum = it.pensionThirdNum,
+                    pensionFourthNum = it.pensionFourthNum,
+                    pensionFifthNum = it.pensionFifthNum,
+                    pensionSixthNum = it.pensionSixthNum
+                ).onSuccess { }.onFailure {
+                    // TODO 예외 처리
+                }
+            } ?: run {
+                // TODO 예외 처리
+            }
+        }
+    }
 }
