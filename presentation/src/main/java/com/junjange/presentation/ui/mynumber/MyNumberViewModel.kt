@@ -40,18 +40,22 @@ class MyNumberViewModel @Inject constructor(
         getPensionLotteryGet()
     }
 
-     fun getLotteryGet() {
+    fun getLotteryGet() {
+        loading(isLoading = true)
         uiState.value.lotteryGetContent =
             createLotteryPagingSource(getLotteryGetUseCase = getLotteryGetUseCase).flow.cachedIn(
                 viewModelScope
             )
+        loading(isLoading = false)
     }
 
-     fun getPensionLotteryGet() {
+    fun getPensionLotteryGet() {
+        loading(isLoading = true)
         uiState.value.pensionLotteryGetContent =
             createPensionLotteryPagingSource(getPensionLotteryGetUseCase = getPensionLotteryGetUseCase).flow.cachedIn(
                 viewModelScope
             )
+        loading(isLoading = false)
     }
 
     private fun loading(isLoading: Boolean) {
