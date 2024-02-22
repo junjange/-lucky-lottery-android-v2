@@ -48,7 +48,7 @@ fun RandomNumberGenerationScreen(viewModel: RandomNumberGenerationViewModel) {
                     if (uiState.isLotto645) viewModel.generate645RandomNumbers()
                     else viewModel.generate720RandomNumbers()
                 },
-                onSaveClicked = { viewModel.generate645RandomNumbers() })
+                onSaveClicked = { viewModel.postLotterySave() })
         }
     }
 }
@@ -59,26 +59,6 @@ fun RandomNumberGenerationContent(
     onCreateClicked: () -> Unit,
     onSaveClicked: () -> Unit
 ) {
-
-    // TODO 임시 데이터
-    val temp = listOf(
-        LottoTheme.colors.lottoBlack to "1",
-        LottoTheme.colors.lottoGreen to "2",
-        LottoTheme.colors.lottoError to "3",
-        LottoTheme.colors.lottoGreen to "4",
-        LottoTheme.colors.lottoOrange to "5",
-        LottoTheme.colors.lottoPurple to "6",
-    )
-
-    val temp2 = listOf(
-        LottoTheme.colors.lottoBlack to "1",
-        LottoTheme.colors.lottoGreen to "2",
-        LottoTheme.colors.lottoError to "3",
-        LottoTheme.colors.lottoGreen to "4",
-        LottoTheme.colors.lottoOrange to "5",
-        LottoTheme.colors.lottoPurple to "6",
-        LottoTheme.colors.lottoPurple to "7",
-    )
 
     Image(
         modifier = Modifier.size(140.dp),
@@ -100,15 +80,43 @@ fun RandomNumberGenerationContent(
         verticalAlignment = Alignment.CenterVertically
     ) {
         if (uiState.isLotto645) {
+            uiState.lotteryRandomNumbers?.let {
+                listOf(
+                    it.firstNum,
+                    it.secondNum,
+                    it.thirdNum,
+                    it.fourthNum,
+                    it.fifthNum,
+                    it.sixthNum
+                ).forEach { number ->
+                    val color = when (number) {
+                        in 1..10 -> LottoTheme.colors.lottoYellow
+                        in 11..20 -> LottoTheme.colors.lottoBlue
+                        in 21..30 -> LottoTheme.colors.lottoError
+                        in 31..40 -> LottoTheme.colors.gray400
+                        in 41..45 -> LottoTheme.colors.lottoGreen
+                        else -> LottoTheme.colors.lottoPurple
+                    }
 
-            uiState.lotto645Number.forEachIndexed { index, s ->
-                LottoBall(
-                    lottoType = LottoType.LOTTO645,
-                    lottoColor = LottoTheme.colors.lottoGreen,
-                    lottoTitle = s.toString()
-                )
-                Spacer(modifier = Modifier.width(4.dp))
+                    LottoBall(
+                        lottoType = LottoType.LOTTO645,
+                        lottoColor = color,
+                        lottoTitle = number.toString()
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                }
+            } ?: run {
+                List(6) { 0 }.forEach { number ->
+                    LottoBall(
+                        lottoType = LottoType.LOTTO645,
+                        lottoColor = LottoTheme.colors.gray400,
+                        lottoTitle = number.toString()
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                }
             }
+
+
         } else {
             uiState.lotto720Number.forEachIndexed { index, s ->
                 if (index == 1) {

@@ -12,13 +12,14 @@ class PostLotterySaveUseCase @Inject constructor(
         thirdNum: Int,
         fourthNum: Int,
         fifthNum: Int,
-        sixthNum: Int,
+        sixthNum: Int
+
     ): Result<Unit> = repository.postLotterySave(
         firstNum = firstNum,
         secondNum = secondNum,
         thirdNum = thirdNum,
         fourthNum = fourthNum,
         fifthNum = fifthNum,
-        sixthNum = sixthNum,
+        sixthNum = sixthNum
     )
 }
