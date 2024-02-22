@@ -2,6 +2,7 @@ package com.junjange.remote.api
 
 import com.junjange.remote.model.BaseResponse
 import com.junjange.remote.model.request.LotteryRandomRequest
+import com.junjange.remote.model.request.NotificationRegisterRequest
 import com.junjange.remote.model.request.NotificationRequest
 import com.junjange.remote.model.request.PensionLotteryRandomRequest
 import com.junjange.remote.model.request.RefreshRequest
@@ -88,4 +89,10 @@ internal interface ApiService {
 
     @GET(ApiClient.Winning.getWinningPensionLotteryHome)
     suspend fun getPensionLotteryHome(): BaseResponse<PensionLotteryHomeResponse>
+
+    @GET(ApiClient.Notification.postNotificationRegisterToken)
+    suspend fun postNotificationRegisterToken(
+        @Body body: NotificationRegisterRequest,
+    ): BaseResponse<Unit>
+
 }

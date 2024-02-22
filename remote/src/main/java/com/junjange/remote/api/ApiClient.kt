@@ -37,4 +37,8 @@ class ApiClient {
         const val getWinningPensionLotteryHome = BASE + "pension/lottery/home"
     }
 
+    object Notification {
+        private const val BASE = "/api/v1/notification/"
+        const val postNotificationRegisterToken = BASE + "register/token"
+    }
 }
