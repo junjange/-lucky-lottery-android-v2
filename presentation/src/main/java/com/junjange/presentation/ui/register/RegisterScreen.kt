@@ -53,7 +53,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel,
-    navigateToMain : () -> Unit,
+    navigateToMain: () -> Unit,
     onBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -139,7 +139,11 @@ fun RegisterScreen(
                     onBack = { viewModel.onClickedBack() },
                     titleRes = R.string.register,
                     buttonTextRes = R.string.done,
-                    onClickButton = { viewModel.onClickedRegister() },
+                    onClickButton = {
+                        val deviceId =
+                            Secure.getString(requireContext().contentResolver, Secure.ANDROID_ID)
+                        viewModel.onClickedRegister(deviceId = deviceId)
+                    },
                     isEnabled = uiState.newNickname.isNotEmpty()
                 )
             },

@@ -42,7 +42,7 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun onClickedRegister() {
+    fun onClickedRegister(deviceId : String) {
         launch {
             if (_uiState.value.newNickname.isNotEmpty()) {
                 postRegisterUseCase(
