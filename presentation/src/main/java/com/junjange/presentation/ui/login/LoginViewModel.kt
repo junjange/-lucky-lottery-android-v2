@@ -3,9 +3,11 @@ package com.junjange.presentation.ui.login
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.junjange.domain.usecase.GetFCMTokenUseCase
 import com.junjange.domain.usecase.GetValidRegisterUseCase
 import com.junjange.domain.usecase.KakaoLoginUseCase
 import com.junjange.domain.usecase.PostLoginUseCase
+import com.junjange.domain.usecase.PostNotificationRegisterTokenUseCase
 import com.junjange.domain.usecase.SaveJwtTokenUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.ui.login.LoginEffect.NavigateToMain
@@ -23,7 +25,9 @@ class LoginViewModel @Inject constructor(
     private val kakaoLoginUseCase: KakaoLoginUseCase,
     private val getValidRegisterUseCase: GetValidRegisterUseCase,
     private val postLoginUseCase: PostLoginUseCase,
-    private val saveJwtTokenUseCase: SaveJwtTokenUseCase
+    private val saveJwtTokenUseCase: SaveJwtTokenUseCase,
+    private val postNotificationRegisterTokenUseCase: PostNotificationRegisterTokenUseCase,
+    private val getFCMTokenUseCase: GetFCMTokenUseCase
 ) : BaseViewModel() {
     private val _uiState = MutableStateFlow(LoginState())
     val uiState: StateFlow<LoginState> = _uiState.asStateFlow()
@@ -31,7 +35,7 @@ class LoginViewModel @Inject constructor(
     private val _effect = MutableSharedFlow<LoginEffect>()
     val effect: SharedFlow<LoginEffect> = _effect.asSharedFlow()
 
-    fun kakaoLogin() {
+    fun kakaoLogin(deviceId: String) {
         launch {
             kakaoLoginUseCase().onSuccess {
                 it.idToken?.let { idToken ->
@@ -42,7 +46,8 @@ class LoginViewModel @Inject constructor(
                         if (isRegistered.isRegistered) {
                             postLogin(
                                 idToken = idToken,
-                                provider = KAKAO
+                                provider = KAKAO,
+                                deviceId = deviceId
                             )
                         } else {
                             _effect.emit(
@@ -63,7 +68,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun googleLogin(result: Task<GoogleSignInAccount>?) {
+    fun googleLogin(result: Task<GoogleSignInAccount>?, deviceId: String) {
         try {
             val account = result?.getResult(ApiException::class.java)
             account?.let {
@@ -76,7 +81,8 @@ class LoginViewModel @Inject constructor(
                             if (isRegistered.isRegistered) {
                                 postLogin(
                                     idToken = idToken,
-                                    provider = GOOGLE
+                                    provider = GOOGLE,
+                                    deviceId = deviceId
                                 )
                             } else {
                                 _effect.emit(
@@ -102,18 +108,36 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun postLogin(idToken: String, provider: String) {
+    private fun postLogin(idToken: String, provider: String, deviceId: String) {
         launch {
             postLoginUseCase(idToken = idToken, provider = provider)
                 .onSuccess {
                     saveJwtTokenUseCase(jwtToken = it)
-                        .onSuccess { _effect.emit(NavigateToMain) }
-                        .onFailure {
+                        .onSuccess {
+                            getFCMToken(deviceId = deviceId)
+                        }.onFailure {
                             //TODO 예외 처리
                         }
                 }.onFailure {
                     //TODO 예외 처리
                 }
+        }
+    }
+
+    private fun getFCMToken(deviceId: String) {
+        launch {
+            getFCMTokenUseCase().onSuccess { fcmToken ->
+                postNotificationRegisterTokenUseCase(
+                    deviceId = deviceId,
+                    fcmToken = fcmToken
+                ).onSuccess {
+                    _effect.emit(NavigateToMain)
+                }.onFailure {
+                    //TODO 예외 처리
+                }
+            }.onFailure {
+                //TODO 예외 처리
+            }
         }
     }
 

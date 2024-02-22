@@ -1,6 +1,7 @@
 package com.junjange.presentation.ui.login
 
 
+import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -18,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -33,11 +35,15 @@ fun LoginScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+    val context = LocalContext.current
+
+    val deviceId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+
     val SIGN_IN_REQUEST_CODE = 1
 
     val authResultLauncher = rememberLauncherForActivityResult(
         contract = GoogleSignInContract(),
-        onResult = { viewModel.googleLogin(it) }
+        onResult = { viewModel.googleLogin(result = it, deviceId = deviceId) }
     )
 
     LaunchedEffect(viewModel.effect) {
@@ -51,6 +57,7 @@ fun LoginScreen(
             }
         }
     }
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -66,7 +73,9 @@ fun LoginScreen(
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 24.dp)
         ) {
-            LoginButton(iconRes = R.drawable.ic_kakao_login, onClick = { viewModel.kakaoLogin() })
+            LoginButton(
+                iconRes = R.drawable.ic_kakao_login,
+                onClick = { viewModel.kakaoLogin(deviceId = deviceId) })
             Spacer(modifier = Modifier.height(8.dp))
             LoginButton(
                 iconRes = R.drawable.ic_google_login,
