@@ -21,7 +21,8 @@ fun MainScreen(
     navigateToRandomNumber: () -> Unit,
     navigateToEditProfile: () -> Unit,
     navigateToWithdrawal: () -> Unit,
-    navigateToSplash: () -> Unit
+    navigateToSplash: () -> Unit,
+    navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit
 ) {
 
     val navController = rememberNavController()
@@ -49,7 +50,8 @@ fun MainScreen(
                 MyScreen(
                     navigateToWithdrawal = navigateToWithdrawal,
                     navigateToSplash = navigateToSplash,
-                    navigateToEditProfile = navigateToEditProfile
+                    navigateToEditProfile = navigateToEditProfile,
+                    navigateToNotification = navigateToNotification
                 )
             }
         }

@@ -12,6 +12,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.junjange.presentation.R
 import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.ui.editprofile.EditProfileActivity
+import com.junjange.presentation.ui.notification.NotificationActivity
 import com.junjange.presentation.ui.randomnumber.RandomNumberActivity
 import com.junjange.presentation.ui.theme.LottoTheme
 import com.junjange.presentation.ui.withdrawal.WithdrawalActivity
@@ -36,7 +37,8 @@ class MainActivity : BaseActivity() {
                     navigateToRandomNumber = ::startRandomActivity,
                     navigateToEditProfile = ::startEditProfileActivity,
                     navigateToWithdrawal = ::startWithdrawalActivity,
-                    navigateToSplash = ::startSplashActivity
+                    navigateToSplash = ::startSplashActivity,
+                    navigateToNotification = ::startNotificationActivity
                 )
             }
         }
@@ -72,6 +74,17 @@ class MainActivity : BaseActivity() {
 
     private fun startEditProfileActivity() {
         EditProfileActivity.startActivity(this)
+    }
+
+    private fun startNotificationActivity(
+        lottoNotificationState: Boolean,
+        pensionLottoNotificationState: Boolean
+    ) {
+        NotificationActivity.startActivity(
+            this,
+            lottoNotificationState,
+            pensionLottoNotificationState
+        )
     }
 
     private fun startWithdrawalActivity() {

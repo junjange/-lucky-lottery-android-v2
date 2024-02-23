@@ -2,6 +2,8 @@ package com.junjange.remote.api
 
 import com.junjange.remote.model.BaseResponse
 import com.junjange.remote.model.request.LotteryRandomRequest
+import com.junjange.remote.model.request.NotificationRegisterRequest
+import com.junjange.remote.model.request.NotificationRequest
 import com.junjange.remote.model.request.PensionLotteryRandomRequest
 import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.request.RegisterRequest
@@ -15,6 +17,7 @@ import com.junjange.remote.model.response.PensionLotteryHomeResponse
 import com.junjange.remote.model.response.PensionLotteryRandomResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -44,6 +47,16 @@ internal interface ApiService {
         @Query("idToken") idToken: String,
         @Query("provider") provider: String,
     ): BaseResponse<IsRegisteredResponse>
+
+    @PATCH(ApiClient.User.patchLotteryNotification)
+    suspend fun patchLotteryNotification(
+        @Body body: NotificationRequest,
+    ): BaseResponse<Unit>
+
+    @PATCH(ApiClient.User.patchPensionLotteryNotification)
+    suspend fun patchPensionLotteryNotification(
+        @Body body: NotificationRequest,
+    ): BaseResponse<Unit>
 
     @POST(ApiClient.Lottery.postLotterySave)
     suspend fun postLotterySave(
@@ -76,4 +89,10 @@ internal interface ApiService {
 
     @GET(ApiClient.Winning.getWinningPensionLotteryHome)
     suspend fun getPensionLotteryHome(): BaseResponse<PensionLotteryHomeResponse>
+
+    @GET(ApiClient.Notification.postNotificationRegisterToken)
+    suspend fun postNotificationRegisterToken(
+        @Body body: NotificationRegisterRequest,
+    ): BaseResponse<Unit>
+
 }

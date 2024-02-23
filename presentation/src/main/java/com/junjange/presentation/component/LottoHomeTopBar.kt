@@ -1,7 +1,6 @@
 package com.junjange.presentation.component
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,8 +21,8 @@ import com.junjange.presentation.ui.theme.LottoTheme
 
 @Composable
 fun LottoHomeTopBar(
-    @DrawableRes actionIconRes: Int = R.drawable.ic_alarm,
-    onActionClick: () -> Unit,
+    @DrawableRes actionIconRes: Int? = null,
+    onActionClick: () -> Unit = {},
 ) {
     Row(
         modifier = Modifier
@@ -37,15 +36,18 @@ fun LottoHomeTopBar(
             text = stringResource(R.string.home_top_bar_title),
             style = LottoTheme.typography.headline3,
         )
-        IconButton(
-            onClick = onActionClick,
-            modifier = Modifier.size(24.dp)
-        ) {
-            Icon(
-                painter = painterResource(id = actionIconRes),
-                contentDescription = null,
+        actionIconRes?.let {
+            IconButton(
+                onClick = onActionClick,
                 modifier = Modifier.size(24.dp)
-            )
+            ) {
+
+                Icon(
+                    painter = painterResource(id = actionIconRes),
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
         }
     }
 }

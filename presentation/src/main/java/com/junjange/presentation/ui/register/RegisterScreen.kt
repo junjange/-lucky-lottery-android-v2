@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.os.Build
 import android.provider.MediaStore
+import android.provider.Settings.*
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -53,7 +54,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun RegisterScreen(
     viewModel: RegisterViewModel,
-    navigateToMain : () -> Unit,
+    navigateToMain: () -> Unit,
     onBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -139,7 +140,10 @@ fun RegisterScreen(
                     onBack = { viewModel.onClickedBack() },
                     titleRes = R.string.register,
                     buttonTextRes = R.string.done,
-                    onClickButton = { viewModel.onClickedRegister() },
+                    onClickButton = {
+                        val deviceId = Secure.getString(context.contentResolver, Secure.ANDROID_ID)
+                        viewModel.onClickedRegister(deviceId = deviceId)
+                    },
                     isEnabled = uiState.newNickname.isNotEmpty()
                 )
             },

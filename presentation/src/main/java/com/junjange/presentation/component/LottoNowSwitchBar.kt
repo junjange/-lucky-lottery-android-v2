@@ -2,6 +2,7 @@ package com.junjange.presentation.component
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import com.junjange.presentation.ui.theme.LottoTheme
 fun LottoSwitchBar(
     modifier: Modifier = Modifier,
     @StringRes textRes: Int,
+    @StringRes descriptionTextRes: Int,
     isSwitchedOn: Boolean,
     onSwitchOn: () -> Unit,
     onSwitchOff: () -> Unit,
@@ -36,11 +38,19 @@ fun LottoSwitchBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(
-            text = stringResource(id = textRes),
-            style = LottoTheme.typography.body1,
-            color = LottoTheme.colors.lottoBlack
-        )
+        Column {
+            Text(
+                text = stringResource(id = textRes),
+                style = LottoTheme.typography.body1,
+                color = LottoTheme.colors.lottoBlack
+            )
+            Text(
+                text = stringResource(id = descriptionTextRes),
+                style = LottoTheme.typography.caption2,
+                color = LottoTheme.colors.gray600
+            )
+        }
+
         CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
             Switch(
                 checked = isSwitchedOn,
