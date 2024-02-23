@@ -33,7 +33,7 @@ fun HomeScreen(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            LottoHomeTopBar(onActionClick = {})
+            LottoHomeTopBar()
             LottoContent(
                 lotteryNumbers = uiState.lotteryNumbers,
                 pensionLotteryHome = uiState.pensionLotteryHome
