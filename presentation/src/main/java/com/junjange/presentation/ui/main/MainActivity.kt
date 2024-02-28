@@ -8,6 +8,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.zxing.integration.android.IntentIntegrator
 import com.junjange.presentation.R
 import com.junjange.presentation.base.BaseActivity
@@ -27,8 +33,12 @@ class MainActivity : BaseActivity() {
             onActivityResult(result.resultCode, result.data)
         }
 
+    private var mInterstitialAd: InterstitialAd? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupInterstitialAd()
+
         setContent {
             LottoTheme {
                 MainScreen(
@@ -53,19 +63,52 @@ class MainActivity : BaseActivity() {
         integrator.setBarcodeImageEnabled(false)
         integrator.setOrientationLocked(false)
         scanLauncher.launch(integrator.createScanIntent())
+
     }
 
     private fun onActivityResult(resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(resultCode, data)
 
         if (result != null) {
-            result.contents?.let {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result.contents))
-                startActivity(intent)
+            if (mInterstitialAd != null) {
+                mInterstitialAd?.show(this@MainActivity)
+                mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        result.contents?.let {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(result.contents))
+                            startActivity(intent)
+                        }
+                        mInterstitialAd = null
+                        setupInterstitialAd()
+                    }
+
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                        mInterstitialAd = null
+                    }
+                }
             }
+
         } else {
             super.onActivityResult(resultCode, resultCode, data)
         }
+    }
+
+
+    private fun setupInterstitialAd() {
+        val adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(this,
+            "ca-app-pub-3940256099942544/1033173712",
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    mInterstitialAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    mInterstitialAd = interstitialAd
+                }
+            })
     }
 
     private fun startRandomActivity() {
