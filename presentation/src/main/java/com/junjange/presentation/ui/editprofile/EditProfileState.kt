@@ -8,6 +8,7 @@ data class EditProfileState(
     val isNotificationAvailable: Boolean = false,
     val isEditMode: Boolean = false,
     val newNickname: String = "",
+    val currentNickName: String = "",
     val newProfileImage: Bitmap? = null,
     val isBottomSheetShowing: Boolean = false,
 )

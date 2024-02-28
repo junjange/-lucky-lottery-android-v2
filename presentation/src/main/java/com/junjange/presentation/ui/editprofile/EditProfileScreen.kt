@@ -1,6 +1,5 @@
 package com.junjange.presentation.ui.editprofile
 
-import androidx.compose.foundation.layout.Column
 import android.graphics.Color
 import android.graphics.ImageDecoder
 import android.os.Build
@@ -10,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -137,7 +137,7 @@ fun EditProfileScreen(
                     titleRes = R.string.edit_profile,
                     buttonTextRes = R.string.done,
                     onClickButton = { onBack() },
-                    isEnabled = uiState.newNickname.isNotEmpty()
+                    isEnabled = uiState.newNickname.isNotEmpty() && (uiState.newNickname != uiState.currentNickName || uiState.newProfileImage != null)
                 )
             },
         ) { innerPadding ->

@@ -24,6 +24,16 @@ class EditProfileViewModel @Inject constructor() : BaseViewModel() {
     private val _effect = MutableSharedFlow<EditProfileEffect>()
     val effect: SharedFlow<EditProfileEffect> = _effect.asSharedFlow()
 
+    init {
+        // TODO 임시 데이터
+        _uiState.update {
+            it.copy(
+                currentNickName = "조준장",
+                newNickname = "조준장"
+            )
+        }
+    }
+
     fun onPickImage(bitmap: Bitmap) {
         _uiState.update {
             it.copy(
