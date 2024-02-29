@@ -43,4 +43,9 @@ class ApiClient {
         private const val BASE = "/api/v1/notification/"
         const val postNotificationRegisterToken = BASE + "register/token"
     }
+
+    object Images {
+        private const val BASE = "/api/v1/Images/"
+        const val postImagesUpload = BASE + "upload"
+    }
 }

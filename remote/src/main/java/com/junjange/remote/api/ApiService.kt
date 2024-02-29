@@ -1,6 +1,7 @@
 package com.junjange.remote.api
 
 import com.junjange.remote.model.BaseResponse
+import com.junjange.remote.model.request.ImagesUploadRequest
 import com.junjange.remote.model.request.LotteryRandomRequest
 import com.junjange.remote.model.request.NotificationRegisterRequest
 import com.junjange.remote.model.request.NotificationRequest
@@ -8,6 +9,7 @@ import com.junjange.remote.model.request.PensionLotteryRandomRequest
 import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.request.RegisterRequest
 import com.junjange.remote.model.request.UserProfileRequest
+import com.junjange.remote.model.response.ImagesUploadResponse
 import com.junjange.remote.model.response.IsRegisteredResponse
 import com.junjange.remote.model.response.JwtTokenResponse
 import com.junjange.remote.model.response.LotteryGetResponse
@@ -69,8 +71,6 @@ internal interface ApiService {
         @Body body: NotificationRequest,
     ): BaseResponse<Unit>
 
-
-
     @POST(ApiClient.Lottery.postLotterySave)
     suspend fun postLotterySave(
         @Body body: LotteryRandomRequest,
@@ -107,5 +107,10 @@ internal interface ApiService {
     suspend fun postNotificationRegisterToken(
         @Body body: NotificationRegisterRequest,
     ): BaseResponse<Unit>
+
+    @POST(ApiClient.Images.postImagesUpload)
+    suspend fun postImagesUpload(
+        @Body body: ImagesUploadRequest,
+    ): BaseResponse<ImagesUploadResponse>
 
 }
