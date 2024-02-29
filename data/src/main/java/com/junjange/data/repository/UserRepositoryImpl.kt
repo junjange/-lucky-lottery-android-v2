@@ -21,4 +21,9 @@ class UserRepositoryImpl @Inject constructor(
                 notificationStatus = notificationStatus,
             )
         }
+
+    override suspend fun patchUserProfile(profilePath: String): Result<Unit> =
+        runCatching {
+            dataSource.patchUserProfile(profilePath = profilePath)
+        }
 }

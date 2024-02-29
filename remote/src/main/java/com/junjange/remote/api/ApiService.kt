@@ -7,6 +7,7 @@ import com.junjange.remote.model.request.NotificationRequest
 import com.junjange.remote.model.request.PensionLotteryRandomRequest
 import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.request.RegisterRequest
+import com.junjange.remote.model.request.UserProfileRequest
 import com.junjange.remote.model.response.IsRegisteredResponse
 import com.junjange.remote.model.response.JwtTokenResponse
 import com.junjange.remote.model.response.LotteryGetResponse
@@ -57,6 +58,18 @@ internal interface ApiService {
     suspend fun patchPensionLotteryNotification(
         @Body body: NotificationRequest,
     ): BaseResponse<Unit>
+
+    @PATCH(ApiClient.User.patchUserProfile)
+    suspend fun patchUserProfile(
+        @Body body: UserProfileRequest,
+    ): BaseResponse<Unit>
+
+    @PATCH(ApiClient.User.patchUserNickname)
+    suspend fun patchUserNickname(
+        @Body body: NotificationRequest,
+    ): BaseResponse<Unit>
+
+
 
     @POST(ApiClient.Lottery.postLotterySave)
     suspend fun postLotterySave(

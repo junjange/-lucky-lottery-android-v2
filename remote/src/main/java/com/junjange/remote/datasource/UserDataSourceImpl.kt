@@ -3,6 +3,7 @@ package com.junjange.remote.datasource
 import com.junjange.data.datasource.UserDataSource
 import com.junjange.remote.api.ApiService
 import com.junjange.remote.model.request.NotificationRequest
+import com.junjange.remote.model.request.UserProfileRequest
 import javax.inject.Inject
 
 internal class UserDataSourceImpl @Inject constructor(
@@ -23,5 +24,11 @@ internal class UserDataSourceImpl @Inject constructor(
             apiService.patchPensionLotteryNotification(
                 body = body,
             ).data
+        }
+
+    override suspend fun patchUserProfile(profilePath: String): Result<Unit> =
+        runCatching {
+            val body = UserProfileRequest(profilePath = profilePath)
+            apiService.patchUserProfile(body = body).data
         }
 }
