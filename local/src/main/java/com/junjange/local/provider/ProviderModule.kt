@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 internal abstract class ProviderModule {
-
     @Binds
     abstract fun provideAccessTokenProvider(provider: AccessTokenProviderImpl): AccessTokenProvider
 

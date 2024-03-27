@@ -20,23 +20,24 @@ fun LottoTextBar(
     @StringRes subtextRes: Int,
 ) {
     Row(
-        modifier = modifier.then(
-            Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp, horizontal = 16.dp)
-        ),
+        modifier =
+            modifier.then(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp, horizontal = 16.dp),
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(id = textRes),
             style = LottoTheme.typography.body1,
-            color = LottoTheme.colors.lottoBlack
+            color = LottoTheme.colors.lottoBlack,
         )
         Text(
             text = stringResource(id = subtextRes),
             style = LottoTheme.typography.caption1,
-            color = LottoTheme.colors.gray600
+            color = LottoTheme.colors.gray600,
         )
     }
 }

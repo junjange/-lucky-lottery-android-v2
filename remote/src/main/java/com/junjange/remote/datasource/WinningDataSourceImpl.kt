@@ -7,15 +7,18 @@ import com.junjange.remote.api.ApiService
 import com.junjange.remote.model.response.toData
 import javax.inject.Inject
 
-internal class WinningDataSourceImpl @Inject constructor(
-    private val apiService: ApiService,
-) : WinningDataSource {
-    override suspend fun getWinningLotteryHome(): Result<LotteryNumbersEntity> = runCatching {
-        apiService.getLotteryHome().data.toData()
-    }
+internal class WinningDataSourceImpl
+    @Inject
+    constructor(
+        private val apiService: ApiService,
+    ) : WinningDataSource {
+        override suspend fun getWinningLotteryHome(): Result<LotteryNumbersEntity> =
+            runCatching {
+                apiService.getLotteryHome().data.toData()
+            }
 
-    override suspend fun getWinningPensionLotteryHome(): Result<PensionLotteryHomeEntity> =
-        runCatching {
-            apiService.getPensionLotteryHome().data.toData()
-        }
-}
+        override suspend fun getWinningPensionLotteryHome(): Result<PensionLotteryHomeEntity> =
+            runCatching {
+                apiService.getPensionLotteryHome().data.toData()
+            }
+    }

@@ -13,7 +13,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity() {
-
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +22,7 @@ class LoginActivity : BaseActivity() {
                 LoginScreen(
                     viewModel = viewModel,
                     navigateToMain = ::startMainActivity,
-                    navigateToRegister = ::startRegisterActivity
+                    navigateToRegister = ::startRegisterActivity,
                 )
             }
         }
@@ -35,7 +34,7 @@ class LoginActivity : BaseActivity() {
 
     private fun startRegisterActivity(
         idToken: String,
-        provider: String
+        provider: String,
     ) {
         RegisterActivity.startActivity(this, idToken, provider)
     }

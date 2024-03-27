@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NotificationActivity : BaseActivity() {
-
     private val viewModel: NotificationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,9 +32,10 @@ class NotificationActivity : BaseActivity() {
             lottoNotificationState: Boolean,
             pensionLottoNotificationState: Boolean,
         ) {
-            val intent = Intent(context, NotificationActivity::class.java)
-                .putExtra(EXTRA_KEY_LOTTO_NOTIFICATION_STATE, lottoNotificationState)
-                .putExtra(EXTRA_KEY_PENSION_LOTTO_NOTIFICATION_STATE, pensionLottoNotificationState)
+            val intent =
+                Intent(context, NotificationActivity::class.java)
+                    .putExtra(EXTRA_KEY_LOTTO_NOTIFICATION_STATE, lottoNotificationState)
+                    .putExtra(EXTRA_KEY_PENSION_LOTTO_NOTIFICATION_STATE, pensionLottoNotificationState)
             context.startActivity(intent)
         }
     }

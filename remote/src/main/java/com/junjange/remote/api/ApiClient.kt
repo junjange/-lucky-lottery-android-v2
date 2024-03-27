@@ -1,8 +1,6 @@
 package com.junjange.remote.api
 
-
 class ApiClient {
-
     object Credentials {
         private const val BASE = "/api/v1/credentials/"
         const val postCredentialsRegister = BASE + "register"

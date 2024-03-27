@@ -20,7 +20,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 internal abstract class DataSourceModule {
-
     @Binds
     abstract fun bindsCredentialDataSource(credentialDataSourceImpl: CredentialDataSourceImpl): CredentialDataSource
 
@@ -38,5 +37,4 @@ internal abstract class DataSourceModule {
 
     @Binds
     abstract fun bindsNotificationDataSource(notificationDataSourceImpl: NotificationDataSourceImpl): NotificationDataSource
-
 }

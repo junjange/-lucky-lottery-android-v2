@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditProfileActivity : BaseActivity() {
-
     private val viewModel: EditProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +19,7 @@ class EditProfileActivity : BaseActivity() {
             LottoTheme {
                 EditProfileScreen(
                     viewModel = viewModel,
-                    onBack = ::finish
+                    onBack = ::finish,
                 )
             }
         }

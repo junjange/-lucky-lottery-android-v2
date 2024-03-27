@@ -24,27 +24,28 @@ fun LottoButtonBar(
     modifier: Modifier = Modifier,
     @StringRes textRes: Int,
     @DrawableRes iconRes: Int = R.drawable.ic_chevron_right,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Row(
-        modifier = modifier.then(
-            Modifier
-                .fillMaxWidth()
-                .clickable { onClick() }
-                .padding(vertical = 8.dp, horizontal = 16.dp)
-        ),
+        modifier =
+            modifier.then(
+                Modifier
+                    .fillMaxWidth()
+                    .clickable { onClick() }
+                    .padding(vertical = 8.dp, horizontal = 16.dp),
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(id = textRes),
             style = LottoTheme.typography.body1,
-            color = LottoTheme.colors.lottoBlack
+            color = LottoTheme.colors.lottoBlack,
         )
         Icon(
             painter = painterResource(id = iconRes),
             contentDescription = null,
-            modifier = Modifier.size(24.dp)
+            modifier = Modifier.size(24.dp),
         )
     }
 }

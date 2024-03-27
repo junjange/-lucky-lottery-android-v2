@@ -17,23 +17,24 @@ data class PensionLotteryHomeResponse(
     val bonusThirdNum: Int,
     val bonusFourthNum: Int,
     val bonusFifthNum: Int,
-    val bonusSixthNum: Int
+    val bonusSixthNum: Int,
 )
 
-internal fun PensionLotteryHomeResponse.toData() = PensionLotteryHomeEntity(
-    round = round,
-    winningDate = winningDate,
-    lotteryGroup = lotteryGroup,
-    winningFirstNum = winningFirstNum,
-    winningSecondNum = winningSecondNum,
-    winningThirdNum = winningThirdNum,
-    winningFourthNum = winningFourthNum,
-    winningFifthNum = winningFifthNum,
-    winningSixthNum = winningSixthNum,
-    bonusFirstNum = bonusFirstNum,
-    bonusSecondNum = bonusSecondNum,
-    bonusThirdNum = bonusThirdNum,
-    bonusFourthNum = bonusFourthNum,
-    bonusFifthNum = bonusFifthNum,
-    bonusSixthNum = bonusSixthNum
-)
+internal fun PensionLotteryHomeResponse.toData() =
+    PensionLotteryHomeEntity(
+        round = round,
+        winningDate = winningDate,
+        lotteryGroup = lotteryGroup,
+        winningFirstNum = winningFirstNum,
+        winningSecondNum = winningSecondNum,
+        winningThirdNum = winningThirdNum,
+        winningFourthNum = winningFourthNum,
+        winningFifthNum = winningFifthNum,
+        winningSixthNum = winningSixthNum,
+        bonusFirstNum = bonusFirstNum,
+        bonusSecondNum = bonusSecondNum,
+        bonusThirdNum = bonusThirdNum,
+        bonusFourthNum = bonusFourthNum,
+        bonusFifthNum = bonusFifthNum,
+        bonusSixthNum = bonusSixthNum,
+    )

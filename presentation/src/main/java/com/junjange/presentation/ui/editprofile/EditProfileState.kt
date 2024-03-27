@@ -2,7 +2,6 @@ package com.junjange.presentation.ui.editprofile
 
 import android.graphics.Bitmap
 
-
 data class EditProfileState(
     val isLoading: Boolean = false,
     val isNotificationAvailable: Boolean = false,

@@ -1,11 +1,9 @@
 package com.junjange.domain.repository
 
 import com.junjange.domain.model.PensionLotteryGet
-import com.junjange.domain.model.PensionLotteryHome
 import com.junjange.domain.model.PensionLotteryRandom
 
 interface PensionLotteryRepository {
-
     suspend fun postPensionLotterySave(
         pensionGroup: Int,
         pensionFirstNum: Int,
@@ -13,13 +11,13 @@ interface PensionLotteryRepository {
         pensionThirdNum: Int,
         pensionFourthNum: Int,
         pensionFifthNum: Int,
-        pensionSixthNum: Int
+        pensionSixthNum: Int,
     ): Result<Unit>
 
     suspend fun getPensionLotteryRandom(): Result<PensionLotteryRandom>
 
     suspend fun getPensionLotteryGet(
         page: Int,
-        size: Int
+        size: Int,
     ): Result<PensionLotteryGet>
 }

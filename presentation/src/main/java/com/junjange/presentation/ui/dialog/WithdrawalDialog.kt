@@ -20,7 +20,10 @@ import com.junjange.presentation.R
 import com.junjange.presentation.ui.theme.LottoTheme
 
 @Composable
-fun WithdrawalDialog(onDismiss: () -> Unit, okClick: () -> Unit) {
+fun WithdrawalDialog(
+    onDismiss: () -> Unit,
+    okClick: () -> Unit,
+) {
     Dialog(onDismissRequest = { onDismiss() }) {
         WithdrawalDialogContent(okClick)
     }
@@ -29,9 +32,10 @@ fun WithdrawalDialog(onDismiss: () -> Unit, okClick: () -> Unit) {
 @Composable
 private fun WithdrawalDialogContent(okClick: () -> Unit) {
     Surface(
-        modifier = Modifier
-            .width(312.dp)
-            .height(200.dp),
+        modifier =
+            Modifier
+                .width(312.dp)
+                .height(200.dp),
         shape = RoundedCornerShape(16.dp),
         shadowElevation = 15.dp,
         color = LottoTheme.colors.white,
@@ -41,28 +45,30 @@ private fun WithdrawalDialogContent(okClick: () -> Unit) {
                 text = stringResource(id = R.string.dialog_title),
                 modifier = Modifier.padding(16.dp),
                 style = LottoTheme.typography.headline3,
-                color = LottoTheme.colors.lottoBlack
+                color = LottoTheme.colors.lottoBlack,
             )
             Text(
                 text = stringResource(id = R.string.dialog_description),
                 modifier = Modifier.padding(horizontal = 16.dp),
                 style = LottoTheme.typography.body3,
-                color = LottoTheme.colors.gray700
+                color = LottoTheme.colors.gray700,
             )
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 16.dp, end = 12.dp),
-                contentAlignment = Alignment.Center
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 16.dp, end = 12.dp),
+                contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    modifier = Modifier
-                        .align(Alignment.BottomEnd)
-                        .padding(18.dp)
-                        .clickable { okClick() },
+                    modifier =
+                        Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(18.dp)
+                            .clickable { okClick() },
                     text = stringResource(id = R.string.button_done),
                     style = LottoTheme.typography.body2,
-                    color = LottoTheme.colors.lottoBlue
+                    color = LottoTheme.colors.lottoBlue,
                 )
             }
         }

@@ -12,48 +12,52 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    private val patchLotteryNotificationUseCase: PatchLotteryNotificationUseCase,
-    private val patchPensionLotteryNotificationUseCase: PatchPensionLotteryNotificationUseCase,
-) : BaseViewModel() {
-    private val isLottoNotificationAvailable = requireNotNull(
-        savedStateHandle.get<Boolean>(NotificationActivity.EXTRA_KEY_LOTTO_NOTIFICATION_STATE)
-    )
-
-    private val isPensionLottoNotificationAvailable = requireNotNull(
-        savedStateHandle.get<Boolean>(NotificationActivity.EXTRA_KEY_PENSION_LOTTO_NOTIFICATION_STATE)
-    )
-
-    private val _uiState = MutableStateFlow(NotificationState())
-    val uiState: StateFlow<NotificationState> = _uiState.asStateFlow()
-
-    init {
-        _uiState.update { state ->
-            state.copy(
-                isLottoNotificationAvailable = isLottoNotificationAvailable,
-                isPensionLottoNotificationAvailable = isPensionLottoNotificationAvailable,
+class NotificationViewModel
+    @Inject
+    constructor(
+        savedStateHandle: SavedStateHandle,
+        private val patchLotteryNotificationUseCase: PatchLotteryNotificationUseCase,
+        private val patchPensionLotteryNotificationUseCase: PatchPensionLotteryNotificationUseCase,
+    ) : BaseViewModel() {
+        private val isLottoNotificationAvailable =
+            requireNotNull(
+                savedStateHandle.get<Boolean>(NotificationActivity.EXTRA_KEY_LOTTO_NOTIFICATION_STATE),
             )
-        }
-    }
 
-    fun setLottoNotification(enabled: Boolean) {
-        launch {
-            patchLotteryNotificationUseCase(enabled).onSuccess {
-                _uiState.update { it.copy(isLottoNotificationAvailable = enabled) }
-            }.onFailure {
-                // TODO 예외처리
+        private val isPensionLottoNotificationAvailable =
+            requireNotNull(
+                savedStateHandle.get<Boolean>(NotificationActivity.EXTRA_KEY_PENSION_LOTTO_NOTIFICATION_STATE),
+            )
+
+        private val _uiState = MutableStateFlow(NotificationState())
+        val uiState: StateFlow<NotificationState> = _uiState.asStateFlow()
+
+        init {
+            _uiState.update { state ->
+                state.copy(
+                    isLottoNotificationAvailable = isLottoNotificationAvailable,
+                    isPensionLottoNotificationAvailable = isPensionLottoNotificationAvailable,
+                )
+            }
+        }
+
+        fun setLottoNotification(enabled: Boolean) {
+            launch {
+                patchLotteryNotificationUseCase(enabled).onSuccess {
+                    _uiState.update { it.copy(isLottoNotificationAvailable = enabled) }
+                }.onFailure {
+                    // TODO 예외처리
+                }
+            }
+        }
+
+        fun setPensionLottoNotification(enabled: Boolean) {
+            launch {
+                patchPensionLotteryNotificationUseCase(enabled).onSuccess {
+                    _uiState.update { it.copy(isPensionLottoNotificationAvailable = enabled) }
+                }.onFailure {
+                    // TODO 예외처리
+                }
             }
         }
     }
-
-    fun setPensionLottoNotification(enabled: Boolean) {
-        launch {
-            patchPensionLotteryNotificationUseCase(enabled).onSuccess {
-                _uiState.update { it.copy(isPensionLottoNotificationAvailable = enabled) }
-            }.onFailure {
-                // TODO 예외처리
-            }
-        }
-    }
-}

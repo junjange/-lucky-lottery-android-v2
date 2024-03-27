@@ -16,7 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object OcrModule {
-
     private const val KOR = "kor.traineddata"
     private const val KOR_VERT = "kor_vert.traineddata"
     private const val DIGITS = "digits.traineddata"
@@ -24,10 +23,11 @@ internal object OcrModule {
     private const val DIGITS_COMMA = "digits_comma.traineddata"
     private const val DIGITS_LAYER = "digits_layer.traineddata"
 
-
     @Provides
     @Singleton
-    fun provideTess(@ApplicationContext context: Context): TessBaseAPI {
+    fun provideTess(
+        @ApplicationContext context: Context,
+    ): TessBaseAPI {
         val tess = TessBaseAPI()
 
         val dataPath = File(context.filesDir, "tesseract")
@@ -42,12 +42,12 @@ internal object OcrModule {
             DIGITS,
             DIGITS1,
             DIGITS_COMMA,
-            DIGITS_LAYER
+            DIGITS_LAYER,
         )
 
         tess.init(dataPath.absolutePath, "kor+kor_vert+digits+digits1+digits_comma+digits_layer")
-        //TODO: tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "");
-        tess.setVariable(TessBaseAPI.VAR_CHAR_BLACKLIST, "!@#$%^&*()_+=-[]}{;:'\"\\|~`,./<>?");
+        // TODO: tess.setVariable(TessBaseAPI.VAR_CHAR_WHITELIST, "");
+        tess.setVariable(TessBaseAPI.VAR_CHAR_BLACKLIST, "!@#$%^&*()_+=-[]}{;:'\"\\|~`,./<>?")
         return tess
     }
 
@@ -55,7 +55,11 @@ internal object OcrModule {
         for (dir in dirs) with(dir) { if (!exists()) mkdir() }
     }
 
-    private fun checkTrainedData(context: Context, dir: File, vararg languages: String) {
+    private fun checkTrainedData(
+        context: Context,
+        dir: File,
+        vararg languages: String,
+    ) {
         for (language in languages) {
             with(File(dir, language)) {
                 if (!exists()) copyFrom(context.assets.open(language))

@@ -9,7 +9,7 @@ data class WinningPensionLotteryNumbersResponse(
     val winningThirdNum: Int,
     val winningFourthNum: Int,
     val winningFifthNum: Int,
-    val winningSixthNum: Int
+    val winningSixthNum: Int,
 )
 
 internal fun WinningPensionLotteryNumbersResponse.toData() =
@@ -20,5 +20,5 @@ internal fun WinningPensionLotteryNumbersResponse.toData() =
         winningThirdNum = winningThirdNum,
         winningFourthNum = winningFourthNum,
         winningFifthNum = winningFifthNum,
-        winningSixthNum = winningSixthNum
+        winningSixthNum = winningSixthNum,
     )

@@ -1,5 +1,5 @@
 package com.junjange.remote.model.request
 
 data class ImagesUploadRequest(
-    val file : String
+    val file: String,
 )

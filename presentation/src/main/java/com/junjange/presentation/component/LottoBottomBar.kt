@@ -25,14 +25,15 @@ import com.junjange.presentation.ui.theme.LottoTheme
 fun LottoBottomBar(
     currentDestination: NavDestination?,
     onNavigate: (Destination) -> Unit,
-    navigateToActivity: () -> Unit
+    navigateToActivity: () -> Unit,
 ) {
     Column {
         Spacer(
-            modifier = Modifier
-                .height(1.dp)
-                .fillMaxWidth()
-                .background(color = LottoTheme.colors.gray400)
+            modifier =
+                Modifier
+                    .height(1.dp)
+                    .fillMaxWidth()
+                    .background(color = LottoTheme.colors.gray400),
         )
 
         NavigationBar {
@@ -50,9 +51,10 @@ fun LottoBottomBar(
                     label = {
                         Text(
                             text = stringResource(id = destination.labelResId),
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                color = if (selected) LottoTheme.colors.black else LottoTheme.colors.gray400
-                            )
+                            style =
+                                MaterialTheme.typography.labelSmall.copy(
+                                    color = if (selected) LottoTheme.colors.black else LottoTheme.colors.gray400,
+                                ),
                         )
                     },
                     selected = false,
@@ -63,7 +65,7 @@ fun LottoBottomBar(
                             onNavigate(destination)
                         }
                     },
-                    interactionSource = MutableInteractionSource()
+                    interactionSource = MutableInteractionSource(),
                 )
             }
         }

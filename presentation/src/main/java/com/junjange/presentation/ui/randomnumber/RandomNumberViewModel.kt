@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class RandomNumberViewModel @Inject constructor() : BaseViewModel() {
-
-    private val _uiState = MutableStateFlow(RandomNumberState())
-    val uiState: StateFlow<RandomNumberState> = _uiState.asStateFlow()
-
-}
+class RandomNumberViewModel
+    @Inject
+    constructor() : BaseViewModel() {
+        private val _uiState = MutableStateFlow(RandomNumberState())
+        val uiState: StateFlow<RandomNumberState> = _uiState.asStateFlow()
+    }

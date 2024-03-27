@@ -9,11 +9,9 @@ import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.ui.main.MainActivity
 import com.junjange.presentation.ui.theme.LottoTheme
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.Serializable
 
 @AndroidEntryPoint
 class RegisterActivity : BaseActivity() {
-
     private val viewModel: RegisterViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +21,7 @@ class RegisterActivity : BaseActivity() {
                 RegisterScreen(
                     viewModel = viewModel,
                     navigateToMain = ::startMainActivity,
-                    onBack = ::finish
+                    onBack = ::finish,
                 )
             }
         }
@@ -37,11 +35,12 @@ class RegisterActivity : BaseActivity() {
         fun startActivity(
             context: Context,
             idToken: String,
-            provider: String
+            provider: String,
         ) {
-            val intent = Intent(context, RegisterActivity::class.java)
-                .putExtra(EXTRA_KEY_ID_TOKEN, idToken)
-                .putExtra(EXTRA_KEY_PROVIDER, provider)
+            val intent =
+                Intent(context, RegisterActivity::class.java)
+                    .putExtra(EXTRA_KEY_ID_TOKEN, idToken)
+                    .putExtra(EXTRA_KEY_PROVIDER, provider)
             context.startActivity(intent)
         }
 

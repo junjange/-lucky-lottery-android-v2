@@ -4,14 +4,3 @@ data class PensionLotteryGetEntity(
     val content: List<PensionLotteryGetContentEntity>,
     val last: Boolean,
 )
-
-
-
-
-
-
-
-
-
-
-

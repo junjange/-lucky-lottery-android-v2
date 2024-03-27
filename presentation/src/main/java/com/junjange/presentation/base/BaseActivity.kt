@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 
 abstract class BaseActivity : ComponentActivity() {
-
     protected inline val TAG get() = this::class.java.simpleName
     protected open val activityTransition = ActivityTransition.Push
 

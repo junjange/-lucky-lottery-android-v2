@@ -7,7 +7,5 @@ data class ErrorResponseImpl(
     @SerializedName("status") override val status: Int,
     @SerializedName("reason") override val reason: String,
     @SerializedName("timeStamp") override val timeStamp: String,
-    @SerializedName("path") override val path: String
+    @SerializedName("path") override val path: String,
 ) : ErrorResponse
-
-

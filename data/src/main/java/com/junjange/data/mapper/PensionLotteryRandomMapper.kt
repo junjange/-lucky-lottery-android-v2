@@ -12,5 +12,5 @@ fun PensionLotteryRandomEntity.toDomain() =
         pensionThirdNum = pensionThirdNum,
         pensionFourthNum = pensionFourthNum,
         pensionFifthNum = pensionFifthNum,
-        pensionSixthNum = pensionSixthNum
+        pensionSixthNum = pensionSixthNum,
     )

@@ -12,11 +12,12 @@ data class PensionLotteryGetContentResponse(
     val winningPensionLotteryBonusNumbersResponse: WinningPensionLotteryBonusNumbersResponse?,
 )
 
-internal fun PensionLotteryGetContentResponse.toData() = PensionLotteryGetContentEntity(
-    round = round,
-    winningDate = winningDate,
-    checkWinningBonus = checkWinningBonus,
-    pensionLotteryNumbersEntity = pensionLotteryNumbersResponse.toData(),
-    winningPensionLotteryNumbersEntity = winningPensionLotteryNumbersResponse?.toData(),
-    winningPensionLotteryBonusNumbersEntity = winningPensionLotteryBonusNumbersResponse?.toData(),
-)
+internal fun PensionLotteryGetContentResponse.toData() =
+    PensionLotteryGetContentEntity(
+        round = round,
+        winningDate = winningDate,
+        checkWinningBonus = checkWinningBonus,
+        pensionLotteryNumbersEntity = pensionLotteryNumbersResponse.toData(),
+        winningPensionLotteryNumbersEntity = winningPensionLotteryNumbersResponse?.toData(),
+        winningPensionLotteryBonusNumbersEntity = winningPensionLotteryBonusNumbersResponse?.toData(),
+    )

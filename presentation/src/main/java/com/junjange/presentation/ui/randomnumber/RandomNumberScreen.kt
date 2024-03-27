@@ -30,26 +30,27 @@ import com.junjange.presentation.ui.theme.LottoTheme
 @Composable
 fun RandomNumberScreen(
     viewModel: RandomNumberViewModel,
-    navigateRandomNumberGeneration: (lottoType : LottoType) -> Unit
+    navigateRandomNumberGeneration: (lottoType: LottoType) -> Unit,
 ) {
-
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             RandomNumberCard(
-                modifier = Modifier
-                    .weight(0.5f)
-                    .clickable { navigateRandomNumberGeneration(LottoType.LOTTO645) },
+                modifier =
+                    Modifier
+                        .weight(0.5f)
+                        .clickable { navigateRandomNumberGeneration(LottoType.LOTTO645) },
                 iconRes = R.drawable.ic_lotto645_random,
                 title = R.string.lotto_645_random_title,
-                description = R.string.lotto_645_random_description
+                description = R.string.lotto_645_random_description,
             )
             RandomNumberCard(
-                modifier = Modifier
-                    .weight(0.5f)
-                    .clickable { navigateRandomNumberGeneration(LottoType.LOTTO720) } ,
+                modifier =
+                    Modifier
+                        .weight(0.5f)
+                        .clickable { navigateRandomNumberGeneration(LottoType.LOTTO720) },
                 iconRes = R.drawable.ic_lotto720_random,
                 title = R.string.lotto_720_title,
-                description = R.string.lotto_720_random_description
+                description = R.string.lotto_720_random_description,
             )
         }
     }
@@ -60,15 +61,17 @@ fun RandomNumberCard(
     modifier: Modifier = Modifier,
     @DrawableRes iconRes: Int,
     title: Int,
-    description: Int
+    description: Int,
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp
-        ),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+        elevation =
+            CardDefaults.cardElevation(
+                defaultElevation = 8.dp,
+            ),
         colors = CardDefaults.cardColors(containerColor = LottoTheme.colors.white),
         shape = RoundedCornerShape(size = 8.dp),
         border = BorderStroke(width = 1.dp, color = LottoTheme.colors.gray200),
@@ -76,19 +79,19 @@ fun RandomNumberCard(
         Row(
             modifier = modifier.fillMaxSize(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceAround
+            horizontalArrangement = Arrangement.SpaceAround,
         ) {
             Column(
                 modifier = Modifier.padding(8.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
                     text = stringResource(id = title),
-                    style = LottoTheme.typography.body1.copy(fontWeight = FontWeight.Bold)
+                    style = LottoTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
                 )
                 Text(
                     text = stringResource(id = description),
-                    style = LottoTheme.typography.body4
+                    style = LottoTheme.typography.body4,
                 )
             }
             Image(

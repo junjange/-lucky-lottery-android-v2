@@ -8,6 +8,7 @@ import com.junjange.remote.model.request.NotificationRequest
 import com.junjange.remote.model.request.PensionLotteryRandomRequest
 import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.request.RegisterRequest
+import com.junjange.remote.model.request.UserNicknameRequest
 import com.junjange.remote.model.request.UserProfileRequest
 import com.junjange.remote.model.response.ImagesUploadResponse
 import com.junjange.remote.model.response.IsRegisteredResponse
@@ -24,9 +25,7 @@ import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-
 internal interface ApiService {
-
     @POST(ApiClient.Credentials.postCredentialsRegister)
     suspend fun postRegister(
         @Query("idToken") idToken: String,
@@ -68,7 +67,7 @@ internal interface ApiService {
 
     @PATCH(ApiClient.User.patchUserNickname)
     suspend fun patchUserNickname(
-        @Body body: NotificationRequest,
+        @Body body: UserNicknameRequest,
     ): BaseResponse<Unit>
 
     @POST(ApiClient.Lottery.postLotterySave)
@@ -86,7 +85,9 @@ internal interface ApiService {
     ): BaseResponse<LotteryGetResponse>
 
     @POST(ApiClient.PensionLottery.postPensionLotterySave)
-    suspend fun postPensionLotterySave(@Body body: PensionLotteryRandomRequest): BaseResponse<Unit>
+    suspend fun postPensionLotterySave(
+        @Body body: PensionLotteryRandomRequest,
+    ): BaseResponse<Unit>
 
     @GET(ApiClient.PensionLottery.getPensionLotteryRandom)
     suspend fun getPensionLotteryRandom(): BaseResponse<PensionLotteryRandomResponse>
@@ -112,5 +113,4 @@ internal interface ApiService {
     suspend fun postImagesUpload(
         @Body body: ImagesUploadRequest,
     ): BaseResponse<ImagesUploadResponse>
-
 }

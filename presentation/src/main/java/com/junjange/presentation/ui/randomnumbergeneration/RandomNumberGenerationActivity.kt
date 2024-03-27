@@ -12,7 +12,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RandomNumberGenerationActivity : BaseActivity() {
-
     private val viewModel: RandomNumberGenerationViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +26,7 @@ class RandomNumberGenerationActivity : BaseActivity() {
     companion object {
         fun startActivity(
             context: Context,
-            lottoType: LottoType
+            lottoType: LottoType,
         ) {
             val intent = Intent(context, RandomNumberGenerationActivity::class.java)
             intent.putExtra(LOTTO_TYPE, lottoType.name)

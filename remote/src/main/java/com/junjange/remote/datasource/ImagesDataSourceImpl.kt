@@ -7,11 +7,14 @@ import com.junjange.remote.model.request.ImagesUploadRequest
 import com.junjange.remote.model.response.toData
 import javax.inject.Inject
 
-internal class ImagesDataSourceImpl @Inject constructor(
-    private val apiService: ApiService,
-) : ImagesDataSource {
-    override suspend fun postImagesUpload(file: String): Result<ImageUploadEntity> = runCatching {
-        val body = ImagesUploadRequest(file = file)
-        apiService.postImagesUpload(body = body).data.toData()
+internal class ImagesDataSourceImpl
+    @Inject
+    constructor(
+        private val apiService: ApiService,
+    ) : ImagesDataSource {
+        override suspend fun postImagesUpload(file: String): Result<ImageUploadEntity> =
+            runCatching {
+                val body = ImagesUploadRequest(file = file)
+                apiService.postImagesUpload(body = body).data.toData()
+            }
     }
-}

@@ -1,11 +1,9 @@
 package com.junjange.domain.repository
 
-import com.junjange.domain.model.AccessToken
 import com.junjange.domain.model.IsRegistered
 import com.junjange.domain.model.JwtToken
 
 interface CredentialRepository {
-
     suspend fun postRegister(
         idToken: String,
         provider: String,

@@ -50,17 +50,18 @@ fun MyScreen(
     navigateToWithdrawal: () -> Unit,
     navigateToSplash: () -> Unit,
     navigateToEditProfile: () -> Unit,
-    navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit
+    navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
 
     val usageTermUri = "https://fre2-dom.tistory.com/7"
-    val intent = Intent(
-        Intent.ACTION_VIEW,
-        Uri.parse(usageTermUri)
-    )
+    val intent =
+        Intent(
+            Intent.ACTION_VIEW,
+            Uri.parse(usageTermUri),
+        )
 
     LaunchedEffect(viewModel.effect) {
         viewModel.effect.collectLatest { effect ->
@@ -69,31 +70,34 @@ fun MyScreen(
                 is NavigateToUsageTerm -> context.startActivity(intent)
                 is MyEffect.NavigateToSplash -> navigateToSplash()
                 is MyEffect.NavigateToWithdrawal -> navigateToWithdrawal()
-                is MyEffect.NavigateToNotification -> navigateToNotification(
-                    effect.lottoNotificationState,
-                    effect.pensionLottoNotificationState
-                )
+                is MyEffect.NavigateToNotification ->
+                    navigateToNotification(
+                        effect.lottoNotificationState,
+                        effect.pensionLottoNotificationState,
+                    )
             }
         }
     }
 
     Scaffold(
-        topBar = { LottoSimpleTopBar(titleRes = R.string.my) }
+        topBar = { LottoSimpleTopBar(titleRes = R.string.my) },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
             Box {
                 Surface(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp, vertical = 24.dp)
-                        .fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .padding(horizontal = 16.dp, vertical = 24.dp)
+                            .fillMaxWidth(),
                     color = LottoTheme.colors.lottoBlack,
-                    shape = RoundedCornerShape(32.dp)
+                    shape = RoundedCornerShape(32.dp),
                 ) {
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(32.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(32.dp),
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Box {
                             // TODO 임시 데이터
@@ -101,23 +105,25 @@ fun MyScreen(
                                 model = "https://www.ikbc.co.kr/data/kbc/image/2023/08/13/kbc202308130007.800x.0.jpg",
                                 contentDescription = null,
                                 contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .size(120.dp)
-                                    .clip(RoundedCornerShape(32.dp))
-                                    .border(
-                                        width = 1.dp,
-                                        color = White,
-                                        shape = RoundedCornerShape(32.dp)
-                                    )
+                                modifier =
+                                    Modifier
+                                        .size(120.dp)
+                                        .clip(RoundedCornerShape(32.dp))
+                                        .border(
+                                            width = 1.dp,
+                                            color = White,
+                                            shape = RoundedCornerShape(32.dp),
+                                        ),
                             )
                             Image(
                                 painter = painterResource(id = R.drawable.ic_profile_edit),
                                 contentDescription = null,
-                                modifier = Modifier
-                                    .size(32.dp)
-                                    .offset(x = 4.dp, y = 4.dp)
-                                    .align(Alignment.BottomEnd)
-                                    .clickable { viewModel.onClickedEditProfile() }
+                                modifier =
+                                    Modifier
+                                        .size(32.dp)
+                                        .offset(x = 4.dp, y = 4.dp)
+                                        .align(Alignment.BottomEnd)
+                                        .clickable { viewModel.onClickedEditProfile() },
                             )
                         }
                         Spacer(modifier = Modifier.width(32.dp))
@@ -125,11 +131,11 @@ fun MyScreen(
                             // TODO 임시 데이터
                             Text(
                                 text = "조준장",
-                                style = LottoTheme.typography.headline1
+                                style = LottoTheme.typography.headline1,
                             )
                             Text(
                                 text = stringResource(id = R.string.login_with_kakao),
-                                style = LottoTheme.typography.body2
+                                style = LottoTheme.typography.body2,
                             )
                         }
                     }
@@ -138,27 +144,27 @@ fun MyScreen(
             Divider(thickness = 8.dp, color = LottoTheme.colors.gray200)
             Column(
                 modifier = Modifier.padding(vertical = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 LottoButtonBar(
                     textRes = R.string.app_notification,
-                    onClick = { viewModel.onClickedNotification() }
+                    onClick = { viewModel.onClickedNotification() },
                 )
                 LottoTextBar(
                     textRes = R.string.version_info,
-                    subtextRes = R.string.newest_version
+                    subtextRes = R.string.newest_version,
                 )
                 LottoButtonBar(
                     textRes = R.string.usage_term,
-                    onClick = { viewModel.onClickedUsageTerm() }
+                    onClick = { viewModel.onClickedUsageTerm() },
                 )
                 LottoButtonBar(
                     textRes = R.string.sign_out,
-                    onClick = { viewModel.onClickedSignOut() }
+                    onClick = { viewModel.onClickedSignOut() },
                 )
                 LottoButtonBar(
                     textRes = R.string.withdraw_lotto,
-                    onClick = { viewModel.onClickedWithdrawal() }
+                    onClick = { viewModel.onClickedWithdrawal() },
                 )
             }
         }

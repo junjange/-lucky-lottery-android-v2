@@ -31,27 +31,34 @@ import com.junjange.presentation.ui.theme.LottoTheme
 
 @Composable
 fun RandomNumberGenerationScreen(viewModel: RandomNumberGenerationViewModel) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             RandomNumberGenerationContent(
                 uiState = uiState,
                 onCreateClicked = {
-                    if (uiState.isLotto645) viewModel.generate645RandomNumbers()
-                    else viewModel.generate720RandomNumbers()
+                    if (uiState.isLotto645) {
+                        viewModel.generate645RandomNumbers()
+                    } else {
+                        viewModel.generate720RandomNumbers()
+                    }
                 },
                 onSaveClicked = {
-                    if (uiState.isLotto645) viewModel.postLotterySave()
-                    else viewModel.postPensionLotterySave()
-                })
+                    if (uiState.isLotto645) {
+                        viewModel.postLotterySave()
+                    } else {
+                        viewModel.postPensionLotterySave()
+                    }
+                },
+            )
         }
     }
 }
@@ -60,18 +67,18 @@ fun RandomNumberGenerationScreen(viewModel: RandomNumberGenerationViewModel) {
 fun RandomNumberGenerationContent(
     uiState: RandomNumberGenerationState,
     onCreateClicked: () -> Unit,
-    onSaveClicked: () -> Unit
+    onSaveClicked: () -> Unit,
 ) {
-
-    val pensionLotteryColors = listOf(
-        LottoTheme.colors.gray600,
-        LottoTheme.colors.lottoError,
-        LottoTheme.colors.lottoOrange,
-        LottoTheme.colors.lottoYellow,
-        LottoTheme.colors.lottoBlue,
-        LottoTheme.colors.lottoPurple,
-        LottoTheme.colors.lottoBlack,
-    )
+    val pensionLotteryColors =
+        listOf(
+            LottoTheme.colors.gray600,
+            LottoTheme.colors.lottoError,
+            LottoTheme.colors.lottoOrange,
+            LottoTheme.colors.lottoYellow,
+            LottoTheme.colors.lottoBlue,
+            LottoTheme.colors.lottoPurple,
+            LottoTheme.colors.lottoBlack,
+        )
 
     Image(
         modifier = Modifier.size(140.dp),
@@ -83,14 +90,14 @@ fun RandomNumberGenerationContent(
 
     Text(
         text = stringResource(id = if (uiState.isLotto645) R.string.lotto_645_title else R.string.lotto_720_title),
-        style = LottoTheme.typography.body1.copy(fontWeight = FontWeight.Bold)
+        style = LottoTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
     )
 
     Spacer(modifier = Modifier.height(30.dp))
 
     Row(
         modifier = Modifier.padding(horizontal = 4.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         if (uiState.isLotto645) {
             uiState.lotteryRandomNumbers?.let {
@@ -100,21 +107,22 @@ fun RandomNumberGenerationContent(
                     it.thirdNum,
                     it.fourthNum,
                     it.fifthNum,
-                    it.sixthNum
+                    it.sixthNum,
                 ).forEach { number ->
-                    val color = when (number) {
-                        in 1..10 -> LottoTheme.colors.lottoYellow
-                        in 11..20 -> LottoTheme.colors.lottoBlue
-                        in 21..30 -> LottoTheme.colors.lottoError
-                        in 31..40 -> LottoTheme.colors.gray400
-                        in 41..45 -> LottoTheme.colors.lottoGreen
-                        else -> LottoTheme.colors.lottoPurple
-                    }
+                    val color =
+                        when (number) {
+                            in 1..10 -> LottoTheme.colors.lottoYellow
+                            in 11..20 -> LottoTheme.colors.lottoBlue
+                            in 21..30 -> LottoTheme.colors.lottoError
+                            in 31..40 -> LottoTheme.colors.gray400
+                            in 41..45 -> LottoTheme.colors.lottoGreen
+                            else -> LottoTheme.colors.lottoPurple
+                        }
 
                     LottoBall(
                         lottoType = LottoType.LOTTO645,
                         lottoColor = color,
-                        lottoTitle = number.toString()
+                        lottoTitle = number.toString(),
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                 }
@@ -123,13 +131,11 @@ fun RandomNumberGenerationContent(
                     LottoBall(
                         lottoType = LottoType.LOTTO645,
                         lottoColor = LottoTheme.colors.gray400,
-                        lottoTitle = number.toString()
+                        lottoTitle = number.toString(),
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                 }
             }
-
-
         } else {
             uiState.pensionLotteryRandom?.let {
                 listOf(
@@ -139,7 +145,7 @@ fun RandomNumberGenerationContent(
                     it.pensionThirdNum,
                     it.pensionFourthNum,
                     it.pensionFourthNum,
-                    it.pensionSixthNum
+                    it.pensionSixthNum,
                 ).forEachIndexed { index, s ->
                     if (index == 1) {
                         Spacer(modifier = Modifier.width(4.dp))
@@ -152,7 +158,7 @@ fun RandomNumberGenerationContent(
                     LottoBall(
                         lottoType = LottoType.LOTTO720,
                         lottoColor = pensionLotteryColors[index],
-                        lottoTitle = s.toString()
+                        lottoTitle = s.toString(),
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                 }
@@ -169,41 +175,42 @@ fun RandomNumberGenerationContent(
                     LottoBall(
                         lottoType = LottoType.LOTTO720,
                         lottoColor = pensionLotteryColors[index],
-                        lottoTitle = s.toString()
+                        lottoTitle = s.toString(),
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                 }
             }
         }
-
     }
 
     Spacer(modifier = Modifier.height(20.dp))
 
     Row(
         modifier = Modifier.padding(20.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         LottoRoundedCornerButton(
-            modifier = Modifier
-                .clip(shape = RoundedCornerShape(8.dp))
-                .height(40.dp)
-                .width(160.dp),
+            modifier =
+                Modifier
+                    .clip(shape = RoundedCornerShape(8.dp))
+                    .height(40.dp)
+                    .width(160.dp),
             buttonText = stringResource(R.string.create_title),
             backgroundColor = LottoTheme.colors.lottoGreen,
             isEnabled = true,
-            onClick = { onCreateClicked() }
+            onClick = { onCreateClicked() },
         )
         Spacer(modifier = Modifier.width(20.dp))
         LottoRoundedCornerButton(
-            modifier = Modifier
-                .clip(shape = RoundedCornerShape(8.dp))
-                .height(40.dp)
-                .width(160.dp),
+            modifier =
+                Modifier
+                    .clip(shape = RoundedCornerShape(8.dp))
+                    .height(40.dp)
+                    .width(160.dp),
             buttonText = stringResource(R.string.save_title),
             backgroundColor = LottoTheme.colors.lottoGreen,
             isEnabled = true,
-            onClick = { onSaveClicked() }
+            onClick = { onSaveClicked() },
         )
     }
 }

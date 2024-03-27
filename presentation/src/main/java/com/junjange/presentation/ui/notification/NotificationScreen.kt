@@ -16,16 +16,15 @@ fun NotificationScreen(viewModel: NotificationViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
-        topBar = { LottoSimpleTopBar(titleRes = R.string.notification_title) }
+        topBar = { LottoSimpleTopBar(titleRes = R.string.notification_title) },
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-
             LottoSwitchBar(
                 textRes = R.string.lotto_notification_title,
                 descriptionTextRes = R.string.lotto_notification_description,
                 isSwitchedOn = uiState.isLottoNotificationAvailable,
                 onSwitchOn = { viewModel.setLottoNotification(true) },
-                onSwitchOff = { viewModel.setLottoNotification(false) }
+                onSwitchOff = { viewModel.setLottoNotification(false) },
             )
 
             LottoSwitchBar(
@@ -33,7 +32,7 @@ fun NotificationScreen(viewModel: NotificationViewModel) {
                 descriptionTextRes = R.string.pension_lotto_notification_description,
                 isSwitchedOn = uiState.isPensionLottoNotificationAvailable,
                 onSwitchOn = { viewModel.setPensionLottoNotification(true) },
-                onSwitchOff = { viewModel.setPensionLottoNotification(false) }
+                onSwitchOff = { viewModel.setPensionLottoNotification(false) },
             )
         }
     }

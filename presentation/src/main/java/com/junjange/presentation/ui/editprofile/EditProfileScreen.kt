@@ -59,33 +59,35 @@ fun EditProfileScreen(
 
     val context = LocalContext.current
 
-    val imageCropLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
-        if (result.isSuccessful) {
-            result.uriContent?.let {
-                val bitmap =
-                    if (Build.VERSION.SDK_INT < 28) {
-                        MediaStore.Images.Media.getBitmap(context.contentResolver, it)
-                    } else {
-                        val source = ImageDecoder.createSource(context.contentResolver, it)
-                        ImageDecoder.decodeBitmap(source)
-                    }
-                viewModel.onPickImage(bitmap)
+    val imageCropLauncher =
+        rememberLauncherForActivityResult(CropImageContract()) { result ->
+            if (result.isSuccessful) {
+                result.uriContent?.let {
+                    val bitmap =
+                        if (Build.VERSION.SDK_INT < 28) {
+                            MediaStore.Images.Media.getBitmap(context.contentResolver, it)
+                        } else {
+                            val source = ImageDecoder.createSource(context.contentResolver, it)
+                            ImageDecoder.decodeBitmap(source)
+                        }
+                    viewModel.onPickImage(bitmap)
+                }
             }
         }
-    }
 
-    val imageCropperOptions = CropImageOptions(
-        fixAspectRatio = true,
-        aspectRatioX = 1,
-        aspectRatioY = 1,
-        toolbarColor = Color.WHITE,
-        toolbarBackButtonColor = Color.BLACK,
-        toolbarTintColor = Color.BLACK,
-        allowFlipping = false,
-        allowRotation = false,
-        cropMenuCropButtonTitle = context.getString(R.string.done),
-        imageSourceIncludeCamera = false
-    )
+    val imageCropperOptions =
+        CropImageOptions(
+            fixAspectRatio = true,
+            aspectRatioX = 1,
+            aspectRatioY = 1,
+            toolbarColor = Color.WHITE,
+            toolbarBackButtonColor = Color.BLACK,
+            toolbarTintColor = Color.BLACK,
+            allowFlipping = false,
+            allowRotation = false,
+            cropMenuCropButtonTitle = context.getString(R.string.done),
+            imageSourceIncludeCamera = false,
+        )
 
     val imagePickerLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
@@ -95,14 +97,18 @@ fun EditProfileScreen(
             }
         }
 
-    val sheetState = rememberModalBottomSheetState(
-        initialValue = ModalBottomSheetValue.Hidden,
-        skipHalfExpanded = true
-    )
+    val sheetState =
+        rememberModalBottomSheetState(
+            initialValue = ModalBottomSheetValue.Hidden,
+            skipHalfExpanded = true,
+        )
 
     LaunchedEffect(uiState.isBottomSheetShowing) {
-        if (uiState.isBottomSheetShowing) sheetState.show()
-        else sheetState.hide()
+        if (uiState.isBottomSheetShowing) {
+            sheetState.show()
+        } else {
+            sheetState.hide()
+        }
     }
 
     LaunchedEffect(sheetState.isVisible) {
@@ -128,7 +134,7 @@ fun EditProfileScreen(
                     is ProfileDefaultImageSelect -> viewModel.onClickedProfileDefaultImageSelect()
                 }
             }
-        }
+        },
     ) {
         Scaffold(
             topBar = {
@@ -137,13 +143,13 @@ fun EditProfileScreen(
                     titleRes = R.string.edit_profile,
                     buttonTextRes = R.string.done,
                     onClickButton = { onBack() },
-                    isEnabled = uiState.newNickname.isNotEmpty() && (uiState.newNickname != uiState.currentNickName || uiState.newProfileImage != null)
+                    isEnabled = uiState.newNickname.isNotEmpty() && (uiState.newNickname != uiState.currentNickName || uiState.newProfileImage != null),
                 )
             },
         ) { innerPadding ->
             Column(
                 modifier = Modifier.padding(innerPadding),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Box(modifier = Modifier.padding(top = 114.dp)) {
                     // TODO 임시 데이터
@@ -151,41 +157,44 @@ fun EditProfileScreen(
                         model = "https://www.ikbc.co.kr/data/kbc/image/2023/08/13/kbc202308130007.800x.0.jpg",
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(120.dp)
-                            .clip(RoundedCornerShape(32.dp))
+                        modifier =
+                            Modifier
+                                .size(120.dp)
+                                .clip(RoundedCornerShape(32.dp)),
                     )
                     uiState.newProfileImage?.let {
                         Image(
                             it.asImageBitmap(),
                             contentDescription = null,
-                            modifier = Modifier
-                                .size(120.dp)
-                                .clip(RoundedCornerShape(32.dp))
+                            modifier =
+                                Modifier
+                                    .size(120.dp)
+                                    .clip(RoundedCornerShape(32.dp)),
                         )
                     }
                     Image(
                         painter = painterResource(id = R.drawable.ic_profile_camera),
                         contentDescription = null,
-                        modifier = Modifier
-                            .size(32.dp)
-                            .align(Alignment.BottomEnd)
-                            .offset(x = 4.dp, y = 4.dp)
-                            .clickable { viewModel.setBottomSheetShowing(isBottomSheetShowing = true) }
+                        modifier =
+                            Modifier
+                                .size(32.dp)
+                                .align(Alignment.BottomEnd)
+                                .offset(x = 4.dp, y = 4.dp)
+                                .clickable { viewModel.setBottomSheetShowing(isBottomSheetShowing = true) },
                     )
                 }
                 Spacer(modifier = Modifier.height(48.dp))
                 LottoProfileTextField(
                     value = uiState.newNickname,
                     onValueChange = viewModel::inputNickname,
-                    onClear = { viewModel.inputNickname("") }
+                    onClear = { viewModel.inputNickname("") },
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = stringResource(id = R.string.edit_profile_help),
                     style = LottoTheme.typography.caption2,
                     color = LottoTheme.colors.gray600,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }

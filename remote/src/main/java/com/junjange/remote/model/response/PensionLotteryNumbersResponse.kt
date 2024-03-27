@@ -16,18 +16,19 @@ data class PensionLotteryNumbersResponse(
     val bonusCorrectNumbers: List<Boolean>?,
 )
 
-internal fun List<PensionLotteryNumbersResponse>.toData() = map {
-    PensionLotteryNumbersEntity(
-        pensionGroup = it.pensionGroup,
-        pensionFirstNum = it.pensionFirstNum,
-        pensionSecondNum = it.pensionSecondNum,
-        pensionThirdNum = it.pensionThirdNum,
-        pensionFourthNum = it.pensionFourthNum,
-        pensionFifthNum = it.pensionFifthNum,
-        pensionSixthNum = it.pensionSixthNum,
-        rank = it.rank,
-        checkWinningBonus = it.checkWinningBonus,
-        correctNumbers = it.correctNumbers,
-        bonusCorrectNumbers = it.bonusCorrectNumbers
-    )
-}
+internal fun List<PensionLotteryNumbersResponse>.toData() =
+    map {
+        PensionLotteryNumbersEntity(
+            pensionGroup = it.pensionGroup,
+            pensionFirstNum = it.pensionFirstNum,
+            pensionSecondNum = it.pensionSecondNum,
+            pensionThirdNum = it.pensionThirdNum,
+            pensionFourthNum = it.pensionFourthNum,
+            pensionFifthNum = it.pensionFifthNum,
+            pensionSixthNum = it.pensionSixthNum,
+            rank = it.rank,
+            checkWinningBonus = it.checkWinningBonus,
+            correctNumbers = it.correctNumbers,
+            bonusCorrectNumbers = it.bonusCorrectNumbers,
+        )
+    }

@@ -7,14 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.component.LottoType
-import com.junjange.presentation.ui.main.MainActivity
 import com.junjange.presentation.ui.randomnumbergeneration.RandomNumberGenerationActivity
 import com.junjange.presentation.ui.theme.LottoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RandomNumberActivity : BaseActivity() {
-
     private val viewModel: RandomNumberViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +21,7 @@ class RandomNumberActivity : BaseActivity() {
             LottoTheme {
                 RandomNumberScreen(
                     viewModel = viewModel,
-                    navigateRandomNumberGeneration = ::startRandomNumberGenerationActivity
+                    navigateRandomNumberGeneration = ::startRandomNumberGenerationActivity,
                 )
             }
         }
@@ -32,7 +30,7 @@ class RandomNumberActivity : BaseActivity() {
     private fun startRandomNumberGenerationActivity(lottoType: LottoType) {
         RandomNumberGenerationActivity.startActivity(
             context = this,
-            lottoType = lottoType
+            lottoType = lottoType,
         )
     }
 

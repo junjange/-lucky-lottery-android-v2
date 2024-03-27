@@ -11,9 +11,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal interface ServiceModule {
-
     @Binds
     @Singleton
     fun bindOcrService(service: OcrServiceImpl): OcrService
-
 }

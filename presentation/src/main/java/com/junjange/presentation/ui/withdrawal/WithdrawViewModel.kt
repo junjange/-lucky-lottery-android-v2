@@ -9,20 +9,21 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class WithdrawViewModel @Inject constructor() : BaseViewModel() {
+class WithdrawViewModel
+    @Inject
+    constructor() : BaseViewModel() {
+        private val _uiState = MutableStateFlow(WithdrawalState())
+        val uiState: StateFlow<WithdrawalState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow(WithdrawalState())
-    val uiState: StateFlow<WithdrawalState> = _uiState.asStateFlow()
+        fun addStep(step: Int) {
+            _uiState.update { state ->
+                state.copy(step = state.step + step)
+            }
+        }
 
-    fun addStep(step: Int) {
-        _uiState.update { state ->
-            state.copy(step = state.step + step)
+        fun onClickedDialog(isWithdrawalDialogShowing: Boolean) {
+            _uiState.update { state ->
+                state.copy(isWithdrawalDialogShowing = isWithdrawalDialogShowing)
+            }
         }
     }
-
-    fun onClickedDialog(isWithdrawalDialogShowing: Boolean) {
-        _uiState.update { state ->
-            state.copy(isWithdrawalDialogShowing = isWithdrawalDialogShowing)
-        }
-    }
-}

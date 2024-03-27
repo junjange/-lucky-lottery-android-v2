@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashActivity : BaseActivity() {
-
     private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +20,7 @@ class SplashActivity : BaseActivity() {
                 SplashScreen(
                     viewModel = viewModel,
                     navigateToMain = ::startMainActivity,
-                    navigateToLogin = ::startLoginActivity
+                    navigateToLogin = ::startLoginActivity,
                 )
             }
         }

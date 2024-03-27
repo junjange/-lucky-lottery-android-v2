@@ -12,33 +12,32 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-
 @HiltViewModel
-class SplashViewModel @Inject constructor(
-    private val getJwtTokenUseCase: GetJwtTokenUseCase
-) : BaseViewModel() {
+class SplashViewModel
+    @Inject
+    constructor(
+        private val getJwtTokenUseCase: GetJwtTokenUseCase,
+    ) : BaseViewModel() {
+        private val _uiState = MutableStateFlow(SplashState())
+        val uiState: StateFlow<SplashState> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow(SplashState())
-    val uiState: StateFlow<SplashState> = _uiState.asStateFlow()
+        private val _effect = MutableSharedFlow<SplashEffect>()
+        val effect: SharedFlow<SplashEffect> = _effect.asSharedFlow()
 
-    private val _effect = MutableSharedFlow<SplashEffect>()
-    val effect: SharedFlow<SplashEffect> = _effect.asSharedFlow()
-
-    init {
-        launch {
-            delay(SPLASH_TIME)
-            getJwtTokenUseCase().onSuccess {
-                it?.let {
-                    _effect.emit(SplashEffect.AlreadyLoggedIn)
-                } ?: run {
-                    _effect.emit(SplashEffect.RequireLoginIn)
+        init {
+            launch {
+                delay(SPLASH_TIME)
+                getJwtTokenUseCase().onSuccess {
+                    it?.let {
+                        _effect.emit(SplashEffect.AlreadyLoggedIn)
+                    } ?: run {
+                        _effect.emit(SplashEffect.RequireLoginIn)
+                    }
                 }
             }
         }
-    }
 
-    companion object {
-        private const val SPLASH_TIME = 2000L
+        companion object {
+            private const val SPLASH_TIME = 2000L
+        }
     }
-
-}

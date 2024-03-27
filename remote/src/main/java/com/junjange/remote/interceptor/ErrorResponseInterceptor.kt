@@ -13,8 +13,7 @@ import okhttp3.Response
 import java.io.IOException
 import javax.net.ssl.SSLHandshakeException
 
-class ErrorResponseInterceptor: Interceptor {
-
+class ErrorResponseInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
         try {
@@ -37,7 +36,8 @@ class ErrorResponseInterceptor: Interceptor {
 
             when (e) {
                 is IOException,
-                is SSLHandshakeException -> throw e
+                is SSLHandshakeException,
+                -> throw e
                 else -> throw IOException(e)
             }
         }
@@ -51,7 +51,11 @@ fun createErrorResponse(responseBodyString: String): ErrorResponseImpl? =
         null
     }
 
-fun createErrorException(url: String?, httpCode: Int, errorResponse: ErrorResponseImpl?): Exception? =
+fun createErrorException(
+    url: String?,
+    httpCode: Int,
+    errorResponse: ErrorResponseImpl?,
+): Exception? =
     when (httpCode) {
         400 -> BadRequestException(Throwable(errorResponse?.reason), url)
         401 -> InvalidAccessTokenExpire(Throwable(errorResponse?.reason), url)
