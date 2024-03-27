@@ -26,90 +26,90 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 internal interface ApiService {
-    @POST(ApiClient.Credentials.postCredentialsRegister)
+    @POST(ApiClient.Credentials.POST_CREDENTIALS_REGISTER)
     suspend fun postRegister(
         @Query("idToken") idToken: String,
         @Query("provider") provider: String,
         @Body body: RegisterRequest,
     ): BaseResponse<JwtTokenResponse>
 
-    @POST(ApiClient.Credentials.postCredentialsRefresh)
+    @POST(ApiClient.Credentials.POST_CREDENTIALS_REFRESH)
     suspend fun postRefresh(
         @Body body: RefreshRequest,
     ): BaseResponse<JwtTokenResponse>
 
-    @POST(ApiClient.Credentials.postCredentialsLogin)
+    @POST(ApiClient.Credentials.POST_CREDENTIALS_LOGIN)
     suspend fun postLogin(
         @Query("idToken") idToken: String,
         @Query("provider") provider: String,
     ): BaseResponse<JwtTokenResponse>
 
-    @GET(ApiClient.Credentials.getCredentialsValidRegister)
+    @GET(ApiClient.Credentials.GET_CREDENTIALS_VALID_REGISTER)
     suspend fun getValidRegister(
         @Query("idToken") idToken: String,
         @Query("provider") provider: String,
     ): BaseResponse<IsRegisteredResponse>
 
-    @PATCH(ApiClient.User.patchLotteryNotification)
+    @PATCH(ApiClient.User.PATCH_LOTTERY_NOTIFICATION)
     suspend fun patchLotteryNotification(
         @Body body: NotificationRequest,
     ): BaseResponse<Unit>
 
-    @PATCH(ApiClient.User.patchPensionLotteryNotification)
+    @PATCH(ApiClient.User.PATCH_PENSION_LOTTERY_NOTIFICATION)
     suspend fun patchPensionLotteryNotification(
         @Body body: NotificationRequest,
     ): BaseResponse<Unit>
 
-    @PATCH(ApiClient.User.patchUserProfile)
+    @PATCH(ApiClient.User.PATCH_USER_PROFILE)
     suspend fun patchUserProfile(
         @Body body: UserProfileRequest,
     ): BaseResponse<Unit>
 
-    @PATCH(ApiClient.User.patchUserNickname)
+    @PATCH(ApiClient.User.PATCH_USER_NICKNAME)
     suspend fun patchUserNickname(
         @Body body: UserNicknameRequest,
     ): BaseResponse<Unit>
 
-    @POST(ApiClient.Lottery.postLotterySave)
+    @POST(ApiClient.Lottery.POST_LOTTERY_SAVE)
     suspend fun postLotterySave(
         @Body body: LotteryRandomRequest,
     ): BaseResponse<Unit>
 
-    @GET(ApiClient.Lottery.getLotteryRandom)
+    @GET(ApiClient.Lottery.GET_LOTTERY_RANDOM)
     suspend fun getLotteryRandom(): BaseResponse<LotteryRandomNumbersResponse>
 
-    @GET(ApiClient.Lottery.getLotteryGet)
+    @GET(ApiClient.Lottery.GET_LOTTERY_GET)
     suspend fun getLotteryGet(
         @Query("page") page: Int,
         @Query("size") size: Int,
     ): BaseResponse<LotteryGetResponse>
 
-    @POST(ApiClient.PensionLottery.postPensionLotterySave)
+    @POST(ApiClient.PensionLottery.POST_PENSION_LOTTERY_SAVE)
     suspend fun postPensionLotterySave(
         @Body body: PensionLotteryRandomRequest,
     ): BaseResponse<Unit>
 
-    @GET(ApiClient.PensionLottery.getPensionLotteryRandom)
+    @GET(ApiClient.PensionLottery.GET_PENSION_LOTTERY_RANDOM)
     suspend fun getPensionLotteryRandom(): BaseResponse<PensionLotteryRandomResponse>
 
-    @GET(ApiClient.PensionLottery.getPensionLotteryGet)
+    @GET(ApiClient.PensionLottery.GET_PENSION_LOTTERY_GET)
     suspend fun getPensionLotteryGet(
         @Query("page") page: Int,
         @Query("size") size: Int,
     ): BaseResponse<PensionLotteryGetResponse>
 
-    @GET(ApiClient.Winning.getWinningLotteryHome)
+    @GET(ApiClient.Winning.GET_WINNING_LOTTERY_HOME)
     suspend fun getLotteryHome(): BaseResponse<LotteryNumbersResponse>
 
-    @GET(ApiClient.Winning.getWinningPensionLotteryHome)
+    @GET(ApiClient.Winning.GET_WINNING_PENSION_LOTTERY_HOME)
     suspend fun getPensionLotteryHome(): BaseResponse<PensionLotteryHomeResponse>
 
-    @GET(ApiClient.Notification.postNotificationRegisterToken)
+    @GET(ApiClient.Notification.POST_NOTIFICATION_REGISTER_TOKEN)
     suspend fun postNotificationRegisterToken(
         @Body body: NotificationRegisterRequest,
     ): BaseResponse<Unit>
 
-    @POST(ApiClient.Images.postImagesUpload)
+    @POST(ApiClient.Images.POST_IMAGES_UPLOAD)
     suspend fun postImagesUpload(
         @Body body: ImagesUploadRequest,
     ): BaseResponse<ImagesUploadResponse>
