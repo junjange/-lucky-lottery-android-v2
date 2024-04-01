@@ -37,6 +37,8 @@ class MyViewModel
                             nickname = userMyInfo.nickname,
                             profilePath = userMyInfo.profilePath,
                             oauthProvider = userMyInfo.oauthProvider,
+                            lotteryNotificationStatus = userMyInfo.lotteryNotificationStatus,
+                            pensionLotteryNotificationStatus = userMyInfo.pensionLotteryNotificationStatus,
                         )
                     }
                 }.onFailure {
@@ -49,8 +51,8 @@ class MyViewModel
             launch {
                 _effect.emit(
                     MyEffect.NavigateToNotification(
-                        lottoNotificationState = true,
-                        pensionLottoNotificationState = false,
+                        lottoNotificationState = uiState.value.lotteryNotificationStatus,
+                        pensionLottoNotificationState = uiState.value.pensionLotteryNotificationStatus,
                     ),
                 )
             }

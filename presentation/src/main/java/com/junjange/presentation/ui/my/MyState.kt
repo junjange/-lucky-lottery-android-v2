@@ -6,4 +6,6 @@ data class MyState(
     val nickname: String = "",
     val profilePath: String? = null,
     val oauthProvider: String = "",
+    val lotteryNotificationStatus: Boolean = false,
+    val pensionLotteryNotificationStatus: Boolean = false,
 )
