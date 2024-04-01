@@ -28,10 +28,13 @@ internal class UserDataSourceImpl
                 ).data
             }
 
-        override suspend fun patchUserProfile(profilePath: String): Result<Unit> =
+        override suspend fun patchUserMyInfo(
+            profilePath: String,
+            nickname: String,
+        ): Result<Unit> =
             runCatching {
-                val body = UserProfileRequest(profilePath = profilePath)
-                apiService.patchUserProfile(body = body).data
+                val body = UserMyInfoRequest(profilePath = profilePath, nickname = nickname)
+                apiService.patchUserMyInfo(body = body).data
             }
 
         override suspend fun patchUserNickname(nickname: String): Result<Unit> =

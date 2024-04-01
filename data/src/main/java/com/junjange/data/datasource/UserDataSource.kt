@@ -5,7 +5,6 @@ interface UserDataSource {
 
     suspend fun patchPensionLotteryNotification(notificationStatus: Boolean): Result<Unit>
 
-    suspend fun patchUserProfile(profilePath: String): Result<Unit>
 
-    suspend fun patchUserNickname(nickname: String): Result<Unit>
+    suspend fun getUserMyInfo(): Result<UserMyInfoEntity>
 }

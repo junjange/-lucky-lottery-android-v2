@@ -8,8 +8,7 @@ import com.junjange.remote.model.request.NotificationRequest
 import com.junjange.remote.model.request.PensionLotteryRandomRequest
 import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.request.RegisterRequest
-import com.junjange.remote.model.request.UserNicknameRequest
-import com.junjange.remote.model.request.UserProfileRequest
+import com.junjange.remote.model.request.UserMyInfoRequest
 import com.junjange.remote.model.response.ImagesUploadResponse
 import com.junjange.remote.model.response.IsRegisteredResponse
 import com.junjange.remote.model.response.JwtTokenResponse
@@ -60,14 +59,9 @@ internal interface ApiService {
         @Body body: NotificationRequest,
     ): BaseResponse<Unit>
 
-    @PATCH(ApiClient.User.PATCH_USER_PROFILE)
-    suspend fun patchUserProfile(
-        @Body body: UserProfileRequest,
-    ): BaseResponse<Unit>
+    @GET(ApiClient.User.GET_USER_MY_INFO)
+    suspend fun getUserMyIn(): BaseResponse<UserMyInfoResponse>
 
-    @PATCH(ApiClient.User.PATCH_USER_NICKNAME)
-    suspend fun patchUserNickname(
-        @Body body: UserNicknameRequest,
     ): BaseResponse<Unit>
 
     @POST(ApiClient.Lottery.POST_LOTTERY_SAVE)

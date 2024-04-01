@@ -23,8 +23,11 @@ class UserRepositoryImpl
                 )
             }
 
-        override suspend fun patchUserProfile(profilePath: String): Result<Unit> =
+        override suspend fun patchUserMyInfo(
+            profilePath: String,
+            nickname: String,
+        ): Result<Unit> =
             runCatching {
-                dataSource.patchUserProfile(profilePath = profilePath)
+                dataSource.patchUserMyInfo(profilePath = profilePath, nickname = nickname)
             }
     }
