@@ -9,5 +9,5 @@ data class LotteryNumbers(
     val fourthNum: Int,
     val fifthNum: Int,
     val sixthNum: Int,
-    val bonusNum :Int
+    val bonusNum: Int,
 )

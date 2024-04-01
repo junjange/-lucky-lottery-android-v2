@@ -11,17 +11,24 @@ import com.google.android.gms.tasks.Task
 import com.junjange.presentation.BuildConfig
 
 class GoogleSignInContract : ActivityResultContract<Int, Task<GoogleSignInAccount>?>() {
-    override fun createIntent(context: Context, input: Int): Intent {
-        val googleSignInClient = GoogleSignIn.getClient(
-            context,
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(BuildConfig.GOOGLE_CLIENT_ID)
-                .build()
-        )
+    override fun createIntent(
+        context: Context,
+        input: Int,
+    ): Intent {
+        val googleSignInClient =
+            GoogleSignIn.getClient(
+                context,
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(BuildConfig.GOOGLE_CLIENT_ID)
+                    .build(),
+            )
         return googleSignInClient.signInIntent
     }
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Task<GoogleSignInAccount>? {
+    override fun parseResult(
+        resultCode: Int,
+        intent: Intent?,
+    ): Task<GoogleSignInAccount>? {
         return when (resultCode) {
             Activity.RESULT_OK -> GoogleSignIn.getSignedInAccountFromIntent(intent)
             else -> null

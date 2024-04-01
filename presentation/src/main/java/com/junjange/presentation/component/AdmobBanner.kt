@@ -18,6 +18,6 @@ fun AdmobBanner(modifier: Modifier = Modifier) {
                 adUnitId = "ca-app-pub-3940256099942544/1033173712"
                 loadAd(AdRequest.Builder().build())
             }
-        }
+        },
     )
 }

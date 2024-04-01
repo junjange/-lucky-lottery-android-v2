@@ -11,34 +11,37 @@ import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-internal class KakaoLoginDataSourceImpl @Inject constructor(
-    @ApplicationContext private val context: Context,
-) : KakaoLoginDataSource {
+internal class KakaoLoginDataSourceImpl
+    @Inject
+    constructor(
+        @ApplicationContext private val context: Context,
+    ) : KakaoLoginDataSource {
+        /**
+         * @param context: Activity context
+         */
+        override suspend fun login(): Result<KakaoAccessTokenEntity> =
+            runCatching {
+                suspendCancellableCoroutine { continuation ->
+                    val callback: (OAuthToken?, Throwable?) -> Unit = { token, throwable ->
+                        when {
+                            throwable != null -> continuation.resumeWithException(throwable)
+                            token != null && continuation.isActive -> {
+                                val accessToken =
+                                    KakaoAccessTokenEntity(
+                                        accessToken = token.accessToken,
+                                        idToken = token.idToken!!,
+                                    )
+                                continuation.resume(accessToken)
+                            }
+                        }
+                    }
 
-    /**
-     * @param context: Activity context
-     */
-    override suspend fun login(): Result<KakaoAccessTokenEntity> = runCatching {
-        suspendCancellableCoroutine { continuation ->
-            val callback: (OAuthToken?, Throwable?) -> Unit = { token, throwable ->
-                when {
-                    throwable != null -> continuation.resumeWithException(throwable)
-                    token != null && continuation.isActive -> {
-                        val accessToken = KakaoAccessTokenEntity(
-                            accessToken = token.accessToken,
-                            idToken = token.idToken!!
-                        )
-                        continuation.resume(accessToken)
+                    val userApiClient = UserApiClient.instance
+                    if (userApiClient.isKakaoTalkLoginAvailable(context)) {
+                        userApiClient.loginWithKakaoTalk(context, callback = callback)
+                    } else {
+                        userApiClient.loginWithKakaoAccount(context, callback = callback)
                     }
                 }
             }
-
-            val userApiClient = UserApiClient.instance
-            if (userApiClient.isKakaoTalkLoginAvailable(context)) {
-                userApiClient.loginWithKakaoTalk(context, callback = callback)
-            } else {
-                userApiClient.loginWithKakaoAccount(context, callback = callback)
-            }
-        }
     }
-}

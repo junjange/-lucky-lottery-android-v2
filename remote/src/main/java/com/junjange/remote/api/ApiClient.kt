@@ -1,44 +1,49 @@
 package com.junjange.remote.api
 
-
 class ApiClient {
-
     object Credentials {
         private const val BASE = "/api/v1/credentials/"
-        const val postCredentialsRegister = BASE + "register"
-        const val postCredentialsRefresh = BASE + "refresh"
-        const val postCredentialsLogin = BASE + "login"
-        const val getCredentialsValidRegister = BASE + "oauth/valid/register"
+        const val POST_CREDENTIALS_REGISTER = BASE + "register"
+        const val POST_CREDENTIALS_REFRESH = BASE + "refresh"
+        const val POST_CREDENTIALS_LOGIN = BASE + "login"
+        const val GET_CREDENTIALS_VALID_REGISTER = BASE + "oauth/valid/register"
     }
 
     object User {
         private const val BASE = "/api/v1/user/"
-        const val patchLotteryNotification = BASE + "lottery/notification"
-        const val patchPensionLotteryNotification = BASE + "pension/lottery/notification"
+        const val PATCH_LOTTERY_NOTIFICATION = BASE + "lottery/notification"
+        const val PATCH_PENSION_LOTTERY_NOTIFICATION = BASE + "pension/lottery/notification"
+        const val GET_USER_MY_INFO = BASE + "my/info"
+        const val PATCH_USER_MY_INFO = BASE + "update/my/info"
     }
 
     object Lottery {
         private const val BASE = "/api/v1/lottery/"
-        const val postLotterySave = BASE + "save"
-        const val getLotteryRandom = BASE + "random"
-        const val getLotteryGet = BASE + "get"
+        const val POST_LOTTERY_SAVE = BASE + "save"
+        const val GET_LOTTERY_RANDOM = BASE + "random"
+        const val GET_LOTTERY_GET = BASE + "get"
     }
 
     object PensionLottery {
         private const val BASE = "/api/v1/pension/lottery/"
-        const val postPensionLotterySave = BASE + "save"
-        const val getPensionLotteryRandom = BASE + "random"
-        const val getPensionLotteryGet = BASE + "get"
+        const val POST_PENSION_LOTTERY_SAVE = BASE + "save"
+        const val GET_PENSION_LOTTERY_RANDOM = BASE + "random"
+        const val GET_PENSION_LOTTERY_GET = BASE + "get"
     }
 
     object Winning {
         private const val BASE = "/api/v1/winning/"
-        const val getWinningLotteryHome = BASE + "lottery/recent/round"
-        const val getWinningPensionLotteryHome = BASE + "pension/lottery/home"
+        const val GET_WINNING_LOTTERY_HOME = BASE + "lottery/recent/round"
+        const val GET_WINNING_PENSION_LOTTERY_HOME = BASE + "pension/lottery/home"
     }
 
     object Notification {
         private const val BASE = "/api/v1/notification/"
-        const val postNotificationRegisterToken = BASE + "register/token"
+        const val POST_NOTIFICATION_REGISTER_TOKEN = BASE + "register/token"
+    }
+
+    object Images {
+        private const val BASE = "/api/v1/images/"
+        const val POST_IMAGES_UPLOAD = BASE + "upload"
     }
 }

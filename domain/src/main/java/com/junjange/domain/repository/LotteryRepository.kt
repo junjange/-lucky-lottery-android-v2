@@ -4,8 +4,10 @@ import com.junjange.domain.model.LotteryGet
 import com.junjange.domain.model.LotteryRandomNumbers
 
 interface LotteryRepository {
-
-    suspend fun getLotteryGet(page: Int, size: Int): Result<LotteryGet>
+    suspend fun getLotteryGet(
+        page: Int,
+        size: Int,
+    ): Result<LotteryGet>
 
     suspend fun postLotterySave(
         firstNum: Int,
@@ -13,7 +15,7 @@ interface LotteryRepository {
         thirdNum: Int,
         fourthNum: Int,
         fifthNum: Int,
-        sixthNum: Int
+        sixthNum: Int,
     ): Result<Unit>
 
     suspend fun getLotteryRandom(): Result<LotteryRandomNumbers>

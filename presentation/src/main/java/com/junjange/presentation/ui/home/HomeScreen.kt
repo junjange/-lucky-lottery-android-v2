@@ -24,7 +24,7 @@ import com.junjange.presentation.ui.theme.LottoTheme
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
-    navigateToQRScanner: () -> Unit
+    navigateToQRScanner: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -33,27 +33,28 @@ fun HomeScreen(
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             LottoHomeTopBar()
             AdmobBanner(modifier = Modifier.fillMaxWidth())
             LottoContent(
                 lotteryNumbers = uiState.lotteryNumbers,
-                pensionLotteryHome = uiState.pensionLotteryHome
+                pensionLotteryHome = uiState.pensionLotteryHome,
             )
         }
 
         FloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 15.dp, end = 15.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 15.dp, end = 15.dp),
             containerColor = LottoTheme.colors.lottoGreen,
             onClick = navigateToQRScanner,
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_qr_code),
                 contentDescription = null,
-                tint = LottoTheme.colors.white
+                tint = LottoTheme.colors.white,
             )
         }
     }

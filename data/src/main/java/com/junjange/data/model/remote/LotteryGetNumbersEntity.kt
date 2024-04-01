@@ -8,5 +8,5 @@ data class LotteryGetNumbersEntity(
     val fifthNum: Int,
     val sixthNum: Int,
     val correctNumbers: List<Boolean>?,
-    val rank: String?
+    val rank: String?,
 )

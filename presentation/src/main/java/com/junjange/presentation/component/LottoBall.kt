@@ -25,25 +25,32 @@ fun LottoBall(
 ) {
     Surface(
         modifier = Modifier.size(30.dp),
-        border = if (lottoType == LottoType.LOTTO720) BorderStroke(
-            width = 4.dp,
-            color = lottoColor
-        ) else null,
-        shape = CircleShape
+        border =
+            if (lottoType == LottoType.LOTTO720) {
+                BorderStroke(
+                    width = 4.dp,
+                    color = lottoColor,
+                )
+            } else {
+                null
+            },
+        shape = CircleShape,
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = if (lottoType == LottoType.LOTTO720) LottoTheme.colors.white else lottoColor)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .background(color = if (lottoType == LottoType.LOTTO720) LottoTheme.colors.white else lottoColor),
         ) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = lottoTitle,
                 textAlign = TextAlign.Center,
-                style = LottoTheme.typography.body3.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = if (lottoType == LottoType.LOTTO720) LottoTheme.colors.black else LottoTheme.colors.white
-                ),
+                style =
+                    LottoTheme.typography.body3.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = if (lottoType == LottoType.LOTTO720) LottoTheme.colors.black else LottoTheme.colors.white,
+                    ),
             )
         }
     }
@@ -51,5 +58,5 @@ fun LottoBall(
 
 enum class LottoType {
     LOTTO645,
-    LOTTO720
+    LOTTO720,
 }

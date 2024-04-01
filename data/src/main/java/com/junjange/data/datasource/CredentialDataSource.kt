@@ -4,7 +4,6 @@ import com.junjange.data.model.local.JwtTokenEntity
 import com.junjange.data.model.remote.IsRegisteredEntity
 
 interface CredentialDataSource {
-
     suspend fun postRegister(
         idToken: String,
         provider: String,

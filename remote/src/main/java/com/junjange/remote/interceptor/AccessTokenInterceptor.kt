@@ -8,7 +8,6 @@ import okhttp3.Response
 class AccessTokenInterceptor(
     private val accessTokenProvider: AccessTokenProvider,
 ) : Interceptor {
-
     override fun intercept(chain: Interceptor.Chain): Response {
         val accessToken = accessTokenProvider.value
 
@@ -23,9 +22,13 @@ class AccessTokenInterceptor(
     companion object {
         private const val AUTHORIZATION = "Authorization"
 
-        fun from(request: Request, accessToken: String): Request = request.newBuilder()
-            .removeHeader(AUTHORIZATION)
-            .addHeader(AUTHORIZATION, "Bearer $accessToken")
-            .build()
+        fun from(
+            request: Request,
+            accessToken: String,
+        ): Request =
+            request.newBuilder()
+                .removeHeader(AUTHORIZATION)
+                .addHeader(AUTHORIZATION, "Bearer $accessToken")
+                .build()
     }
 }

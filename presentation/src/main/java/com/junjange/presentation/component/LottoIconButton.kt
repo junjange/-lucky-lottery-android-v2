@@ -19,17 +19,17 @@ fun LottoIconButton(
     @DrawableRes iconRes: Int,
     tint: Color,
     size: Dp,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     CompositionLocalProvider(LocalMinimumInteractiveComponentEnforcement provides false) {
         IconButton(
             modifier = Modifier.size(size),
-            onClick = onClick
+            onClick = onClick,
         ) {
             Icon(
                 painter = painterResource(id = iconRes),
                 contentDescription = null,
-                tint = tint
+                tint = tint,
             )
         }
     }

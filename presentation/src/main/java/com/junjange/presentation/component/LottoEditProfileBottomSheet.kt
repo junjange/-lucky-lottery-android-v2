@@ -26,50 +26,54 @@ import com.junjange.presentation.ui.theme.LottoTheme
 @Composable
 fun LottoEditProfileBottomSheet(callback: (editProfileType: EditProfileType) -> Unit) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(300.dp),
     ) {
         Box(
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .align(Alignment.TopCenter)
-                .clip(shape = RoundedCornerShape(100.dp))
-                .width(32.dp)
-                .height(4.dp)
-                .background(color = LottoTheme.colors.gray500)
+            modifier =
+                Modifier
+                    .padding(top = 16.dp)
+                    .align(Alignment.TopCenter)
+                    .clip(shape = RoundedCornerShape(100.dp))
+                    .width(32.dp)
+                    .height(4.dp)
+                    .background(color = LottoTheme.colors.gray500),
         )
         Column(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(44.dp))
             Text(
-                modifier = Modifier.then(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp, horizontal = 16.dp)
-                ),
+                modifier =
+                    Modifier.then(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp, horizontal = 16.dp),
+                    ),
                 text = stringResource(id = R.string.edit_profile_img),
                 style = LottoTheme.typography.headline3,
-                color = LottoTheme.colors.lottoBlack
+                color = LottoTheme.colors.lottoBlack,
             )
             Spacer(modifier = Modifier.height(8.dp))
             LottoButtonBar(
                 textRes = R.string.profile_image_select,
-                onClick = { callback(ProfileImageSelect) }
+                onClick = { callback(ProfileImageSelect) },
             )
 
             Text(
-                modifier = Modifier.then(
-                    Modifier
-                        .fillMaxWidth()
-                        .clickable { callback(ProfileDefaultImageSelect) }
-                        .padding(vertical = 8.dp, horizontal = 16.dp)
-                ),
+                modifier =
+                    Modifier.then(
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable { callback(ProfileDefaultImageSelect) }
+                            .padding(vertical = 8.dp, horizontal = 16.dp),
+                    ),
                 text = stringResource(id = R.string.profile_default_image_select),
                 style = LottoTheme.typography.body1,
-                color = LottoTheme.colors.lottoBlack
+                color = LottoTheme.colors.lottoBlack,
             )
         }
     }
@@ -77,5 +81,6 @@ fun LottoEditProfileBottomSheet(callback: (editProfileType: EditProfileType) -> 
 
 sealed class EditProfileType {
     data object ProfileImageSelect : EditProfileType()
+
     data object ProfileDefaultImageSelect : EditProfileType()
 }

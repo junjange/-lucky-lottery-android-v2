@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditProfileActivity : BaseActivity() {
-
     private val viewModel: EditProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,15 +19,25 @@ class EditProfileActivity : BaseActivity() {
             LottoTheme {
                 EditProfileScreen(
                     viewModel = viewModel,
-                    onBack = ::finish
+                    onBack = ::finish,
                 )
             }
         }
     }
 
     companion object {
-        fun startActivity(context: Context) {
-            val intent = Intent(context, EditProfileActivity::class.java)
+        const val EXTRA_KEY_NICKNAME = "EXTRA_KEY_NICKNAME"
+        const val EXTRA_KEY_PROFILE_PATH = "EXTRA_KEY_PROFILE_PATH"
+
+        fun startActivity(
+            context: Context,
+            nickname: String,
+            profilePath: String?,
+        ) {
+            val intent =
+                Intent(context, EditProfileActivity::class.java)
+                    .putExtra(EXTRA_KEY_NICKNAME, nickname)
+                    .putExtra(EXTRA_KEY_PROFILE_PATH, profilePath)
             context.startActivity(intent)
         }
     }

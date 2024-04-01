@@ -12,4 +12,7 @@ dependencies {
 
     // ksp
     ksp(libs.ksp.hilt)
+
+    // okhttp
+    implementation(libs.okhttp.core)
 }

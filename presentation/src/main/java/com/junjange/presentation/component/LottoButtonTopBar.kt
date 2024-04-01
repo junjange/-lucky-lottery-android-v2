@@ -33,41 +33,43 @@ fun LottoButtonTopBar(
     isEnabled: Boolean = true,
 ) {
     Surface(
-        modifier = modifier.then(
-            Modifier
-                .height(SIMPLE_TOP_BAR_HEIGHT)
-                .fillMaxWidth()
-        ),
-        color = MaterialTheme.colorScheme.background
+        modifier =
+            modifier.then(
+                Modifier
+                    .height(SIMPLE_TOP_BAR_HEIGHT)
+                    .fillMaxWidth(),
+            ),
+        color = MaterialTheme.colorScheme.background,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             LottoIconButton(
                 iconRes = backIconRes,
                 tint = LottoTheme.colors.lottoBlack,
                 size = 24.dp,
-                onClick = onBack
+                onClick = onBack,
             )
             Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = titleRes),
                 style = LottoTheme.typography.headline2,
-                color = LottoTheme.colors.lottoBlack
+                color = LottoTheme.colors.lottoBlack,
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(
                 onClick = onClickButton,
                 enabled = isEnabled,
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(16.dp),
             ) {
                 Text(
                     text = stringResource(id = buttonTextRes),
-                    style = LottoTheme.typography.body3
+                    style = LottoTheme.typography.body3,
                 )
             }
         }

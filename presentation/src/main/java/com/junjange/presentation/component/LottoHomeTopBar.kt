@@ -25,12 +25,13 @@ fun LottoHomeTopBar(
     onActionClick: () -> Unit = {},
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(64.dp)
-            .padding(14.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(64.dp)
+                .padding(14.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(R.string.home_top_bar_title),
@@ -39,13 +40,12 @@ fun LottoHomeTopBar(
         actionIconRes?.let {
             IconButton(
                 onClick = onActionClick,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
             ) {
-
                 Icon(
                     painter = painterResource(id = actionIconRes),
                     contentDescription = null,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp),
                 )
             }
         }

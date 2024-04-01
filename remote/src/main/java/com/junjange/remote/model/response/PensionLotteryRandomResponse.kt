@@ -10,9 +10,8 @@ data class PensionLotteryRandomResponse(
     val pensionThirdNum: Int,
     val pensionFourthNum: Int,
     val pensionFifthNum: Int,
-    val pensionSixthNum: Int
+    val pensionSixthNum: Int,
 )
-
 
 internal fun PensionLotteryRandomResponse.toData(): PensionLotteryRandomEntity =
     PensionLotteryRandomEntity(
@@ -23,5 +22,5 @@ internal fun PensionLotteryRandomResponse.toData(): PensionLotteryRandomEntity =
         pensionThirdNum = pensionThirdNum,
         pensionFourthNum = pensionFourthNum,
         pensionFifthNum = pensionFifthNum,
-        pensionSixthNum = pensionSixthNum
+        pensionSixthNum = pensionSixthNum,
     )

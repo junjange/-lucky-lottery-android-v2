@@ -12,13 +12,3 @@ internal fun PensionLotteryGetResponse.toData(): PensionLotteryGetEntity =
         content = content.map { it.toData() },
         last = last,
     )
-
-
-
-
-
-
-
-
-
-

@@ -1,11 +1,11 @@
 package com.junjange.remote.api
 
-import kotlinx.coroutines.runBlocking
 import com.junjange.data.provider.AccessTokenProvider
 import com.junjange.data.provider.RefreshTokenProvider
 import com.junjange.remote.interceptor.AccessTokenInterceptor
 import com.junjange.remote.model.request.RefreshRequest
 import com.junjange.remote.model.response.JwtTokenResponse
+import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
@@ -17,8 +17,10 @@ internal class Authenticator constructor(
     private val refreshTokenProvider: RefreshTokenProvider,
     private val authenticationListener: AuthenticationListener,
 ) : Authenticator {
-
-    override fun authenticate(route: Route?, response: Response): Request? {
+    override fun authenticate(
+        route: Route?,
+        response: Response,
+    ): Request? {
         val refreshToken = refreshTokenProvider.value
         if (refreshToken.isBlank()) {
             authenticationListener.onSessionExpired()
@@ -34,14 +36,15 @@ internal class Authenticator constructor(
             onFailure = {
                 authenticationListener.onSessionExpired()
                 null
-            }
+            },
         )
     }
 
-    private fun refresh(refreshToken: String): Result<JwtTokenResponse> = runBlocking {
-        runCatching {
-            val body = RefreshRequest(refreshToken = refreshToken)
-            apiService.postRefresh(body = body).data
+    private fun refresh(refreshToken: String): Result<JwtTokenResponse> =
+        runBlocking {
+            runCatching {
+                val body = RefreshRequest(refreshToken = refreshToken)
+                apiService.postRefresh(body = body).data
+            }
         }
-    }
 }

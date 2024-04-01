@@ -74,20 +74,20 @@ fun MyNumberScreen(
     viewModel: MyNumberViewModel = hiltViewModel(),
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 ) {
-
     val context = LocalContext.current
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     DisposableEffect(lifecycleOwner) {
-        val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_RESUME) {
-                with(viewModel) {
-                    getLotteryGet()
-                    getPensionLotteryGet()
+        val observer =
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_RESUME) {
+                    with(viewModel) {
+                        getLotteryGet()
+                        getPensionLotteryGet()
+                    }
                 }
             }
-        }
 
         lifecycleOwner.lifecycle.addObserver(observer)
 
@@ -99,32 +99,33 @@ fun MyNumberScreen(
     val tabs = listOf(R.string.lotto_645_title, R.string.lotto_720_title)
     val pagerState = rememberPagerState(pageCount = { tabs.size })
 
-
-    val imageCropLauncher = rememberLauncherForActivityResult(CropImageContract()) { result ->
-        if (result.isSuccessful) {
-            result.uriContent?.let {
-                if (pagerState.currentPage == 0) {
-                    viewModel.getLottoTextOfImage(result.getUriFilePath(context, false)!!)
-                } else {
-                    viewModel.getPensionLottoTextOfImage(result.getUriFilePath(context, false)!!)
+    val imageCropLauncher =
+        rememberLauncherForActivityResult(CropImageContract()) { result ->
+            if (result.isSuccessful) {
+                result.uriContent?.let {
+                    if (pagerState.currentPage == 0) {
+                        viewModel.getLottoTextOfImage(result.getUriFilePath(context, false)!!)
+                    } else {
+                        viewModel.getPensionLottoTextOfImage(result.getUriFilePath(context, false)!!)
+                    }
                 }
             }
         }
-    }
 
-    val imageCropperOptions = CropImageOptions(
-        cropShape = CropImageView.CropShape.RECTANGLE,
-        fixAspectRatio = false,
-        aspectRatioX = 1,
-        aspectRatioY = 1,
-        toolbarColor = Color.WHITE,
-        toolbarBackButtonColor = Color.BLACK,
-        toolbarTintColor = Color.BLACK,
-        allowFlipping = false,
-        allowRotation = false,
-        cropMenuCropButtonTitle = context.getString(R.string.done),
-        imageSourceIncludeCamera = false
-    )
+    val imageCropperOptions =
+        CropImageOptions(
+            cropShape = CropImageView.CropShape.RECTANGLE,
+            fixAspectRatio = false,
+            aspectRatioX = 1,
+            aspectRatioY = 1,
+            toolbarColor = Color.WHITE,
+            toolbarBackButtonColor = Color.BLACK,
+            toolbarTintColor = Color.BLACK,
+            allowFlipping = false,
+            allowRotation = false,
+            cropMenuCropButtonTitle = context.getString(R.string.done),
+            imageSourceIncludeCamera = false,
+        )
 
     val imagePickerLauncher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent()) { uri ->
@@ -150,22 +151,24 @@ fun MyNumberScreen(
                 Tab(
                     text = { Text(stringResource(id = title)) },
                     selected = pagerState.currentPage == index,
-                    onClick = { coroutineScope.launch { pagerState.scrollToPage(index) } }
+                    onClick = { coroutineScope.launch { pagerState.scrollToPage(index) } },
                 )
             }
         }
 
         HorizontalPager(state = pagerState) { page ->
             when (page) {
-                0 -> MyLotteryContent(
-                    uiState = uiState,
-                    viewModel = viewModel
-                )
+                0 ->
+                    MyLotteryContent(
+                        uiState = uiState,
+                        viewModel = viewModel,
+                    )
 
-                1 -> MyPensionLotteryContent(
-                    uiState = uiState,
-                    viewModel = viewModel
-                )
+                1 ->
+                    MyPensionLotteryContent(
+                        uiState = uiState,
+                        viewModel = viewModel,
+                    )
             }
         }
     }
@@ -174,14 +177,13 @@ fun MyNumberScreen(
 @Composable
 fun MyPensionLotteryContent(
     uiState: MyNumberState,
-    viewModel: MyNumberViewModel
+    viewModel: MyNumberViewModel,
 ) {
     val pensionLotteryGetContent = uiState.pensionLotteryGetContent.collectAsLazyPagingItems()
 
     Box(modifier = Modifier.fillMaxSize()) {
-
         LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             items(pensionLotteryGetContent.itemCount) {
                 Spacer(modifier = Modifier.height(20.dp))
@@ -192,19 +194,19 @@ fun MyPensionLotteryContent(
                 ) {
                     Column(
                         modifier = Modifier.padding(8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         pensionLotteryGetContent[it]?.let { pensionLotteryGetContent ->
                             LottoContentTitle(
                                 title = stringResource(R.string.lotto_720_title),
                                 round = pensionLotteryGetContent.round,
-                                winningDate = pensionLotteryGetContent.winningDate
+                                winningDate = pensionLotteryGetContent.winningDate,
                             )
                             pensionLotteryGetContent.winningPensionLotteryNumbers?.let { winningPensionLotteryNumbers ->
                                 pensionLotteryGetContent.winningPensionLotteryBonusNumbers?.let { winningPensionLotteryBonusNumbers ->
                                     Lotto720Content(
                                         winningPensionLotteryNumbers = winningPensionLotteryNumbers,
-                                        winningPensionLotteryBonusNumbers = winningPensionLotteryBonusNumbers
+                                        winningPensionLotteryBonusNumbers = winningPensionLotteryBonusNumbers,
                                     )
                                 }
                             }
@@ -212,7 +214,7 @@ fun MyPensionLotteryContent(
                             Spacer(modifier = Modifier.height(8.dp))
                             MyPensionLotteryNumber(
                                 pensionLotteryNumbers = pensionLotteryGetContent.pensionLotteryNumbers,
-                                checkWinningBonus = pensionLotteryGetContent.checkWinningBonus
+                                checkWinningBonus = pensionLotteryGetContent.checkWinningBonus,
                             )
                         }
                     }
@@ -221,16 +223,17 @@ fun MyPensionLotteryContent(
         }
 
         FloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 15.dp, end = 15.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 15.dp, end = 15.dp),
             containerColor = LottoTheme.colors.lottoGreen,
             onClick = { viewModel.onPickedImage() },
         ) {
             Icon(
                 imageVector = Icons.Filled.Edit,
                 contentDescription = null,
-                tint = LottoTheme.colors.white
+                tint = LottoTheme.colors.white,
             )
         }
     }
@@ -239,15 +242,13 @@ fun MyPensionLotteryContent(
 @Composable
 fun MyLotteryContent(
     uiState: MyNumberState,
-    viewModel: MyNumberViewModel
+    viewModel: MyNumberViewModel,
 ) {
-
     val lotteryGetContent = uiState.lotteryGetContent.collectAsLazyPagingItems()
 
     Box(modifier = Modifier.fillMaxSize()) {
-
         LazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             items(lotteryGetContent.itemCount) {
                 Spacer(modifier = Modifier.height(20.dp))
@@ -258,13 +259,13 @@ fun MyLotteryContent(
                 ) {
                     Column(
                         modifier = Modifier.padding(8.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         lotteryGetContent[it]?.let { lotteryGetContent ->
                             LottoContentTitle(
                                 title = stringResource(R.string.lotto_645_title),
                                 round = lotteryGetContent.round,
-                                winningDate = lotteryGetContent.winningDate
+                                winningDate = lotteryGetContent.winningDate,
                             )
                             lotteryGetContent.winningLotteryNumbers?.let { winningLotteryNumbers ->
                                 Lotto645Content(winningLotteryNumbers = winningLotteryNumbers)
@@ -279,16 +280,17 @@ fun MyLotteryContent(
         }
 
         FloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(bottom = 15.dp, end = 15.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(bottom = 15.dp, end = 15.dp),
             containerColor = LottoTheme.colors.lottoGreen,
             onClick = { viewModel.onPickedImage() },
         ) {
             Icon(
                 imageVector = Icons.Filled.Edit,
                 contentDescription = null,
-                tint = LottoTheme.colors.white
+                tint = LottoTheme.colors.white,
             )
         }
     }
@@ -300,11 +302,11 @@ fun MyLotteryNumber(lotteryGetNumbers: List<LotteryGetNumbers>) {
         Row(Modifier.fillMaxWidth()) {
             TableCell(
                 rank = lotteryGetNumber.rank,
-                weight = 2f
+                weight = 2f,
             )
             TableCell(
                 lottoNumbers = lotteryGetNumber,
-                weight = 8f
+                weight = 8f,
             )
         }
     }
@@ -313,46 +315,51 @@ fun MyLotteryNumber(lotteryGetNumbers: List<LotteryGetNumbers>) {
 @Composable
 fun MyPensionLotteryNumber(
     pensionLotteryNumbers: List<PensionLotteryNumbers>,
-    checkWinningBonus: Boolean
+    checkWinningBonus: Boolean,
 ) {
     pensionLotteryNumbers.forEach { pensionLotteryNumber ->
         Row(Modifier.fillMaxWidth()) {
             TableCell(
                 rank = pensionLotteryNumber.rank,
-                weight = 2f
+                weight = 2f,
             )
             TableCell(
                 lottoNumbers = pensionLotteryNumber,
                 checkWinningBonus = checkWinningBonus,
-                weight = 8f
+                weight = 8f,
             )
         }
     }
 }
 
 @Composable
-fun RowScope.TableCell(rank: String?, weight: Float) {
-    val title = when (rank) {
-        "FIRST" -> "1등"
-        "SECOND" -> "2등"
-        "THIRD" -> "3등"
-        "FOURTH" -> "4등"
-        "FIFTH" -> "5등"
-        "SIXTH" -> "6등"
-        "SEVENTH" -> "7등"
-        "NONE" -> "꽝"
-        else -> "미발표"
-    }
+fun RowScope.TableCell(
+    rank: String?,
+    weight: Float,
+) {
+    val title =
+        when (rank) {
+            "FIRST" -> "1등"
+            "SECOND" -> "2등"
+            "THIRD" -> "3등"
+            "FOURTH" -> "4등"
+            "FIFTH" -> "5등"
+            "SIXTH" -> "6등"
+            "SEVENTH" -> "7등"
+            "NONE" -> "꽝"
+            else -> "미발표"
+        }
 
     Text(
-        modifier = Modifier
-            .border(width = 1.dp, color = LottoTheme.colors.gray400)
-            .fillMaxHeight()
-            .weight(weight)
-            .padding(8.8.dp),
+        modifier =
+            Modifier
+                .border(width = 1.dp, color = LottoTheme.colors.gray400)
+                .fillMaxHeight()
+                .weight(weight)
+                .padding(8.8.dp),
         text = title,
         style = LottoTheme.typography.body3,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
     )
 }
 
@@ -360,25 +367,26 @@ fun RowScope.TableCell(rank: String?, weight: Float) {
 fun RowScope.TableCell(
     lottoNumbers: PensionLotteryNumbers,
     checkWinningBonus: Boolean,
-    weight: Float
+    weight: Float,
 ) {
     Row(
-        modifier = Modifier
-            .border(width = 1.dp, color = LottoTheme.colors.gray400)
-            .weight(weight)
-            .padding(4.5.dp),
-        horizontalArrangement = Arrangement.Center
+        modifier =
+            Modifier
+                .border(width = 1.dp, color = LottoTheme.colors.gray400)
+                .weight(weight)
+                .padding(4.5.dp),
+        horizontalArrangement = Arrangement.Center,
     ) {
-
-        val lottoTitle = listOf(
-            lottoNumbers.pensionGroup,
-            lottoNumbers.pensionFirstNum,
-            lottoNumbers.pensionSecondNum,
-            lottoNumbers.pensionThirdNum,
-            lottoNumbers.pensionFourthNum,
-            lottoNumbers.pensionFifthNum,
-            lottoNumbers.pensionSixthNum
-        ).map { it.toString() }
+        val lottoTitle =
+            listOf(
+                lottoNumbers.pensionGroup,
+                lottoNumbers.pensionFirstNum,
+                lottoNumbers.pensionSecondNum,
+                lottoNumbers.pensionThirdNum,
+                lottoNumbers.pensionFourthNum,
+                lottoNumbers.pensionFifthNum,
+                lottoNumbers.pensionSixthNum,
+            ).map { it.toString() }
 
         lottoTitle.forEachIndexed { index, title ->
             if (index == 1) {
@@ -387,7 +395,7 @@ fun RowScope.TableCell(
                     color = LottoTheme.colors.gray200,
                 ) {
                     Box(
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
                     ) {
                         Text(
                             modifier = Modifier.align(Alignment.Center),
@@ -408,7 +416,7 @@ fun RowScope.TableCell(
                 MyPensionLotteryBall(
                     isSuccess = if (lottoNumbers.correctNumbers == null) false else lottoNumbers.correctNumbers!![index],
                     lottoTitle = title,
-                    index = index
+                    index = index,
                 )
             }
         }
@@ -418,39 +426,41 @@ fun RowScope.TableCell(
 @Composable
 fun RowScope.TableCell(
     lottoNumbers: LotteryGetNumbers,
-    weight: Float
+    weight: Float,
 ) {
     Row(
-        modifier = Modifier
-            .border(width = 1.dp, color = LottoTheme.colors.gray400)
-            .weight(weight)
-            .padding(4.5.dp),
-        horizontalArrangement = Arrangement.Center
+        modifier =
+            Modifier
+                .border(width = 1.dp, color = LottoTheme.colors.gray400)
+                .weight(weight)
+                .padding(4.5.dp),
+        horizontalArrangement = Arrangement.Center,
     ) {
-
-        val lottoNumbersContent = listOf(
-            lottoNumbers.firstNum,
-            lottoNumbers.secondNum,
-            lottoNumbers.thirdNum,
-            lottoNumbers.fourthNum,
-            lottoNumbers.fifthNum,
-            lottoNumbers.sixthNum,
-        )
+        val lottoNumbersContent =
+            listOf(
+                lottoNumbers.firstNum,
+                lottoNumbers.secondNum,
+                lottoNumbers.thirdNum,
+                lottoNumbers.fourthNum,
+                lottoNumbers.fifthNum,
+                lottoNumbers.sixthNum,
+            )
 
         lottoNumbersContent.forEachIndexed { index, item ->
-            val color = when (item) {
-                in 1..10 -> LottoTheme.colors.lottoYellow
-                in 11..20 -> LottoTheme.colors.lottoBlue
-                in 21..30 -> LottoTheme.colors.lottoError
-                in 31..40 -> LottoTheme.colors.gray400
-                in 41..45 -> LottoTheme.colors.lottoGreen
-                else -> LottoTheme.colors.lottoPurple
-            }
+            val color =
+                when (item) {
+                    in 1..10 -> LottoTheme.colors.lottoYellow
+                    in 11..20 -> LottoTheme.colors.lottoBlue
+                    in 21..30 -> LottoTheme.colors.lottoError
+                    in 31..40 -> LottoTheme.colors.gray400
+                    in 41..45 -> LottoTheme.colors.lottoGreen
+                    else -> LottoTheme.colors.lottoPurple
+                }
 
             MyLotteryBall(
                 isSuccess = if (lottoNumbers.correctNumbers == null) false else lottoNumbers.correctNumbers!![index],
                 lottoTitle = item.toString(),
-                color = color
+                color = color,
             )
         }
     }
@@ -460,7 +470,7 @@ fun RowScope.TableCell(
 fun MyLotteryBall(
     isSuccess: Boolean,
     lottoTitle: String,
-    color: androidx.compose.ui.graphics.Color
+    color: androidx.compose.ui.graphics.Color,
 ) {
     val backgroundColor = if (isSuccess) color else LottoTheme.colors.gray200
     val textColor = if (isSuccess) LottoTheme.colors.white else LottoTheme.colors.black
@@ -471,16 +481,17 @@ fun MyLotteryBall(
         color = backgroundColor,
     ) {
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = lottoTitle,
                 textAlign = TextAlign.Center,
-                style = LottoTheme.typography.body3.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = textColor
-                ),
+                style =
+                    LottoTheme.typography.body3.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = textColor,
+                    ),
             )
         }
     }
@@ -488,28 +499,32 @@ fun MyLotteryBall(
     Spacer(modifier = Modifier.width(4.dp))
 }
 
-
 @Composable
 fun MyPensionLotteryBall(
     isSuccess: Boolean,
     lottoTitle: String,
-    index: Int? = null
+    index: Int? = null,
 ) {
+    val lotteryColors =
+        listOf(
+            LottoTheme.colors.gray600,
+            LottoTheme.colors.lottoError,
+            LottoTheme.colors.lottoOrange,
+            LottoTheme.colors.lottoYellow,
+            LottoTheme.colors.lottoBlue,
+            LottoTheme.colors.lottoPurple,
+            LottoTheme.colors.lottoBlack,
+        )
 
-    val lotteryColors = listOf(
-        LottoTheme.colors.gray600,
-        LottoTheme.colors.lottoError,
-        LottoTheme.colors.lottoOrange,
-        LottoTheme.colors.lottoYellow,
-        LottoTheme.colors.lottoBlue,
-        LottoTheme.colors.lottoPurple,
-        LottoTheme.colors.lottoBlack,
-    )
-
-    val borderColor = if (isSuccess) BorderStroke(
-        width = 4.dp,
-        color = if (index == null) LottoTheme.colors.gray200 else lotteryColors[index]
-    ) else null
+    val borderColor =
+        if (isSuccess) {
+            BorderStroke(
+                width = 4.dp,
+                color = if (index == null) LottoTheme.colors.gray200 else lotteryColors[index],
+            )
+        } else {
+            null
+        }
     val backgroundColor = if (isSuccess) LottoTheme.colors.white else LottoTheme.colors.gray200
     val textColor = if (isSuccess) LottoTheme.colors.black else LottoTheme.colors.black
 
@@ -520,16 +535,17 @@ fun MyPensionLotteryBall(
         color = backgroundColor,
     ) {
         Box(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = lottoTitle,
                 textAlign = TextAlign.Center,
-                style = LottoTheme.typography.body3.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = textColor
-                ),
+                style =
+                    LottoTheme.typography.body3.copy(
+                        fontWeight = FontWeight.Bold,
+                        color = textColor,
+                    ),
             )
         }
     }

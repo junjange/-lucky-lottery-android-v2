@@ -1,6 +1,5 @@
 package com.junjange.presentation.component
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -27,58 +26,62 @@ import com.junjange.presentation.ui.theme.White
 fun LottoProfileTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    onClear: () -> Unit
+    onClear: () -> Unit,
 ) {
     BasicTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp),
         value = value,
         textStyle = LottoTheme.typography.body1,
         onValueChange = onValueChange,
         singleLine = true,
         decorationBox = { innerTextField ->
             Surface(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(59.dp),
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .height(59.dp),
                 color = White,
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(16.dp),
             ) {
                 Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(vertical = 8.dp, horizontal = 16.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(vertical = 8.dp, horizontal = 16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Spacer(modifier = Modifier.width(4.dp))
                     Box(
                         modifier = Modifier.weight(1f),
-                        contentAlignment = Alignment.CenterStart
+                        contentAlignment = Alignment.CenterStart,
                     ) {
                         if (value.isEmpty()) {
                             Text(
                                 text = stringResource(id = R.string.profile_textfield_hint),
                                 style = LottoTheme.typography.body1,
                                 color = LottoTheme.colors.gray400,
-                                modifier = Modifier.align(Alignment.CenterStart)
+                                modifier = Modifier.align(Alignment.CenterStart),
                             )
                         }
                         innerTextField()
                     }
                     LottoIconButton(
                         iconRes = R.drawable.ic_close,
-                        tint = if (value.isEmpty()) {
-                            LottoTheme.colors.gray400
-                        } else {
-                            LottoTheme.colors.lottoBlack
-                        },
+                        tint =
+                            if (value.isEmpty()) {
+                                LottoTheme.colors.gray400
+                            } else {
+                                LottoTheme.colors.lottoBlack
+                            },
                         size = 24.dp,
-                        onClick = { if (value.isNotEmpty()) onClear() }
+                        onClick = { if (value.isNotEmpty()) onClear() },
                     )
                 }
             }
-        }
+        },
     )
 }

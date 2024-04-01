@@ -1,6 +1,5 @@
 package com.junjange.presentation.component
 
-
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Row
@@ -26,28 +25,30 @@ fun LottoSimpleTopBar(
     onBack: (() -> Unit)? = null,
     @StringRes titleRes: Int,
     @DrawableRes actionIconRes: Int? = null,
-    onAction: (() -> Unit)? = null
+    onAction: (() -> Unit)? = null,
 ) {
     Surface(
-        modifier = modifier.then(
-            Modifier
-                .height(SIMPLE_TOP_BAR_HEIGHT)
-                .fillMaxWidth()
-        ),
-        color = MaterialTheme.colorScheme.background
+        modifier =
+            modifier.then(
+                Modifier
+                    .height(SIMPLE_TOP_BAR_HEIGHT)
+                    .fillMaxWidth(),
+            ),
+        color = MaterialTheme.colorScheme.background,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             backIconRes?.let {
                 LottoIconButton(
                     iconRes = backIconRes,
                     tint = LottoTheme.colors.lottoBlack,
                     size = 24.dp,
-                    onClick = onBack ?: {}
+                    onClick = onBack ?: {},
                 )
                 Spacer(modifier = Modifier.width(16.dp))
             }
@@ -55,7 +56,7 @@ fun LottoSimpleTopBar(
             Text(
                 text = stringResource(id = titleRes),
                 style = LottoTheme.typography.headline2,
-                color = LottoTheme.colors.lottoBlack
+                color = LottoTheme.colors.lottoBlack,
             )
             Spacer(modifier = Modifier.weight(1f))
             actionIconRes?.let {
@@ -63,7 +64,7 @@ fun LottoSimpleTopBar(
                     iconRes = it,
                     tint = LottoTheme.colors.lottoBlack,
                     size = 24.dp,
-                    onClick = onAction ?: {}
+                    onClick = onAction ?: {},
                 )
             }
         }

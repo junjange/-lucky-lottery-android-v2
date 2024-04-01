@@ -6,11 +6,10 @@ import com.junjange.domain.model.KakaoAccessToken
 import com.junjange.domain.repository.KakaoLoginRepository
 import javax.inject.Inject
 
-internal class KakaoLoginRepositoryImpl @Inject constructor(
-    private val kakaoLoginDataSource: KakaoLoginDataSource,
-) : KakaoLoginRepository {
-
-    override suspend fun login(): Result<KakaoAccessToken> =
-        kakaoLoginDataSource.login().mapCatching { it.toDomain() }
-
-}
+internal class KakaoLoginRepositoryImpl
+    @Inject
+    constructor(
+        private val kakaoLoginDataSource: KakaoLoginDataSource,
+    ) : KakaoLoginRepository {
+        override suspend fun login(): Result<KakaoAccessToken> = kakaoLoginDataSource.login().mapCatching { it.toDomain() }
+    }

@@ -30,24 +30,25 @@ fun LottoSwitchBar(
     onSwitchOff: () -> Unit,
 ) {
     Row(
-        modifier = modifier.then(
-            Modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp, horizontal = 16.dp)
-        ),
+        modifier =
+            modifier.then(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp, horizontal = 16.dp),
+            ),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Column {
             Text(
                 text = stringResource(id = textRes),
                 style = LottoTheme.typography.body1,
-                color = LottoTheme.colors.lottoBlack
+                color = LottoTheme.colors.lottoBlack,
             )
             Text(
                 text = stringResource(id = descriptionTextRes),
                 style = LottoTheme.typography.caption2,
-                color = LottoTheme.colors.gray600
+                color = LottoTheme.colors.gray600,
             )
         }
 
@@ -55,7 +56,7 @@ fun LottoSwitchBar(
             Switch(
                 checked = isSwitchedOn,
                 onCheckedChange = { if (it) onSwitchOn() else onSwitchOff() },
-                colors = SwitchDefaults.colors(checkedTrackColor = LottoTheme.colors.lottoGreen)
+                colors = SwitchDefaults.colors(checkedTrackColor = LottoTheme.colors.lottoGreen),
             )
         }
     }

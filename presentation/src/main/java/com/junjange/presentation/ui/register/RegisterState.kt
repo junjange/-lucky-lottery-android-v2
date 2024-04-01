@@ -2,7 +2,6 @@ package com.junjange.presentation.ui.register
 
 import android.graphics.Bitmap
 
-
 data class RegisterState(
     val isLoading: Boolean = false,
     val newNickname: String = "",
@@ -11,7 +10,6 @@ data class RegisterState(
 )
 
 sealed class RegisterEffect {
-
     data object LaunchImagePicker : RegisterEffect()
 
     data object NavigateToMain : RegisterEffect()

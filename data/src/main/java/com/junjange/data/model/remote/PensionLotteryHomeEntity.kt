@@ -15,5 +15,5 @@ data class PensionLotteryHomeEntity(
     val bonusThirdNum: Int,
     val bonusFourthNum: Int,
     val bonusFifthNum: Int,
-    val bonusSixthNum: Int
+    val bonusSixthNum: Int,
 )

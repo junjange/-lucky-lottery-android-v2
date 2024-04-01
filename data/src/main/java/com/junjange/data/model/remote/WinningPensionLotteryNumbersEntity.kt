@@ -7,5 +7,5 @@ data class WinningPensionLotteryNumbersEntity(
     val winningThirdNum: Int,
     val winningFourthNum: Int,
     val winningFifthNum: Int,
-    val winningSixthNum: Int
+    val winningSixthNum: Int,
 )

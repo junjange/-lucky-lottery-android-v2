@@ -32,18 +32,19 @@ val Gray50 = Color(0xFF7F7F7F)
 val Black = Color(0xFF000000)
 val White = Color(0xFFFFFFFF)
 
-val MaterialColors = lightColorScheme(
-    primary = LottoBlack,
-    onPrimary = White,
-    secondary = LottoPurple,
-    onSecondary = Gray900,
-    tertiary = LottoYellow,
-    onTertiary = Black,
-    error = LottoError,
-    onError = White,
-    background = LottoWhite,
-    surface = LottoWhite
-)
+val MaterialColors =
+    lightColorScheme(
+        primary = LottoBlack,
+        onPrimary = White,
+        secondary = LottoPurple,
+        onSecondary = Gray900,
+        tertiary = LottoYellow,
+        onTertiary = Black,
+        error = LottoError,
+        onError = White,
+        background = LottoWhite,
+        surface = LottoWhite,
+    )
 
 @Stable
 class LottoColors(
@@ -54,7 +55,7 @@ class LottoColors(
     lottoOrange: Color,
     lottoGreen: Color,
     lottoError: Color,
-    lottoBlue : Color,
+    lottoBlue: Color,
     gray900: Color,
     gray800: Color,
     gray700: Color,
@@ -66,7 +67,7 @@ class LottoColors(
     gray100: Color,
     gray50: Color,
     black: Color,
-    white: Color
+    white: Color,
 ) {
     var lottoBlack: Color by mutableStateOf(lottoBlack, structuralEqualityPolicy())
         private set
@@ -129,7 +130,7 @@ class LottoColors(
         gray100: Color = this.gray100,
         gray50: Color = this.gray50,
         black: Color = this.black,
-        white: Color = this.white
+        white: Color = this.white,
     ) = LottoColors(
         lottoBlack = lottoBlack,
         lottoWhite = lottoWhite,
@@ -150,7 +151,7 @@ class LottoColors(
         gray100 = gray100,
         gray50 = gray50,
         black = black,
-        white = white
+        white = white,
     )
 }
 
@@ -174,8 +175,7 @@ fun lightColors(
     gray100: Color = Gray100,
     gray50: Color = Gray50,
     black: Color = Black,
-    white: Color = White
-
+    white: Color = White,
 ) = LottoColors(
     lottoBlack = lottoBlack,
     lottoWhite = lottoWhite,
@@ -196,7 +196,7 @@ fun lightColors(
     gray100 = gray100,
     gray50 = gray50,
     black = black,
-    white = white
+    white = white,
 )
 
 internal val LocalColors = staticCompositionLocalOf { lightColors() }

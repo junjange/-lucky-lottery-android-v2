@@ -51,6 +51,7 @@ coroutines = "1.6.4"
 # network
 okhttp = "4.10.0"
 retrofit = "2.9.0"
+junit-ktx = "1.1.5"
 
 [libraries]
 # default
@@ -122,6 +123,7 @@ zxing-core = { group = "com.google.zxing", name = "core", version = "3.4.0" }
 # Tesseract4Android
 tesseract-android = { module = "cz.adaptech.tesseract4android:tesseract4android", version.ref = "tesseract" }
 tesseract-android-openmp = { module = "cz.adaptech.tesseract4android:tesseract4android-openmp", version.ref = "tesseract" }
+junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junit-ktx" }
 
 [bundles]
 android = ["core-ktx", "lifecycle-runtime-ktx", "material", "lifecycle-extensions", "coil", "image-cropper", "zxing-android-embedded", "zxing-core"]

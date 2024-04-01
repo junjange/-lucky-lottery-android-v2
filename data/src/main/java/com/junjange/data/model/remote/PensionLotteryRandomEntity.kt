@@ -8,5 +8,5 @@ data class PensionLotteryRandomEntity(
     val pensionThirdNum: Int,
     val pensionFourthNum: Int,
     val pensionFifthNum: Int,
-    val pensionSixthNum: Int
+    val pensionSixthNum: Int,
 )

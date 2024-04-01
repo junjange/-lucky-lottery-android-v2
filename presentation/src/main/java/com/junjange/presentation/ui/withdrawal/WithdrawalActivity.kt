@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WithdrawalActivity : BaseActivity() {
-
     private val viewModel: WithdrawViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +21,7 @@ class WithdrawalActivity : BaseActivity() {
                 WithdrawalScreen(
                     viewModel = viewModel,
                     gotoTitle = ::navigateToSplash,
-                    onBack = ::finish
+                    onBack = ::finish,
                 )
             }
         }

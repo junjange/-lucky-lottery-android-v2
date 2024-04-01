@@ -19,12 +19,11 @@ fun MainScreen(
     viewModel: MainViewModel,
     navigateToQRScanner: () -> Unit,
     navigateToRandomNumber: () -> Unit,
-    navigateToEditProfile: () -> Unit,
+    navigateToEditProfile: (nickname: String, profilePath: String?) -> Unit,
     navigateToWithdrawal: () -> Unit,
     navigateToSplash: () -> Unit,
-    navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit
+    navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit,
 ) {
-
     val navController = rememberNavController()
     val navigator = rememberNavigator(navController = navController)
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -35,14 +34,14 @@ fun MainScreen(
             LottoBottomBar(
                 currentDestination = currentDestination,
                 onNavigate = { navigator.navigateTo(it) },
-                navigateToActivity = navigateToRandomNumber
+                navigateToActivity = navigateToRandomNumber,
             )
         },
     ) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = Destination.HOME.route,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
         ) {
             composable(Destination.HOME.route) { HomeScreen(navigateToQRScanner = navigateToQRScanner) }
             composable(Destination.MY_NUMBER.route) { MyNumberScreen() }
@@ -51,7 +50,7 @@ fun MainScreen(
                     navigateToWithdrawal = navigateToWithdrawal,
                     navigateToSplash = navigateToSplash,
                     navigateToEditProfile = navigateToEditProfile,
-                    navigateToNotification = navigateToNotification
+                    navigateToNotification = navigateToNotification,
                 )
             }
         }

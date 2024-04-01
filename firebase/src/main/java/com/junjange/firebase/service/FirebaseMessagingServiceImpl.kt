@@ -17,8 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 internal class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
-
-
     override fun onNewToken(token: String) {}
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -38,21 +36,22 @@ internal class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
             PendingIntent.getActivity(this, uniId, intent, PendingIntent.FLAG_IMMUTABLE)
         val channelId = "my_channel"
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setLargeIcon(BitmapFactory.decodeResource(resources, drawable.ic_clover))
-            .setSmallIcon(drawable.ic_clover)
-            .setContentTitle(remoteMessage.data["title"].toString())
-            .setContentText(remoteMessage.data["content"].toString())
-            .setAutoCancel(true)
-            .setSound(soundUri)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-            .setDefaults(NotificationCompat.DEFAULT_ALL)
-            .setContentIntent(pendingIntent)
-            .setStyle(
-                NotificationCompat.BigPictureStyle()
-                    .bigPicture(BitmapFactory.decodeResource(resources, drawable.ic_clover))
-            )
+        val notificationBuilder =
+            NotificationCompat.Builder(this, channelId)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, drawable.ic_clover))
+                .setSmallIcon(drawable.ic_clover)
+                .setContentTitle(remoteMessage.data["title"].toString())
+                .setContentText(remoteMessage.data["content"].toString())
+                .setAutoCancel(true)
+                .setSound(soundUri)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setContentIntent(pendingIntent)
+                .setStyle(
+                    NotificationCompat.BigPictureStyle()
+                        .bigPicture(BitmapFactory.decodeResource(resources, drawable.ic_clover)),
+                )
 
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

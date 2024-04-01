@@ -22,7 +22,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -38,6 +38,7 @@ dependencies {
     implementation(project(Modules.DATA))
 
     implementation(libs.bundles.common)
+    implementation(libs.junit.ktx)
 
     // ksp
     ksp(libs.ksp.hilt)

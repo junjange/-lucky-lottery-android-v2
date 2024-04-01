@@ -6,5 +6,5 @@ data class PageableEntity(
     val pageSize: Int,
     val paged: Boolean,
     val pageNumber: Int,
-    val unpaged: Boolean
+    val unpaged: Boolean,
 )

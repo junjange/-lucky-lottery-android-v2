@@ -12,8 +12,8 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 internal object LocalModule {
-
     @Provides
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
-        PreferenceManager.getDefaultSharedPreferences(context)
+    fun provideSharedPreferences(
+        @ApplicationContext context: Context,
+    ): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 }
