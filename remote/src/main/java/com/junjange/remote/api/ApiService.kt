@@ -18,6 +18,7 @@ import com.junjange.remote.model.response.LotteryRandomNumbersResponse
 import com.junjange.remote.model.response.PensionLotteryGetResponse
 import com.junjange.remote.model.response.PensionLotteryHomeResponse
 import com.junjange.remote.model.response.PensionLotteryRandomResponse
+import com.junjange.remote.model.response.UserMyInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -62,6 +63,9 @@ internal interface ApiService {
     @GET(ApiClient.User.GET_USER_MY_INFO)
     suspend fun getUserMyIn(): BaseResponse<UserMyInfoResponse>
 
+    @PATCH(ApiClient.User.PATCH_USER_MY_INFO)
+    suspend fun patchUserMyInfo(
+        @Body body: UserMyInfoRequest,
     ): BaseResponse<Unit>
 
     @POST(ApiClient.Lottery.POST_LOTTERY_SAVE)

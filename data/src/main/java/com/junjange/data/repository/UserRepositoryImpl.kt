@@ -1,6 +1,8 @@
 package com.junjange.data.repository
 
 import com.junjange.data.datasource.UserDataSource
+import com.junjange.data.mapper.toDomain
+import com.junjange.domain.model.UserMyInfo
 import com.junjange.domain.repository.UserRepository
 import javax.inject.Inject
 
@@ -30,4 +32,6 @@ class UserRepositoryImpl
             runCatching {
                 dataSource.patchUserMyInfo(profilePath = profilePath, nickname = nickname)
             }
+
+        override suspend fun getUserMyInfo(): Result<UserMyInfo> = dataSource.getUserMyInfo().mapCatching { it.toDomain() }
     }

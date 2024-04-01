@@ -1,5 +1,7 @@
 package com.junjange.domain.repository
 
+import com.junjange.domain.model.UserMyInfo
+
 interface UserRepository {
     suspend fun patchLotteryNotification(notificationStatus: Boolean): Result<Unit>
 
@@ -10,4 +12,5 @@ interface UserRepository {
         nickname: String,
     ): Result<Unit>
 
+    suspend fun getUserMyInfo(): Result<UserMyInfo>
 }

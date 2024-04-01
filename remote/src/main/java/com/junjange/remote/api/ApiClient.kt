@@ -13,8 +13,8 @@ class ApiClient {
         private const val BASE = "/api/v1/user/"
         const val PATCH_LOTTERY_NOTIFICATION = BASE + "lottery/notification"
         const val PATCH_PENSION_LOTTERY_NOTIFICATION = BASE + "pension/lottery/notification"
-        const val PATCH_USER_PROFILE = BASE + "profile"
-        const val PATCH_USER_NICKNAME = BASE + "nickname"
+        const val GET_USER_MY_INFO = BASE + "my/info"
+        const val PATCH_USER_MY_INFO = BASE + "update/my/info"
     }
 
     object Lottery {

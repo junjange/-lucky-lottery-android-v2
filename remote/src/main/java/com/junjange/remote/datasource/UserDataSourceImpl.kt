@@ -1,10 +1,11 @@
 package com.junjange.remote.datasource
 
 import com.junjange.data.datasource.UserDataSource
+import com.junjange.data.model.remote.UserMyInfoEntity
 import com.junjange.remote.api.ApiService
 import com.junjange.remote.model.request.NotificationRequest
-import com.junjange.remote.model.request.UserNicknameRequest
-import com.junjange.remote.model.request.UserProfileRequest
+import com.junjange.remote.model.request.UserMyInfoRequest
+import com.junjange.remote.model.response.toData
 import javax.inject.Inject
 
 internal class UserDataSourceImpl
@@ -37,9 +38,8 @@ internal class UserDataSourceImpl
                 apiService.patchUserMyInfo(body = body).data
             }
 
-        override suspend fun patchUserNickname(nickname: String): Result<Unit> =
+        override suspend fun getUserMyInfo(): Result<UserMyInfoEntity> =
             runCatching {
-                val body = UserNicknameRequest(nickname = nickname)
-                apiService.patchUserNickname(body = body).data
+                apiService.getUserMyIn().data.toData()
             }
     }
