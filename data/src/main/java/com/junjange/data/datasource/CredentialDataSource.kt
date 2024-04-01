@@ -15,6 +15,8 @@ interface CredentialDataSource {
         provider: String,
     ): Result<JwtTokenEntity>
 
+    suspend fun postLogout(): Result<Unit>
+
     suspend fun getValidRegister(
         idToken: String,
         provider: String,

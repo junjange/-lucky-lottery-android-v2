@@ -7,6 +7,7 @@ class ApiClient {
         const val POST_CREDENTIALS_REFRESH = BASE + "refresh"
         const val POST_CREDENTIALS_LOGIN = BASE + "login"
         const val GET_CREDENTIALS_VALID_REGISTER = BASE + "oauth/valid/register"
+        const val POST_CREDENTIALS_LOGOUT = BASE + "logout"
     }
 
     object User {
