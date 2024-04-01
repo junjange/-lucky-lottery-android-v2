@@ -42,12 +42,17 @@ import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageContractOptions
 import com.canhub.cropper.CropImageOptions
 import com.junjange.presentation.R
-import com.junjange.presentation.component.EditProfileType.*
+import com.junjange.presentation.component.EditProfileType.ProfileDefaultImageSelect
+import com.junjange.presentation.component.EditProfileType.ProfileImageSelect
 import com.junjange.presentation.component.LottoButtonTopBar
 import com.junjange.presentation.component.LottoEditProfileBottomSheet
 import com.junjange.presentation.component.LottoProfileTextField
 import com.junjange.presentation.ui.theme.LottoTheme
+import com.junjange.presentation.utils.saveBitmapToFile
 import kotlinx.coroutines.flow.collectLatest
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -62,15 +67,21 @@ fun EditProfileScreen(
     val imageCropLauncher =
         rememberLauncherForActivityResult(CropImageContract()) { result ->
             if (result.isSuccessful) {
-                result.uriContent?.let {
+                result.uriContent?.let { uri ->
                     val bitmap =
                         if (Build.VERSION.SDK_INT < 28) {
-                            MediaStore.Images.Media.getBitmap(context.contentResolver, it)
+                            MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
                         } else {
-                            val source = ImageDecoder.createSource(context.contentResolver, it)
+                            val source = ImageDecoder.createSource(context.contentResolver, uri)
                             ImageDecoder.decodeBitmap(source)
                         }
                     viewModel.onPickImage(bitmap)
+                    val file = saveBitmapToFile(context, bitmap)
+
+                    val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
+                    val requestBody =
+                        MultipartBody.Part.createFormData("file", file.name, requestFile)
+                    viewModel.getFile(requestBody)
                 }
             }
         }
@@ -119,6 +130,7 @@ fun EditProfileScreen(
         viewModel.effect.collectLatest { effect ->
             when (effect) {
                 is EditProfileEffect.LaunchImagePicker -> imagePickerLauncher.launch("image/*")
+                is EditProfileEffect.ProfileUpdateSuccess -> onBack()
             }
         }
     }
@@ -142,8 +154,12 @@ fun EditProfileScreen(
                     onBack = { onBack() },
                     titleRes = R.string.edit_profile,
                     buttonTextRes = R.string.done,
-                    onClickButton = { onBack() },
-                    isEnabled = uiState.newNickname.isNotEmpty() && (uiState.newNickname != uiState.currentNickName || uiState.newProfileImage != null),
+                    onClickButton = {
+                        viewModel.postImagesUpload()
+                    },
+                    isEnabled =
+                        uiState.newNickname.isNotEmpty() &&
+                            (uiState.newNickname != uiState.currentNickName || uiState.newProfileImage != uiState.currentProfileImage),
                 )
             },
         ) { innerPadding ->
@@ -152,17 +168,29 @@ fun EditProfileScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Box(modifier = Modifier.padding(top = 114.dp)) {
-                    // TODO 임시 데이터
-                    AsyncImage(
-                        model = "https://www.ikbc.co.kr/data/kbc/image/2023/08/13/kbc202308130007.800x.0.jpg",
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier =
-                            Modifier
-                                .size(120.dp)
-                                .clip(RoundedCornerShape(32.dp)),
-                    )
-                    uiState.newProfileImage?.let {
+                    uiState.newProfileImage?.let { profilePath ->
+                        AsyncImage(
+                            model = profilePath,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier =
+                                Modifier
+                                    .size(120.dp)
+                                    .clip(RoundedCornerShape(32.dp)),
+                        )
+                    } ?: run {
+                        AsyncImage(
+                            model = "https://www.ikbc.co.kr/data/kbc/image/2023/08/13/kbc202308130007.800x.0.jpg",
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier =
+                                Modifier
+                                    .size(120.dp)
+                                    .clip(RoundedCornerShape(32.dp)),
+                        )
+                    }
+
+                    uiState.newProfileImageBitmap?.let {
                         Image(
                             it.asImageBitmap(),
                             contentDescription = null,

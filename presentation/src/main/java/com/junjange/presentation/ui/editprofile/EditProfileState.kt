@@ -1,6 +1,7 @@
 package com.junjange.presentation.ui.editprofile
 
 import android.graphics.Bitmap
+import okhttp3.MultipartBody
 
 data class EditProfileState(
     val isLoading: Boolean = false,
@@ -8,6 +9,9 @@ data class EditProfileState(
     val isEditMode: Boolean = false,
     val newNickname: String = "",
     val currentNickName: String = "",
-    val newProfileImage: Bitmap? = null,
+    val profilePath: MultipartBody.Part? = null,
+    val currentProfileImage: String? = null,
+    val newProfileImage: String? = null,
+    val newProfileImageBitmap: Bitmap? = null,
     val isBottomSheetShowing: Boolean = false,
 )

@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -28,10 +29,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import com.junjange.presentation.R
@@ -49,12 +53,28 @@ fun MyScreen(
     viewModel: MyViewModel = hiltViewModel(),
     navigateToWithdrawal: () -> Unit,
     navigateToSplash: () -> Unit,
-    navigateToEditProfile: () -> Unit,
+    navigateToEditProfile: (nickname: String, profilePath: String?) -> Unit,
     navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit,
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
+
+    DisposableEffect(lifecycleOwner) {
+        val observer =
+            LifecycleEventObserver { _, event ->
+                if (event == Lifecycle.Event.ON_RESUME) {
+                    viewModel.getUserMyInfo()
+                }
+            }
+
+        lifecycleOwner.lifecycle.addObserver(observer)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     val usageTermUri = "https://fre2-dom.tistory.com/7"
     val intent =
@@ -66,7 +86,12 @@ fun MyScreen(
     LaunchedEffect(viewModel.effect) {
         viewModel.effect.collectLatest { effect ->
             when (effect) {
-                is NavigateToEditProfile -> navigateToEditProfile()
+                is NavigateToEditProfile ->
+                    navigateToEditProfile(
+                        effect.nickname,
+                        effect.profilePath,
+                    )
+
                 is NavigateToUsageTerm -> context.startActivity(intent)
                 is MyEffect.NavigateToSplash -> navigateToSplash()
                 is MyEffect.NavigateToWithdrawal -> navigateToWithdrawal()
@@ -100,21 +125,38 @@ fun MyScreen(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Box {
-                            // TODO 임시 데이터
-                            AsyncImage(
-                                model = "https://www.ikbc.co.kr/data/kbc/image/2023/08/13/kbc202308130007.800x.0.jpg",
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                modifier =
-                                    Modifier
-                                        .size(120.dp)
-                                        .clip(RoundedCornerShape(32.dp))
-                                        .border(
-                                            width = 1.dp,
-                                            color = White,
-                                            shape = RoundedCornerShape(32.dp),
-                                        ),
-                            )
+                            uiState.profilePath?.let { profilePath ->
+                                AsyncImage(
+                                    model = profilePath,
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier =
+                                        Modifier
+                                            .size(120.dp)
+                                            .clip(RoundedCornerShape(32.dp))
+                                            .border(
+                                                width = 1.dp,
+                                                color = White,
+                                                shape = RoundedCornerShape(32.dp),
+                                            ),
+                                )
+                            } ?: run {
+                                AsyncImage(
+                                    model = "https://www.ikbc.co.kr/data/kbc/image/2023/08/13/kbc202308130007.800x.0.jpg",
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    modifier =
+                                        Modifier
+                                            .size(120.dp)
+                                            .clip(RoundedCornerShape(32.dp))
+                                            .border(
+                                                width = 1.dp,
+                                                color = White,
+                                                shape = RoundedCornerShape(32.dp),
+                                            ),
+                                )
+                            }
+
                             Image(
                                 painter = painterResource(id = R.drawable.ic_profile_edit),
                                 contentDescription = null,
@@ -128,13 +170,12 @@ fun MyScreen(
                         }
                         Spacer(modifier = Modifier.width(32.dp))
                         Column {
-                            // TODO 임시 데이터
                             Text(
-                                text = "조준장",
+                                text = uiState.nickname,
                                 style = LottoTheme.typography.headline1,
                             )
                             Text(
-                                text = stringResource(id = R.string.login_with_kakao),
+                                text = uiState.oauthProvider,
                                 style = LottoTheme.typography.body2,
                             )
                         }

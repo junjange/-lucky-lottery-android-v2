@@ -9,7 +9,7 @@ class PatchUserProfileUseCase
         private val repository: UserRepository,
     ) {
         suspend operator fun invoke(
-            profilePath: String,
+            profilePath: String?,
             nickname: String,
         ): Result<Unit> = repository.patchUserMyInfo(profilePath = profilePath, nickname = nickname)
     }

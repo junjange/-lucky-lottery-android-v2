@@ -1,7 +1,10 @@
 package com.junjange.presentation.ui.my
 
 sealed class MyEffect {
-    data object NavigateToEditProfile : MyEffect()
+    class NavigateToEditProfile(
+        val nickname: String,
+        val profilePath: String?,
+    ) : MyEffect()
 
     data object NavigateToUsageTerm : MyEffect()
 

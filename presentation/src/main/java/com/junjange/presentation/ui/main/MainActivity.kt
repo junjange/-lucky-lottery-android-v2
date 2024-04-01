@@ -117,8 +117,11 @@ class MainActivity : BaseActivity() {
         RandomNumberActivity.startActivity(this)
     }
 
-    private fun startEditProfileActivity() {
-        EditProfileActivity.startActivity(this)
+    private fun startEditProfileActivity(
+        nickname: String,
+        profilePath: String?,
+    ) {
+        EditProfileActivity.startActivity(this, nickname, profilePath)
     }
 
     private fun startNotificationActivity(

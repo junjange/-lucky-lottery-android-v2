@@ -1,11 +1,12 @@
 package com.junjange.presentation.ui.editprofile
 
 import android.graphics.Bitmap
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.SavedStateHandle
 import com.junjange.domain.usecase.ImagesUploadUseCase
 import com.junjange.domain.usecase.PatchUserProfileUseCase
 import com.junjange.presentation.base.BaseViewModel
 import com.junjange.presentation.ui.editprofile.EditProfileEffect.LaunchImagePicker
+import com.junjange.presentation.ui.editprofile.EditProfileEffect.ProfileUpdateSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,13 +15,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
 class EditProfileViewModel
     @Inject
     constructor(
+        private val savedStateHandle: SavedStateHandle,
         private val patchUserProfileUseCase: PatchUserProfileUseCase,
         private val postImagesUploadUseCase: ImagesUploadUseCase,
     ) : BaseViewModel() {
@@ -31,20 +33,59 @@ class EditProfileViewModel
         val effect: SharedFlow<EditProfileEffect> = _effect.asSharedFlow()
 
         init {
-            // TODO 임시 데이터
+            initUserInfo()
+        }
+
+        private fun initUserInfo() {
+            val nickname =
+                requireNotNull(
+                    savedStateHandle.get<String>(EditProfileActivity.EXTRA_KEY_NICKNAME),
+                )
+
+            val profileImage = savedStateHandle.get<String?>(EditProfileActivity.EXTRA_KEY_PROFILE_PATH)
+
             _uiState.update {
                 it.copy(
-                    currentNickName = "조준장",
-                    newNickname = "조준장",
+                    currentNickName = nickname,
+                    newNickname = nickname,
+                    currentProfileImage = profileImage,
+                    newProfileImage = profileImage,
                 )
             }
         }
 
-        fun patchUserProfile() {
+        fun postImagesUpload() {
             launch {
-                _uiState.value.newProfileImage?.let {
-//                patchUserProfileUseCase(it).onSuccess { }.onFailure { }
+                _uiState.value.profilePath?.let { profilePath ->
+                    postImagesUploadUseCase(profilePath).onSuccess { imageUpload ->
+                        patchUserProfile(imageUpload.imageUrl)
+                    }.onFailure {
+                        // TODO 예외처리
+                    }
+                } ?: run {
+                    patchUserProfile(uiState.value.newProfileImage)
                 }
+            }
+        }
+
+        private fun patchUserProfile(profilePath: String?) {
+            launch {
+                patchUserProfileUseCase(
+                    profilePath = profilePath,
+                    nickname = uiState.value.newNickname,
+                ).onSuccess {
+                    launch {
+                        _effect.emit(ProfileUpdateSuccess)
+                    }
+                }.onFailure {
+                    // TODO 예외처리
+                }
+            }
+        }
+
+        fun getFile(file: MultipartBody.Part) {
+            _uiState.update {
+                it.copy(profilePath = file)
             }
         }
 
@@ -52,7 +93,8 @@ class EditProfileViewModel
             _uiState.update {
                 it.copy(
                     isBottomSheetShowing = false,
-                    newProfileImage = bitmap,
+                    newProfileImageBitmap = bitmap,
+                    newProfileImage = bitmap.toString(),
                 )
             }
         }
@@ -66,7 +108,7 @@ class EditProfileViewModel
         }
 
         fun onClickedProfileImgSelect() {
-            viewModelScope.launch {
+            launch {
                 _effect.emit(LaunchImagePicker)
             }
         }
@@ -74,8 +116,10 @@ class EditProfileViewModel
         fun onClickedProfileDefaultImageSelect() {
             _uiState.update {
                 it.copy(
-                    isBottomSheetShowing = false,
+                    profilePath = null,
                     newProfileImage = null,
+                    isBottomSheetShowing = false,
+                    newProfileImageBitmap = null,
                 )
             }
         }

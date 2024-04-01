@@ -19,7 +19,7 @@ fun MainScreen(
     viewModel: MainViewModel,
     navigateToQRScanner: () -> Unit,
     navigateToRandomNumber: () -> Unit,
-    navigateToEditProfile: () -> Unit,
+    navigateToEditProfile: (nickname: String, profilePath: String?) -> Unit,
     navigateToWithdrawal: () -> Unit,
     navigateToSplash: () -> Unit,
     navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit,

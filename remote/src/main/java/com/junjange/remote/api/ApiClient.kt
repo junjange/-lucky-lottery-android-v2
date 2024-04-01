@@ -43,7 +43,7 @@ class ApiClient {
     }
 
     object Images {
-        private const val BASE = "/api/v1/Images/"
+        private const val BASE = "/api/v1/images/"
         const val POST_IMAGES_UPLOAD = BASE + "upload"
     }
 }

@@ -1,7 +1,6 @@
 package com.junjange.remote.api
 
 import com.junjange.remote.model.BaseResponse
-import com.junjange.remote.model.request.ImagesUploadRequest
 import com.junjange.remote.model.request.LotteryRandomRequest
 import com.junjange.remote.model.request.NotificationRegisterRequest
 import com.junjange.remote.model.request.NotificationRequest
@@ -19,10 +18,13 @@ import com.junjange.remote.model.response.PensionLotteryGetResponse
 import com.junjange.remote.model.response.PensionLotteryHomeResponse
 import com.junjange.remote.model.response.PensionLotteryRandomResponse
 import com.junjange.remote.model.response.UserMyInfoResponse
+import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Query
 
 internal interface ApiService {
@@ -107,8 +109,9 @@ internal interface ApiService {
         @Body body: NotificationRegisterRequest,
     ): BaseResponse<Unit>
 
+    @Multipart
     @POST(ApiClient.Images.POST_IMAGES_UPLOAD)
     suspend fun postImagesUpload(
-        @Body body: ImagesUploadRequest,
+        @Part file: MultipartBody.Part,
     ): BaseResponse<ImagesUploadResponse>
 }

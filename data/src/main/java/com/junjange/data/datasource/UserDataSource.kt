@@ -8,7 +8,7 @@ interface UserDataSource {
     suspend fun patchPensionLotteryNotification(notificationStatus: Boolean): Result<Unit>
 
     suspend fun patchUserMyInfo(
-        profilePath: String,
+        profilePath: String?,
         nickname: String,
     ): Result<Unit>
 

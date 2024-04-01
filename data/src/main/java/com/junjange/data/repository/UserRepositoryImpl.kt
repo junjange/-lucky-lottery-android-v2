@@ -26,7 +26,7 @@ class UserRepositoryImpl
             }
 
         override suspend fun patchUserMyInfo(
-            profilePath: String,
+            profilePath: String?,
             nickname: String,
         ): Result<Unit> =
             runCatching {
