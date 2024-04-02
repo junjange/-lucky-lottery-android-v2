@@ -1,49 +1,18 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.lang)
+    kotlin("jvm")
     alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.parcelize)
-}
-
-android {
-    namespace = "com.junjange.data"
-    compileSdk = Versions.COMPILE_SDK
-
-    defaultConfig {
-        minSdk = Versions.MIN_SDK
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
     implementation(project(Modules.DOMAIN))
 
-    implementation(libs.bundles.common)
+    implementation(libs.coroutines.core)
+
+    implementation(libs.hilt.core)
 
     // ksp
     ksp(libs.ksp.hilt)
 
-    // ktor
-    implementation(libs.bundles.ktor)
-
-    // datastore
-    implementation(libs.bundles.datastore)
-
+    // okhttp
+    implementation(libs.okhttp.core)
 }

@@ -4,4 +4,6 @@ plugins {
 
 dependencies {
     implementation(libs.javax.inject)
+    // okhttp
+    implementation(libs.okhttp.core)
 }

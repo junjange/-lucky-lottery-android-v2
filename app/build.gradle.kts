@@ -1,8 +1,15 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.lang)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    id("com.google.gms.google-services")
+}
+
+fun getApiKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
 android {
@@ -16,6 +23,9 @@ android {
         versionCode = Versions.VERSION_CODE
         versionName = Versions.VERSION_NAME
 
+        buildConfigField("String", "BASE_URL", getApiKey("BASE_URL"))
+        buildConfigField("String", "KAKAO_NATIVE_APP_KEY", getApiKey("KAKAO_NATIVE_APP_KEY"))
+        resValue("string", "KAKAO_OAUTH_HOST", getApiKey("KAKAO_OAUTH_HOST"))
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -28,7 +38,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -38,6 +48,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
     packaging {
         resources {
@@ -50,6 +63,11 @@ dependencies {
     implementation(project(Modules.DOMAIN))
     implementation(project(Modules.PRESENTATION))
     implementation(project(Modules.DATA))
+    implementation(project(Modules.KAKAO))
+    implementation(project(Modules.FIREBASE))
+    implementation(project(Modules.LOCAL))
+    implementation(project(Modules.CORE_FEATURE))
+    implementation(project(Modules.REMOTE))
 
     implementation(libs.bundles.android)
     implementation(libs.bundles.common)
@@ -62,6 +80,10 @@ dependencies {
 
     // google
     implementation(libs.bundles.google)
+
+    // okhttp
+    implementation(libs.okhttp.core)
+    implementation(libs.okhttp.logging.interceptor)
 
     // test
     testImplementation(libs.junit)

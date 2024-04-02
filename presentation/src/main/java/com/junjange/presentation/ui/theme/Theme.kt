@@ -16,7 +16,7 @@ import com.junjange.presentation.ui.theme.LottoTheme.typography
 @Composable
 fun LottoTheme(
     colors: LottoColors = LottoTheme.colors,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     val rememberedColors = remember { colors.copy() }
 
@@ -31,17 +31,16 @@ fun LottoTheme(
     CompositionLocalProvider(
         LocalColors provides rememberedColors,
         LocalTypography provides typography,
-        LocalContentColor provides White
+        LocalContentColor provides White,
     ) {
         MaterialTheme(
             colorScheme = MaterialColors,
-            content = content
+            content = content,
         )
     }
 }
 
 object LottoTheme {
-
     val colors: LottoColors
         @Composable
         @ReadOnlyComposable

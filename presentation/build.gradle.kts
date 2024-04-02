@@ -1,8 +1,14 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.lang)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+}
+
+fun getApiKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
 android {
@@ -11,6 +17,9 @@ android {
 
     defaultConfig {
         minSdk = Versions.MIN_SDK
+
+        buildConfigField("String", "GOOGLE_CLIENT_ID", getApiKey("GOOGLE_CLIENT_ID"))
+        buildConfigField("String", "GOOGLE_CLIENT_SECRET", getApiKey("GOOGLE_CLIENT_SECRET"))
     }
 
     buildTypes {
@@ -18,7 +27,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -31,6 +40,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
@@ -46,12 +56,6 @@ dependencies {
 
     // ksp
     ksp(libs.ksp.hilt)
-
-    // ktor
-    implementation(libs.bundles.ktor)
-
-    // kakao
-    implementation(libs.bundles.kakao)
 
     // google
     implementation(libs.bundles.google)
