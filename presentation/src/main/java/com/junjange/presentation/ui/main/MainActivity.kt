@@ -19,6 +19,7 @@ import com.junjange.presentation.R
 import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.ui.editprofile.EditProfileActivity
 import com.junjange.presentation.ui.login.LoginActivity
+import com.junjange.presentation.ui.my.OauthProvider
 import com.junjange.presentation.ui.notification.NotificationActivity
 import com.junjange.presentation.ui.randomnumber.RandomNumberActivity
 import com.junjange.presentation.ui.theme.LottoTheme
@@ -136,7 +137,7 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    private fun startWithdrawalActivity(oauthProvider: String) {
+    private fun startWithdrawalActivity(oauthProvider: OauthProvider) {
         WithdrawalActivity.startActivity(this, oauthProvider)
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import com.junjange.presentation.base.BaseActivity
+import com.junjange.presentation.ui.my.OauthProvider
 import com.junjange.presentation.ui.theme.LottoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,7 +36,7 @@ class WithdrawalActivity : BaseActivity() {
 
         fun startActivity(
             context: Context,
-            oauthProvider: String,
+            oauthProvider: OauthProvider,
         ) {
             val intent =
                 Intent(context, WithdrawalActivity::class.java)
