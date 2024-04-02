@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.junjange.presentation.component.LottoBottomBar
 import com.junjange.presentation.ui.home.HomeScreen
 import com.junjange.presentation.ui.my.MyScreen
+import com.junjange.presentation.ui.my.OauthProvider
 import com.junjange.presentation.ui.mynumber.MyNumberScreen
 
 @Composable
@@ -20,7 +21,7 @@ fun MainScreen(
     navigateToQRScanner: () -> Unit,
     navigateToRandomNumber: () -> Unit,
     navigateToEditProfile: (nickname: String, profilePath: String?) -> Unit,
-    navigateToWithdrawal: (oauthProvider: String) -> Unit,
+    navigateToWithdrawal: (oauthProvider: OauthProvider) -> Unit,
     navigateToSplash: () -> Unit,
     navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit,
 ) {
