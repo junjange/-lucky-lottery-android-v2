@@ -7,6 +7,7 @@ import android.provider.MediaStore
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +49,7 @@ import com.junjange.presentation.component.LottoButtonTopBar
 import com.junjange.presentation.component.LottoEditProfileBottomSheet
 import com.junjange.presentation.component.LottoProfileTextField
 import com.junjange.presentation.ui.theme.LottoTheme
+import com.junjange.presentation.ui.theme.White
 import com.junjange.presentation.utils.saveBitmapToFile
 import kotlinx.coroutines.flow.collectLatest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -179,14 +181,15 @@ fun EditProfileScreen(
                                     .clip(RoundedCornerShape(32.dp)),
                         )
                     } ?: run {
-                        AsyncImage(
-                            model = "https://www.ikbc.co.kr/data/kbc/image/2023/08/13/kbc202308130007.800x.0.jpg",
+                        Image(
+                            painter = painterResource(id = R.drawable.app_icon),
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier =
                                 Modifier
                                     .size(120.dp)
-                                    .clip(RoundedCornerShape(32.dp)),
+                                    .clip(RoundedCornerShape(32.dp))
+                                    .background(color = White),
                         )
                     }
 

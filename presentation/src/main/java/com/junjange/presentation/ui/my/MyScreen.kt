@@ -3,6 +3,7 @@ package com.junjange.presentation.ui.my
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -141,8 +142,8 @@ fun MyScreen(
                                             ),
                                 )
                             } ?: run {
-                                AsyncImage(
-                                    model = "https://www.ikbc.co.kr/data/kbc/image/2023/08/13/kbc202308130007.800x.0.jpg",
+                                Image(
+                                    painter = painterResource(id = R.drawable.app_icon),
                                     contentDescription = null,
                                     contentScale = ContentScale.Crop,
                                     modifier =
@@ -153,7 +154,7 @@ fun MyScreen(
                                                 width = 1.dp,
                                                 color = White,
                                                 shape = RoundedCornerShape(32.dp),
-                                            ),
+                                            ).background(color = White),
                                 )
                             }
 
