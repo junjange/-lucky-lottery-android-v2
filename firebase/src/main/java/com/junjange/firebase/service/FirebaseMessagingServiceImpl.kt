@@ -38,8 +38,8 @@ internal class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
         val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder =
             NotificationCompat.Builder(this, channelId)
-                .setLargeIcon(BitmapFactory.decodeResource(resources, drawable.ic_clover))
-                .setSmallIcon(drawable.ic_clover)
+                .setLargeIcon(BitmapFactory.decodeResource(resources, drawable.app_icon))
+                .setSmallIcon(drawable.app_icon)
                 .setContentTitle(remoteMessage.data["title"].toString())
                 .setContentText(remoteMessage.data["content"].toString())
                 .setAutoCancel(true)
@@ -50,7 +50,7 @@ internal class FirebaseMessagingServiceImpl : FirebaseMessagingService() {
                 .setContentIntent(pendingIntent)
                 .setStyle(
                     NotificationCompat.BigPictureStyle()
-                        .bigPicture(BitmapFactory.decodeResource(resources, drawable.ic_clover)),
+                        .bigPicture(BitmapFactory.decodeResource(resources, drawable.app_icon)),
                 )
 
         val notificationManager =

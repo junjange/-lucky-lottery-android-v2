@@ -55,7 +55,7 @@ fun SplashScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_clover),
+                painter = painterResource(id = R.drawable.app_icon),
                 contentDescription = null,
                 modifier =
                     Modifier
