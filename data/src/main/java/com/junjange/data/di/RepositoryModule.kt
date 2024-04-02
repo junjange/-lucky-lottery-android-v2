@@ -2,6 +2,7 @@ package com.junjange.data.di
 
 import com.junjange.data.repository.CredentialRepositoryImpl
 import com.junjange.data.repository.FirebaseRepositoryImpl
+import com.junjange.data.repository.GoogleRepositoryImpl
 import com.junjange.data.repository.ImagesRepositoryImpl
 import com.junjange.data.repository.KakaoLoginRepositoryImpl
 import com.junjange.data.repository.LocalRepositoryImpl
@@ -12,6 +13,7 @@ import com.junjange.data.repository.UserRepositoryImpl
 import com.junjange.data.repository.WinningRepositoryImpl
 import com.junjange.domain.repository.CredentialRepository
 import com.junjange.domain.repository.FirebaseRepository
+import com.junjange.domain.repository.GoogleRepository
 import com.junjange.domain.repository.ImagesRepository
 import com.junjange.domain.repository.KakaoLoginRepository
 import com.junjange.domain.repository.LocalRepository
@@ -68,4 +70,8 @@ internal abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindImagesRepository(imagesRepositoryImpl: ImagesRepositoryImpl): ImagesRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindGoogleRepository(googleRepositoryImpl: GoogleRepositoryImpl): GoogleRepository
 }

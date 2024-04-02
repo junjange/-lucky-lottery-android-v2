@@ -35,7 +35,6 @@ class MyViewModel
         fun getUserMyInfo() {
             launch {
                 getUserMyInfoUseCase().onSuccess { userMyInfo ->
-                    userMyInfo.oauthProvider
                     _uiState.update {
                         it.copy(
                             nickname = userMyInfo.nickname,
@@ -101,7 +100,7 @@ class MyViewModel
 
         fun onClickedWithdrawal() {
             launch {
-                _effect.emit(MyEffect.NavigateToWithdrawal)
+                _effect.emit(MyEffect.NavigateToWithdrawal(uiState.value.oauthProvider))
             }
         }
     }

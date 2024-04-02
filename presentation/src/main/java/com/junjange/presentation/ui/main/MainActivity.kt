@@ -136,8 +136,8 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    private fun startWithdrawalActivity() {
-        WithdrawalActivity.startActivity(this)
+    private fun startWithdrawalActivity(oauthProvider: String) {
+        WithdrawalActivity.startActivity(this, oauthProvider)
     }
 
     private fun startSplashActivity() {

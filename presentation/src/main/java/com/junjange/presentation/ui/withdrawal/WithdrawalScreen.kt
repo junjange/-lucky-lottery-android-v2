@@ -1,6 +1,7 @@
 package com.junjange.presentation.ui.withdrawal
 
 import androidx.activity.compose.BackHandler
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,15 +25,34 @@ import com.junjange.presentation.R
 import com.junjange.presentation.component.LottoButtonBar
 import com.junjange.presentation.component.LottoSimpleTopBar
 import com.junjange.presentation.ui.dialog.WithdrawalDialog
+import com.junjange.presentation.ui.login.GoogleSignInContract
 import com.junjange.presentation.ui.theme.LottoTheme
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun WithdrawalScreen(
     viewModel: WithdrawViewModel,
-    gotoTitle: () -> Unit,
+    navigateToSplash: () -> Unit,
     onBack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val authResultLauncher =
+        rememberLauncherForActivityResult(
+            contract = GoogleSignInContract(),
+            onResult = { viewModel.googleLogin(result = it) },
+        )
+
+    LaunchedEffect(viewModel.effect) {
+        viewModel.effect.collectLatest { effect ->
+            when (effect) {
+                is WithdrawalEffect.AddStep -> {
+                    viewModel.addStep(step = 1)
+                    viewModel.onClickedDialog(isWithdrawalDialogShowing = false)
+                }
+            }
+        }
+    }
 
     BackHandler {
         if (uiState.step == 1) {
@@ -45,8 +66,10 @@ fun WithdrawalScreen(
         WithdrawalDialog(
             onDismiss = { viewModel.onClickedDialog(isWithdrawalDialogShowing = false) },
             okClick = {
-                viewModel.addStep(step = 1)
-                viewModel.onClickedDialog(isWithdrawalDialogShowing = false)
+                when (uiState.oauthProvider) {
+                    OauthProvider.KAKAO -> viewModel.deleteMe()
+                    OauthProvider.GOOGLE -> authResultLauncher.launch(WithdrawalActivity.SIGN_IN_REQUEST_CODE)
+                }
             },
         )
     }
@@ -110,7 +133,7 @@ fun WithdrawalScreen(
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
-                        onClick = gotoTitle,
+                        onClick = navigateToSplash,
                         colors =
                             ButtonDefaults.buttonColors(
                                 containerColor = LottoTheme.colors.lottoBlack,
