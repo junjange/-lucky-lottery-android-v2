@@ -51,7 +51,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun MyScreen(
     viewModel: MyViewModel = hiltViewModel(),
-    navigateToWithdrawal: () -> Unit,
+    navigateToWithdrawal: (oauthProvider: String) -> Unit,
     navigateToSplash: () -> Unit,
     navigateToEditProfile: (nickname: String, profilePath: String?) -> Unit,
     navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit,
@@ -94,7 +94,7 @@ fun MyScreen(
 
                 is NavigateToUsageTerm -> context.startActivity(intent)
                 is MyEffect.NavigateToSplash -> navigateToSplash()
-                is MyEffect.NavigateToWithdrawal -> navigateToWithdrawal()
+                is MyEffect.NavigateToWithdrawal -> navigateToWithdrawal(effect.oauthProvider)
                 is MyEffect.NavigateToNotification ->
                     navigateToNotification(
                         effect.lottoNotificationState,

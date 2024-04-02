@@ -18,6 +18,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import com.junjange.presentation.R
 import com.junjange.presentation.base.BaseActivity
 import com.junjange.presentation.ui.editprofile.EditProfileActivity
+import com.junjange.presentation.ui.login.LoginActivity
 import com.junjange.presentation.ui.notification.NotificationActivity
 import com.junjange.presentation.ui.randomnumber.RandomNumberActivity
 import com.junjange.presentation.ui.theme.LottoTheme
@@ -135,11 +136,13 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    private fun startWithdrawalActivity() {
-        WithdrawalActivity.startActivity(this)
+    private fun startWithdrawalActivity(oauthProvider: String) {
+        WithdrawalActivity.startActivity(this, oauthProvider)
     }
 
-    private fun startSplashActivity() {}
+    private fun startSplashActivity() {
+        LoginActivity.startActivity(this)
+    }
 
     companion object {
         fun startActivity(context: Context) {

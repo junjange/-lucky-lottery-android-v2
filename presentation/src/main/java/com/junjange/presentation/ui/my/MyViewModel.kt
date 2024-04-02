@@ -1,6 +1,8 @@
 package com.junjange.presentation.ui.my
 
+import com.junjange.domain.usecase.DeleteLocalDataUseCase
 import com.junjange.domain.usecase.GetUserMyInfoUseCase
+import com.junjange.domain.usecase.PostLogoutUseCase
 import com.junjange.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,6 +19,8 @@ class MyViewModel
     @Inject
     constructor(
         private val getUserMyInfoUseCase: GetUserMyInfoUseCase,
+        private val postLogoutUseCase: PostLogoutUseCase,
+        private val deleteLocalDataUseCase: DeleteLocalDataUseCase,
     ) : BaseViewModel() {
         private val _uiState = MutableStateFlow(MyState())
         val uiState: StateFlow<MyState> = _uiState.asStateFlow()
@@ -31,7 +35,6 @@ class MyViewModel
         fun getUserMyInfo() {
             launch {
                 getUserMyInfoUseCase().onSuccess { userMyInfo ->
-                    userMyInfo.oauthProvider
                     _uiState.update {
                         it.copy(
                             nickname = userMyInfo.nickname,
@@ -77,13 +80,27 @@ class MyViewModel
 
         fun onClickedSignOut() {
             launch {
-                _effect.emit(MyEffect.NavigateToSplash)
+                postLogoutUseCase().onSuccess {
+                    deleteLocalData()
+                }.onFailure {
+                    // TODO 예외 처리
+                }
+            }
+        }
+
+        private fun deleteLocalData() {
+            launch {
+                deleteLocalDataUseCase().onSuccess {
+                    _effect.emit(MyEffect.NavigateToSplash)
+                }.onFailure {
+                    // TODO 예외 처리
+                }
             }
         }
 
         fun onClickedWithdrawal() {
             launch {
-                _effect.emit(MyEffect.NavigateToWithdrawal)
+                _effect.emit(MyEffect.NavigateToWithdrawal(uiState.value.oauthProvider))
             }
         }
     }

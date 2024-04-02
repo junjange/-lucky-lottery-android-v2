@@ -20,6 +20,7 @@ class GoogleSignInContract : ActivityResultContract<Int, Task<GoogleSignInAccoun
                 context,
                 GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(BuildConfig.GOOGLE_CLIENT_ID)
+                    .requestServerAuthCode(BuildConfig.GOOGLE_CLIENT_ID)
                     .build(),
             )
         return googleSignInClient.signInIntent

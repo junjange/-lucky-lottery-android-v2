@@ -10,7 +10,7 @@ sealed class MyEffect {
 
     data object NavigateToSplash : MyEffect()
 
-    data object NavigateToWithdrawal : MyEffect()
+    class NavigateToWithdrawal(val oauthProvider: String) : MyEffect()
 
     class NavigateToNotification(
         val lottoNotificationState: Boolean,

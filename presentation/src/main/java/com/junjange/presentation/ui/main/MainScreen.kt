@@ -20,7 +20,7 @@ fun MainScreen(
     navigateToQRScanner: () -> Unit,
     navigateToRandomNumber: () -> Unit,
     navigateToEditProfile: (nickname: String, profilePath: String?) -> Unit,
-    navigateToWithdrawal: () -> Unit,
+    navigateToWithdrawal: (oauthProvider: String) -> Unit,
     navigateToSplash: () -> Unit,
     navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit,
 ) {

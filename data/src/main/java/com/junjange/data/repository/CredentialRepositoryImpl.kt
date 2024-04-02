@@ -32,6 +32,10 @@ internal class CredentialRepositoryImpl
                 provider = provider,
             ).mapCatching { it.toDomain() }
 
+        override suspend fun postLogout(): Result<Unit> = dataSource.postLogout()
+
+        override suspend fun deleteMe(oauthAccessToken: String?): Result<Unit> = dataSource.deleteMe(oauthAccessToken = oauthAccessToken)
+
         override suspend fun getValidRegister(
             idToken: String,
             provider: String,

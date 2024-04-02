@@ -19,6 +19,7 @@ android {
         minSdk = Versions.MIN_SDK
 
         buildConfigField("String", "GOOGLE_CLIENT_ID", getApiKey("GOOGLE_CLIENT_ID"))
+        buildConfigField("String", "GOOGLE_CLIENT_SECRET", getApiKey("GOOGLE_CLIENT_SECRET"))
     }
 
     buildTypes {

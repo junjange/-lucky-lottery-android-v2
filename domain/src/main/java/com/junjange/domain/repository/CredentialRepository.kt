@@ -15,6 +15,10 @@ interface CredentialRepository {
         provider: String,
     ): Result<JwtToken>
 
+    suspend fun postLogout(): Result<Unit>
+
+    suspend fun deleteMe(oauthAccessToken: String?): Result<Unit>
+
     suspend fun getValidRegister(
         idToken: String,
         provider: String,

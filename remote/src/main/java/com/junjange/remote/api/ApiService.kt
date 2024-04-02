@@ -20,6 +20,7 @@ import com.junjange.remote.model.response.PensionLotteryRandomResponse
 import com.junjange.remote.model.response.UserMyInfoResponse
 import okhttp3.MultipartBody
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
@@ -45,6 +46,14 @@ internal interface ApiService {
         @Query("idToken") idToken: String,
         @Query("provider") provider: String,
     ): BaseResponse<JwtTokenResponse>
+
+    @POST(ApiClient.Credentials.POST_CREDENTIALS_LOGOUT)
+    suspend fun postLogout(): BaseResponse<Unit>
+
+    @DELETE(ApiClient.Credentials.DELETE_CREDENTIALS_DELETE_ME)
+    suspend fun deleteMe(
+        @Query("oauth_access_token") oauthAccessToken: String?,
+    ): BaseResponse<Unit>
 
     @GET(ApiClient.Credentials.GET_CREDENTIALS_VALID_REGISTER)
     suspend fun getValidRegister(

@@ -20,7 +20,7 @@ class WithdrawalActivity : BaseActivity() {
             LottoTheme {
                 WithdrawalScreen(
                     viewModel = viewModel,
-                    gotoTitle = ::navigateToSplash,
+                    navigateToSplash = ::navigateToSplash,
                     onBack = ::finish,
                 )
             }
@@ -30,8 +30,16 @@ class WithdrawalActivity : BaseActivity() {
     private fun navigateToSplash() {}
 
     companion object {
-        fun startActivity(context: Context) {
-            val intent = Intent(context, WithdrawalActivity::class.java)
+        const val SIGN_IN_REQUEST_CODE = 1
+        const val EXTRA_KEY_OAUTH_PROVIDER = "EXTRA_KEY_OAUTH_PROVIDER"
+
+        fun startActivity(
+            context: Context,
+            oauthProvider: String,
+        ) {
+            val intent =
+                Intent(context, WithdrawalActivity::class.java)
+                    .putExtra(EXTRA_KEY_OAUTH_PROVIDER, oauthProvider)
             context.startActivity(intent)
         }
     }
