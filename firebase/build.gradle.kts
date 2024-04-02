@@ -43,6 +43,8 @@ dependencies {
     // google
     implementation(libs.bundles.google)
 
+    // network
+    implementation(libs.bundles.network)
     // ksp
     ksp(libs.ksp.hilt)
 }
