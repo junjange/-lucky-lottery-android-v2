@@ -34,6 +34,8 @@ internal class CredentialRepositoryImpl
 
         override suspend fun postLogout(): Result<Unit> = dataSource.postLogout()
 
+        override suspend fun deleteMe(oauthAccessToken: String?): Result<Unit> = dataSource.deleteMe(oauthAccessToken = oauthAccessToken)
+
         override suspend fun getValidRegister(
             idToken: String,
             provider: String,

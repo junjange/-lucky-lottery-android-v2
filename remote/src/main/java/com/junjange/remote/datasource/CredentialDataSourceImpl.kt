@@ -43,6 +43,11 @@ internal class CredentialDataSourceImpl
                 apiService.postLogout().data
             }
 
+        override suspend fun deleteMe(oauthAccessToken: String?): Result<Unit> =
+            runCatching {
+                apiService.deleteMe(oauthAccessToken = oauthAccessToken).data
+            }
+
         override suspend fun getValidRegister(
             idToken: String,
             provider: String,
