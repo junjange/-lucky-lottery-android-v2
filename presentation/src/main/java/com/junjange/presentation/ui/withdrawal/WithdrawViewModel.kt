@@ -9,6 +9,7 @@ import com.junjange.domain.usecase.DeleteMeUseCase
 import com.junjange.domain.usecase.PostGoogleOauthTokenUseCase
 import com.junjange.presentation.BuildConfig
 import com.junjange.presentation.base.BaseViewModel
+import com.junjange.presentation.ui.my.OauthProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,12 +40,12 @@ class WithdrawViewModel
         }
 
         private fun initSavedState() {
-            val oauthProviderName =
+            val oauthProvider =
                 requireNotNull(
-                    savedStateHandle.get<String>(WithdrawalActivity.EXTRA_KEY_OAUTH_PROVIDER),
+                    savedStateHandle.get<OauthProvider>(WithdrawalActivity.EXTRA_KEY_OAUTH_PROVIDER),
                 )
             _uiState.update { state ->
-                state.copy(oauthProvider = OauthProvider.from(oauthProviderName))
+                state.copy(oauthProvider = oauthProvider)
             }
         }
 

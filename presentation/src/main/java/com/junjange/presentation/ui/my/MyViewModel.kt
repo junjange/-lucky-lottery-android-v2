@@ -39,7 +39,7 @@ class MyViewModel
                         it.copy(
                             nickname = userMyInfo.nickname,
                             profilePath = userMyInfo.profilePath,
-                            oauthProvider = userMyInfo.oauthProvider,
+                            oauthProvider = OauthProvider.from(userMyInfo.oauthProvider),
                             lotteryNotificationStatus = userMyInfo.lotteryNotificationStatus,
                             pensionLotteryNotificationStatus = userMyInfo.pensionLotteryNotificationStatus,
                         )

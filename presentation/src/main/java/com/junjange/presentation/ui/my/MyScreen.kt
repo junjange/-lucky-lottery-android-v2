@@ -51,7 +51,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun MyScreen(
     viewModel: MyViewModel = hiltViewModel(),
-    navigateToWithdrawal: (oauthProvider: String) -> Unit,
+    navigateToWithdrawal: (oauthProvider: OauthProvider) -> Unit,
     navigateToSplash: () -> Unit,
     navigateToEditProfile: (nickname: String, profilePath: String?) -> Unit,
     navigateToNotification: (lottoNotificationState: Boolean, pensionLottoNotificationState: Boolean) -> Unit,
@@ -175,7 +175,7 @@ fun MyScreen(
                                 style = LottoTheme.typography.headline1,
                             )
                             Text(
-                                text = uiState.oauthProvider,
+                                text = uiState.oauthProvider.displayName,
                                 style = LottoTheme.typography.body2,
                             )
                         }

@@ -5,7 +5,7 @@ data class MyState(
     val isNotificationAvailable: Boolean = false,
     val nickname: String = "",
     val profilePath: String? = null,
-    val oauthProvider: String = "",
+    val oauthProvider: OauthProvider = OauthProvider.GOOGLE,
     val lotteryNotificationStatus: Boolean = false,
     val pensionLotteryNotificationStatus: Boolean = false,
 )
