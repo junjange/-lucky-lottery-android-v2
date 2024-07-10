@@ -39,24 +39,12 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: run rest
-        run: ./gradlew test
-
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      - name: Run unit tests
+      - name: Run unit tests and publish results
         env:
-          DEBUG_KEYSTORE: ${{ secrets.DEBUG_KEYSTORE }}
-          KEYSTORE_PROPERTIES: ${{ secrets.KEYSTORE_PROPERTIES }}
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
         run: |
-          echo "$DEBUG_KEYSTORE" | base64 -d > debug.keystore
-          echo "$KEYSTORE_PROPERTIES" > keystore.properties
           echo "$LOCAL_PROPERTIES" > local.properties
           ./gradlew debugUnitTest --stacktrace
       - name: Publish Test Results
         if: always()
         uses: EnricoMi/publish-unit-test-result-action@v2
-        with:
-          files: "**/test-results/**/*.xml"
